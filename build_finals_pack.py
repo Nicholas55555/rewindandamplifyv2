@@ -43,10 +43,15 @@ This pack does not include the large original research-document ZIPs and PDFs or
 old presentation drafts. Those remain in the source workspace. Third-party
 photon-correlation data, attribution and license are in `photon_reference/`;
 independent integrated photon counts and their license are in `external_data/`.
+The later `quantum_dot_bridge/` study separates an illustrative coherence model
+from external GaAs HOM measurements in `reference_hom/` and our conditional
+reanalysis in `hom_analysis/`. Its README explains semiconductor photon quality,
+collection cost, attribution and the limits of microscopic interpretation.
 The current research includes unknown-onset frequency sensing, a negative
 amplitude-diagnosis result, a prior-only control, conditional phase inspection,
 detector-aware inference and full spatial circuit construction. The source
-studies remain synthetic. No industrial validation or quantum advantage is claimed.
+models remain synthetic; the separately attributed GaAs measurements come from
+the cited authors. No industrial validation or quantum advantage is claimed.
 Canonical full-grid QPYs are included as construction artifacts; do not attempt
 a desktop statevector simulation of their 389 qubits. Failed and superseded QPY
 binaries are omitted, while bounded-attempt reports remain.
