@@ -18,13 +18,13 @@ ROOT = Path(__file__).resolve().parent
 DOCS = ["START_HERE_FINALS.md", "check_finals.py", "FINALS_PLAN.md", "FINALS_TALK.md", "FINALS_QA.md", "FINALS_EVIDENCE.md",
         "VIABILITY_FINDINGS.md", "WORKSPACE_AUDIT.md", "QUANTUM_PHOTOLITHOGRAPHY_ROADMAP.md", "LASER_DIAGNOSTICS_ROADMAP.md",
         "LASER_SENSOR_RESEARCH_PLAN.md", "FINALS_RUBRIC.md", "Qiskit_Fall_Fest_Judging_Rubric.xlsx", "results.csv", "build_finals_pack.py",
-        "RESEARCH_RESULTS.md", "RESEARCH_CONTINUATION_PLAN.md", "verify_research_pack.py", "build_research_pack.py"]
+        "RESEARCH_RESULTS.md", "RESEARCH_CURRENT.md", "RESEARCH_CONTINUATION_PLAN.md", "verify_research_pack.py", "build_research_pack.py"]
 DECKS = ["finals-deck/Rewind_Amplify_Finals_Visual.pptx", "finals-deck/Rewind_Amplify_Finals_Visual.pdf",
          "finals-deck/Visual_Presenter_Guide.md", "finals-deck/visual_manifest.json", "finals-deck/BUILDING.md", "finals-deck/cover-preview.png",
          ".finals-deck-build/visual_build.mjs", ".finals-deck-build/visual_render_final.mjs",
          ".finals-deck-build/visual_finish.py", ".finals-deck-build/visual_notes.json"]
 TREES = ["finals-lithography", "photon_reference", "qrsm_photon_poc", "rewindandamplify-main", "external_data", "quantum_lithography_poc", "laser_sensor_poc",
-         "laser_sensor_viability", "laser-diagnostics-app", "animations", "research-validation", "finals-deck/assets", "quantum_dot_bridge"]
+         "laser_sensor_viability", "laser-diagnostics-app", "animations", "research-validation", "finals-deck/assets", "quantum_dot_bridge", "hardware_campaign"]
 EXCLUDED_PARTS = {"__pycache__", ".pytest_cache", ".git", ".venv", "node_modules"}
 PRIVATE_DOCUMENTS = {"results.csv", "Qiskit_Fall_Fest_Judging_Rubric.xlsx", "WORKSPACE_AUDIT.md"}
 PUBLIC_DOCUMENTS = ["README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "CONTRIBUTING.md",
@@ -36,7 +36,7 @@ INTRO = """# Rewind & Amplify — portable finals pack
 1. Open `finals-deck/Rewind_Amplify_Finals_Visual.pptx` for thirteen main slides followed by technical backups. The PDF is a static visual fallback without speaker notes. Use Visual_Presenter_Guide.md for the 9:20 planned talk.
 2. Open `laser-diagnostics-app/index.html` in a browser. Choose Focus view for the original QRSM demo. Current research contains the new comparisons; Earlier sensor study preserves the known-time experiment. It works offline.
 3. The two 12-second MP4 videos and PNG fallbacks are in `animations/`. They are conceptual illustrations from the earlier optical/sensing extensions, not current performance evidence. The app has playback controls.
-4. Read `START_HERE_FINALS.md`, `FINALS_RUBRIC.md`, `FINALS_EVIDENCE.md`, and `RESEARCH_RESULTS.md`. Run `python check_finals.py` for package checks. Rehearse on the presentation computer.
+4. Read `START_HERE_FINALS.md`, `FINALS_RUBRIC.md`, `FINALS_EVIDENCE.md`, and `RESEARCH_CURRENT.md`. The earlier `RESEARCH_RESULTS.md` remains the frozen research snapshot. Run `python check_finals.py` for package checks. Rehearse on the presentation computer.
 
 The original main-project source and archived results are in `rewindandamplify-main/`.
 This pack does not include the large original research-document ZIPs and PDFs or
@@ -47,6 +47,12 @@ The later `quantum_dot_bridge/` study separates an illustrative coherence model
 from external GaAs HOM measurements in `reference_hom/` and our conditional
 reanalysis in `hom_analysis/`. Its README explains semiconductor photon quality,
 collection cost, attribution and the limits of microscopic interpretation.
+The subsequent `qrsm_hom_followup/` implements a sequential emitter/environment
+and joint-photon instrument, with held-out synthetic diagnostic tests and
+classical controls. `hardware_campaign/` records real IBM execution of feasible
+gate-model circuits, raw counts and a family-by-family coverage ledger. Digital
+emulation on a superconducting processor is distinct from optical or wafer
+validation; read the recorded negative results and conditional-answer errors.
 The current research includes unknown-onset frequency sensing, a negative
 amplitude-diagnosis result, a prior-only control, conditional phase inspection,
 detector-aware inference and full spatial circuit construction. The source

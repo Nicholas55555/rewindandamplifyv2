@@ -1,136 +1,78 @@
 {
   "status": "passed",
-  "revision": "QRSM defect-analysis explanation and MP4 media",
-  "method": "Observed in-app Chromium browser through supported computer-use API; loopback HTTP preview.",
-  "viewports_checked": [
+  "all_checks_passed": true,
+  "route": "Existing Python Playwright + installed system Chrome in an isolated headless profile, standalone file URL. Uses the previously verified local fallback; no user browser profile or account used.",
+  "route_note": "Previous QA found CUA IAB unavailable and bundled Chromium 138 lacked H.264 decoding. This revision uses installed Chrome directly; media bytes remain unchanged.",
+  "python": "3.12.10",
+  "chromium": "157.0.8103.39",
+  "checks": [
+    "All six frequency cases and both rules match frozen rates; task/false-alarm units visible",
+    "All 13 drive cases preserve eligible/null denominators, matched source-stable FAR and prior-only controls",
+    "All seven phase cases and both budgets show global error, branch errors, dose and time",
+    "Inference pairing and complete explicit circuit ledger visible",
+    "QRSM-to-dot bridge distinguishes measured observables, proposed model mapping and future semiconductor-device QA",
+    "Implemented joint instrument keeps passive/main negative; all six fresh budgets match, including loss/mode nuisance failure and HMM comparison",
+    "All four quantum-dot toy cases, four trap settings and six loss settings match frozen values; native keyboard selector works",
+    "All three external HOM pairs and both display windows retain raw counts, attribution and paper-reported labels; new extraction values/conditional intervals/protocol ranges match saved results",
+    "All seven hardware families/circuit selectors and every dot flag history match saved raw data; native costs, no-hit failures and job/raw links verified",
+    "Original core controls unchanged; chapter arrows/Home/End and Ctrl+Home behave correctly; history link works",
+    "390x844 mobile: all six study views have no document horizontal overflow and readable HTML data",
+    "Reduced-motion preference disables historical autoplay-style controls; MP4s have no autoplay"
+  ],
+  "page_errors": [],
+  "network_requests": 0,
+  "videos": [
     {
-      "width": 1266,
-      "height": 712
+      "id": "video-sensing",
+      "duration": 12,
+      "play_pause_seek": "passed"
     },
     {
-      "width": 390,
-      "height": 844
+      "id": "video-quantum-extension",
+      "duration": 12,
+      "play_pause_seek": "passed"
     }
-  ],
-  "checks": [
-    "Focus view displays What the QRSM adds before the conditional fingerprint.",
-    "Explanation connects observed bits to conditional state update, backaction, future predictions and classical candidate-model comparison.",
-    "State-inference relevance and synthetic/known-model limitations are visible.",
-    "Desktop columns and mobile stacked prose are readable without horizontal overflow (mobile content width 375 <= viewport 390).",
-    "No console warnings or errors observed."
   ],
   "screenshots": [
-    "preview-qrsm.jpg",
-    "preview-qrsm-mobile.jpg"
+    "preview-research-frequency.png",
+    "preview-research-drive.png",
+    "preview-research-phase.png",
+    "preview-research-progress.png",
+    "preview-research-dot-bridge.png",
+    "preview-research-joint-hom.png",
+    "preview-research-dot-design.png",
+    "preview-research-dot.png",
+    "preview-research-dot-model.png",
+    "preview-research-dot-data.png",
+    "preview-research-hardware.png",
+    "preview-research-hardware-dot.png",
+    "preview-research-frequency-mobile.png",
+    "preview-research-drive-mobile.png",
+    "preview-research-phase-mobile.png",
+    "preview-research-progress-mobile.png",
+    "preview-research-dot-mobile.png",
+    "preview-research-hardware-mobile.png",
+    "preview-research-hardware-dot-mobile.png",
+    "preview-research-dot-model-mobile.png",
+    "preview-research-dot-data-mobile.png",
+    "preview-research-dot-bridge-mobile.png",
+    "preview-research-joint-hom-mobile.png",
+    "preview-research-dot-design-mobile.png"
   ],
   "source_sha256": {
-    "index.html": "f4a2f3d81171cf3b723311e7b23b1a0842763000bf3d9eb9ed810e796f5eb6f1",
-    "styles.css": "02f63ecbc643c9d2d646e362a79738f4107fb3911777c46592c05533ea5a0480",
-    "app.js": "1ba18ff4f2df5ff9ae85a5da78f94242a99f4e537e6b8a75fa1572bfada8a311",
+    "index.html": "8f3e39cb64926dba2633f905a83c064a86ec7f7111493937817787547a1ad010",
+    "app.js": "3074f27e3090f4172ff5b414bc55ff132846041c8bb61831f006f8d2689cdfca",
+    "research.js": "b5fae2647d64a414edb5fd508f682fe056bc8d856352dd92a8df1e8a48f5aade",
+    "quantum-dots.js": "334f778ec835d36cbe20d1f7f355a4564465f602f0d0e242da2446ad8a0802fa",
+    "joint-hom.js": "75b8a82195b98404baf912ec6bbd8dd7af3c338b099dec251a9e285d33eeca0e",
+    "hardware.js": "4e69dabd5c5e65b7fd0b4193d3e88a114b29d541ccdcac4d0f6678bf2d63f6d0",
+    "styles.css": "249994ead38ed393b6d7f6b499d14e203364a183bdc6e512d82a7706170ea70d",
     "model.js": "089dd4e315936efedbb398c7bac6772ed0939f4b3cfa366deeb36cdeee2ab37f",
-    "data.js": "0a3054e717bfcc1f9457236f7d2a43abe606d45ee4130fb1b3f0ecdb6438e300"
+    "data.js": "0a3054e717bfcc1f9457236f7d2a43abe606d45ee4130fb1b3f0ecdb6438e300",
+    "research-data.js": "76752996963018df387a8329ce56a33fa5e38db234eb822c7ac7a5160fe0d888",
+    "check_browser.py": "c50332478204766d3f715b2f279310b310f2a67ca7fe6088b4a0c1bd1e052142"
   },
-  "video_review": "video_browser_validation.json",
-  "limits": [
-    "The new prose/layout was reviewed in this pass. Previous numerical-control interactions are retained in previous_review; app.js and model.js are unchanged from that check.",
-    "Both MP4 players were separately tested for full playback, replay and seeking; no new playback claim is inferred from the prose check.",
-    "Local preview was used; offline assets and copied evidence are checked separately.",
-    "Venue computer, projector, native PowerPoint playback and actual timed team delivery remain untested."
-  ],
-  "temporary_preview_server": "Stopped owned terminal session 30143 with Ctrl+C after review; temporary tab closed and viewport reset.",
-  "previous_review": {
-    "status": "passed",
-    "revision": "Original quantum question and cost explanation restored",
-    "method": "Observed in-app Chromium browser interactions through supported computer-use API, local HTTP preview.",
-    "viewports_checked": [
-      {
-        "width": 1266,
-        "height": 712,
-        "note": "default viewport, dimensions from captured image"
-      },
-      {
-        "width": 390,
-        "height": 844
-      }
-    ],
-    "checks": [
-      "Default chapter opens original Rewind model",
-      "Focus view shows click definition and only-step-3 condition",
-      "Full steered coupled model displays 96.49% acceptance with preserved 4.67% step-6 answer",
-      "Emitter-only full model shows 100.00% ideal acceptance and 10.10% step-6 answer",
-      "Memory-only control on emitter-only model shows 74.29% acceptance, 0.84% step-6 answer and 9.2600 percentage-point maximum error",
-      "Mobile chart has readable numerical fallback and no horizontal overflow",
-      "End, Home and ArrowRight keyboard navigation select the correct chapters",
-      "Evidence page distinguishes short-query hardware counts from longer after-click counts",
-      "Sensor nominal values remain present and atomic-reference-drift selection displays 80.1% false alarms",
-      "No console warnings or errors observed"
-    ],
-    "screenshots": [
-      "app-core-query.jpg",
-      "preview-core-mobile.jpg"
-    ],
-    "source_sha256": {
-      "index.html": "1c7eac42170365b3808f2cffe7f897f4bb69859fa631d76f26dec0aaec4f79d8",
-      "styles.css": "c3c6e3c04bcc8f78705a2a7749092fd212e5e6e5c3e41cb522dd3bb3455e16a2",
-      "app.js": "1ba18ff4f2df5ff9ae85a5da78f94242a99f4e537e6b8a75fa1572bfada8a311",
-      "model.js": "089dd4e315936efedbb398c7bac6772ed0939f4b3cfa366deeb36cdeee2ab37f",
-      "data.js": "0a3054e717bfcc1f9457236f7d2a43abe606d45ee4130fb1b3f0ecdb6438e300"
-    },
-    "limits": [
-      "Browser test used localhost; offline local asset and evidence integrity checked separately.",
-      "Unchanged GIF playback and original sensor controls were observed in the earlier review retained below.",
-      "Actual venue computer, projector, native PowerPoint playback and timed team delivery remain untested."
-    ],
-    "temporary_preview_server": "stopped after verification; owned terminal process exited on Ctrl+C",
-    "previous_review": {
-      "status": "passed",
-      "method": "Observed in-app Chromium browser interactions through supported computer-use API; local HTTP preview.",
-      "viewports_checked": [
-        {
-          "width": 1600,
-          "height": 900
-        },
-        {
-          "width": 1440,
-          "height": 900
-        },
-        {
-          "width": 390,
-          "height": 844
-        }
-      ],
-      "checks": [
-        "Frequency slider changes calculated readout",
-        "Nominal benchmark shows canonical detection and false-alarm rates",
-        "Atomic drift selection displays 80.1% false alarms",
-        "Keyboard arrows switch chapters",
-        "Modified Ctrl+Home preserves chapter",
-        "Rounds 0 and 20 update state labels and preserve chosen round",
-        "One-round control displays 1.547%",
-        "Narrow viewport has no horizontal overflow and readable channel legend",
-        "Both local GIFs open and display changing storyboard frames",
-        "No console error/warning messages observed"
-      ],
-      "screenshots": [
-        "preview-sensor.jpg",
-        "app-benchmark.jpg",
-        "app-benchmark-crop.jpg",
-        "preview-quantum.jpg",
-        "preview-mobile.jpg"
-      ],
-      "source_sha256": {
-        "index.html": "f75f58fac89ee08e718557e65f29d8a46cd92a43093e6297ad67f12d2e0348a2",
-        "styles.css": "f82b99739c799adf94051818992119ab10fae20235c177b9c7db1621b1a8b37d",
-        "app.js": "e92c38214de5ece2623aa226bb71fa07af624396f42476f7654577f846cb2e71",
-        "model.js": "089dd4e315936efedbb398c7bac6772ed0939f4b3cfa366deeb36cdeee2ab37f",
-        "data.js": "fb14ad699a12645d124222577f9242d0d6a6d49e6c62f915a8dece856cbb85cc"
-      },
-      "limits": [
-        "file:// opening blocked by automation browser policy; no-network local script/assets independently checked, browser tests used localhost.",
-        "Actual venue computer, projector and native PowerPoint playback untested.",
-        "Reduced-motion behavior inspected in source, not OS-setting toggled in browser."
-      ],
-      "temporary_preview_server": "stopped after browser verification; owner confirmed terminal exit"
-    }
-  }
+  "evidence_manifest_sha256": "7c465999a84fff2c53e4d037050690e3112ae4bd31d8392525a1d574dae4c963",
+  "earlier_revision_archive": "validation-history/before-joint-hom-and-hardware/browser_validation.json",
+  "scope": "Current offline app browser check; supersedes the archived earlier overall receipt."
 }

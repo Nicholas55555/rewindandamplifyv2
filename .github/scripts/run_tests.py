@@ -33,6 +33,12 @@ SUITES = (
     'quantum_dot_bridge',
     'quantum_dot_bridge/reference_hom',
     'quantum_dot_bridge/hom_analysis',
+    'quantum_dot_bridge/qrsm_hom_followup',
+    'quantum_dot_bridge/qrsm_hom_followup/exploratory_design',
+    'hardware_campaign',
+    'hardware_campaign/feasibility',
+    'hardware_campaign/optical_controls',
+    'hardware_campaign/extensions',
 )
 
 

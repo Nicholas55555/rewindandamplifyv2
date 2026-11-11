@@ -82,6 +82,8 @@ jobs:
         run: python .github/scripts/run_tests.py --group research
       - name: Recompute conditional HOM analysis without changing saved files
         run: python quantum_dot_bridge/hom_analysis/verify_results.py
+      - name: Verify saved real IBM results without accessing the cloud
+        run: python hardware_campaign/verify_campaign.py
       - name: Confirm frozen research artifacts remain unchanged
         run: python verify_research_pack.py .
       - name: Confirm tests did not rewrite tracked files

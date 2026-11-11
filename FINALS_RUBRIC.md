@@ -32,17 +32,17 @@ Defect analysis matters to state inference because hidden interactions can chang
 
 ## Cost and value in terms the audience can assess
 
-For the featured archived Kingston comparison, both circuits use steering and one amplification round:
+For the current Marrakesh precision repeat, both circuits use steering and one amplification round, with the same compiled circuits as the initial run:
 
 | Quantity | Local reflection | Full reflection |
 |---|---:|---:|
-| Compiled two-qubit gates per shot | 40 | 85 |
-| Raw matching shots | 3,525 / 4,096 | 3,215 / 4,096 |
-| Observed matching rate | 86.06% | 78.49% |
-| Readout-corrected conditional-history TVD (smaller is closer) | 0.0553 | 0.0690 |
-| Executed two-qubit gates per accepted shot, using this observed rate | 46.48 | 108.29 |
+| Native two-qubit gates per shot | 58 | 125 |
+| Raw matching shots | 6,300 / 8,192 | 5,674 / 8,192 |
+| Observed matching rate | 76.90% | 69.26% |
+| Raw selected-history TV distance (smaller is closer) | 0.1177 | 0.1814 |
+| Two-qubit gate executions per accepted shot | 75.42 | 180.47 |
 
-The last row is `gates per shot × all shots / accepted shots`. It is an accounting proxy, not elapsed time, money, an independent sample-efficiency measurement or proof of equal-quality answers. It excludes calibration, one-qubit operations, readout, compilation and infrastructure. Different physical placements and compiled circuits prevent isolating reflection choice as the sole cause. The local approximation also changes the ideal conditional law; both acceptance and error must be assessed. Source: `FINALS_EVIDENCE.md` and `research-validation/hardware_verification.json`.
+The last row is `gates per shot × all shots / accepted shots`. It is an accounting proxy, not elapsed time, money or proof of equal-quality answers. It excludes calibration, one-qubit operations, readout, compilation and infrastructure. A shared initial physical placement reduces one confounder, but routing, operations and drift still prevent isolating gate count as the sole cause. The local approximation also changes the ideal conditional law. Source: [new hardware results](hardware_campaign/RESULTS.md). The older Kingston 40/85-gate comparison remains separately labeled in FINALS_EVIDENCE.md.
 
 Less noisy qubits are valuable because the algorithm needs coherence and interference to preserve its answer. At the same circuit and task, reduced error can make more executions informative and permit useful longer circuits. Extra shots reduce sampling uncertainty, but cannot by themselves remove systematic bias. Our contribution is also to reduce the number of error opportunities through circuit design. A gate count or a published calibration alone is insufficient: evaluate the actual task, layout and conditional accuracy. No currency saving or current computational advantage is established here.
 
@@ -77,8 +77,12 @@ Each person should also explain one changed conclusion: a conventional reference
 
 ## Semiconductor connection in the current revision
 
-Slide 10 explicitly maps the QRSM's hidden-state prediction question to semiconductor photon-source characterization; backups 30–31 and the app hold the detail. The checked dot model separates brightness and multiphoton suppression from interference quality, and shows pair memory at fixed individual-photon frequency distributions. External GaAs data expose calibration/normalization sensitivity. Together these identify what an extended observation model must measure and control. The proposed engineering decision is selecting or tuning sources for a quantum photonic chip using both quality and pair yield.
+Slide 10 explicitly maps the QRSM's hidden-state prediction question to semiconductor photon-source characterization; backups 30–35 and the app hold the detail. The checked dot model separates brightness and multiphoton suppression from interference quality, and shows pair memory at fixed individual-photon frequency distributions. External GaAs data expose calibration/normalization sensitivity. Together these identify what an extended observation model must measure and control. The proposed engineering decision is selecting or tuning sources for a quantum photonic chip using both quality and pair yield.
 
-For quantum rationale and learning, state the missing implementation: the original QRSM's sequential binary instrument is not a joint two-photon HOM measurement. No such extended instrument or fitted dot QRSM has been built here. This example's frequency memory is classical, so an HMM remains a necessary alternative. The work defines a testable application and its requirements; it does not establish a quantum computational advantage or a uniquely identified defect.
+For quantum rationale and learning, distinguish the original binary instrument from the now-implemented joint-photon instrument. Its conditional memory states, passive negative control, synthetic inference and actual IBM circuits are checked. No physical dot fit or uniquely identified defect follows. Strong classical HMMs remain competitive, and calibration failures persist at large budgets. The work defines a testable semiconductor source-quality application without claiming computational advantage.
 
 This strengthens problem relevance, quantum understanding and validation coverage only within that scope. The 16-fold excitation-attempt example charges independent collection loss; it does not claim a device cost saving. The analysis does not identify a microscopic defect or demonstrate a lithography-laser sensor. Each speaker should distinguish our simulation, our reanalysis of published data, the authors' experiment and a future device test. Original team contributions and AI disclosures above still apply.
+
+## Current campaign evidence for the criteria
+
+Problem/impact: usable conditional answers and semiconductor photon-source quality. Quantum rationale: retained states, joint observation and reversible queries. Implementation: measured IBM circuits with saved mappings and raw counts. Evaluation: repeats, classical predictors, nuisance controls and failure cases. Innovation: this scoped model/query integration and its measured limits, distinct from established optics. Presentation: 13 main slides, planned 9:20. Teamwork: documented roles and disclosed AI assistance; backups through slide 35.

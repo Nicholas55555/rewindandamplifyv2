@@ -1,8 +1,33 @@
 # Finals evidence: the IBM rare-click comparison
 
-Updated 11 November 2026. The first sections trace the original IBM experiment, based on files in `rewindandamplify-main (1).zip`. The final section traces the new local research studies used in the revised presentation. No new quantum hardware job was submitted. The archive's `results/hardware/` folder contains raw counts, calibration data, compiled circuits, analysis summaries, and job identifiers. The reports below use the archive's names so the result can be checked without relying on a slide alone.
+Updated 11 November 2026. The first sections trace the original IBM experiment, based on files in `rewindandamplify-main (1).zip`. The final section traces the new local research studies used in the revised presentation. The November 11 campaign adds new actual IBM jobs; its section below supersedes any earlier no-submission status. The archive's `results/hardware/` folder contains raw counts, calibration data, compiled circuits, analysis summaries, and job identifiers. The reports below use the archive's names so the result can be checked without relying on a slide alone.
 
-## The question and experiment
+## November 11: new real IBM execution and photon-memory research
+
+The [hardware campaign](hardware_campaign/README.md) now contains newly submitted
+and retrieved real IBM jobs, immutable circuits, raw counts, calibrations and
+[analysis](hardware_campaign/RESULTS.md). Its [25-family coverage ledger](hardware_campaign/coverage.json)
+distinguishes complete gate-model executions, component emulations, classical
+studies and physical/resource limits. A component run does not reproduce an
+entire online diagnostic or optical apparatus.
+
+The [joint-photon QRSM extension](quantum_dot_bridge/qrsm_hom_followup/README.md)
+is implemented and checked: sequential emission retains an environment state,
+then a joint two-photon measurement conditions that state. Passive observations
+can contain no information about the tested memory. At the initial controlled
+64-pair budget, detection was 5.60% versus 4.50% null flags. A separately selected
+and freshly validated control design reached 79.75% versus 4.85% at **2,584
+attempted pairs**, with perfect reset/control assumptions. Strong classical HMMs
+predicted equally well within uncertainty. At larger budgets, detector, mode or
+collection changes produced severe false diagnoses. No physical dot was fitted
+or diagnosed, and no quantum computational advantage was established.
+
+Real superconducting circuits now test these specified models. They do not
+establish optical coupling, wavelength compatibility, detector calibration,
+resist response, manufacturing yield or economic savings. The available devices
+have 156 qubits; the full 219/389-qubit spatial constructions cannot fit.
+
+## Archived question and experiment
 
 The test asks for a click at step 3 in the project's emitter-plus-one-defect model. It compares circuits that prepare and sample different amplified versions of the model. The device is an IBM superconducting quantum processor representing the model; it is not an optical wafer experiment and has not identified an unknown microscopic defect.
 
@@ -36,7 +61,7 @@ The ideal local-reflection circuit already has conditional TVD 0.0353 in this ca
 - `summary_noisemodel_ibm_kingston.json` is a local noisy simulation, not a chip run. For the same featured circuits its readout-corrected event rates are 90.09% and 76.25%, respectively. The comparison illustrates that the device performed differently from its snapshot noise model; do not mix simulator values into the hardware column.
 - At this scale the project's classical sampler is faster. The work does not demonstrate quantum computational advantage. It rewinds a reversible **model circuit**, not a measured photon, an actual defect, or a semiconductor wafer.
 
-## Suggested 40-second explanation
+## Archived Kingston explanation (historical comparison)
 
 > “We asked our model for a click at a particular step. On IBM Kingston, both circuits used steering and one amplification round. The local-reflection circuit gave the event in 86% of raw shots, compared with 78% for full reflection. Their readout-corrected estimates were 87% and 79%. The compiled circuits used 40 and 85 two-qubit gates, and their accepted histories were both close to the exact model. Their physical-qubit placements and compiled circuits differed, so the comparison does not isolate reflection alone. A classical computer is faster at this small scale.”
 
@@ -52,7 +77,7 @@ For a slide footnote: “IBM Kingston, 4,096 shots/circuit, 5 Nov 2026; 86%/78% 
 
 ## Current research evidence for the revised finals materials
 
-All rows below describe local synthetic or circuit-construction studies. They do not add optical measurements, wafer data or new IBM jobs to the hardware table above. `RESEARCH_RESULTS.md` and the study READMEs provide the full methods, controls and remaining questions.
+The studies in this table are local synthetic or circuit-construction results. The new campaign separately executes selected components on IBM; it does not turn their simulated diagnostic rates into physical optical or wafer measurements. `RESEARCH_CURRENT.md` and the study READMEs provide the full methods, controls and remaining questions.
 
 | Topic | Result used in the presentation | Canonical evidence |
 |---|---|---|
@@ -65,7 +90,7 @@ All rows below describe local synthetic or circuit-construction studies. They do
 | Quantum-light exposure | Five source strategies, nine cases, 540,000 weak-activation realizations. Loss, blur, linear response and source failure can erase a favorable contrast or threshold result. Optical moments and material response are separated. | `quantum_lithography_poc/exposure_followup/results.json`, `moments_supplement.json` and `verification.json` |
 | Full 49-cell circuit | Two explicit 389-qubit circuits constructed and independently read back. Constructive one-round generic CX upper bounds: 2,874,028 and 3,382,108. No full-state or noisy 389-qubit simulation. | `finals-lithography/full_spatial_circuit/results.json` and `independent_review.json` |
 | Strong spatial baseline | Exact conditional sampling for the correlated 2×2 model; original 7×7 deterministic probability brackets and 12 million evaluation maps. Tuned importance sampling reduces empirical SD 4.36×/7.32× versus the old fixed proposal at two tested doses. | `finals-lithography/followup/correlated_spatial_results.json`, `spatial_coverage_refined_results.json`, `validation.json` |
-| Three-bin coherent optical query | Finer retained model: all-three-click probability 0.0141777% to 0.1275509%, 18 qubits, 19,864 generic CX. Noise checks are a separate one-bin experiment. | `qrsm_photon_poc/multibin_followup/main/ideal_0p003.json`, `noise_0p003.json`, `validation.json` |
+| Three-bin coherent optical query | Finer retained model: all-three-click probability 0.0141777% to 0.1275509%, 18 qubits, 19,864 generic CX. The earlier noise check was one-bin; the new hardware campaign now also executes the expensive two/three-bin circuits as noise stress tests. | `qrsm_photon_poc/multibin_followup/main/ideal_0p003.json`, `noise_0p003.json`, `validation.json` |
 | Numerical validity and identification | Independent finite-model QuTiP agreement, cutoff sensitivity, six joint fits, HMM/telegraph baselines and parameter audits. Controlled settings break an exact sign symmetry but do not establish confident finite-data detuning-sign identification. | `qrsm_photon_poc/followup/dynamics_results.json`, `inference_results/`, `parameter_validation_v2/`, `independent_review.json` |
 
 The unknown-onset sensor numbers replace the earlier known-time result in the main talk. Earlier values such as 85.98% detection, 0.161 Hz RMSE and 80.10% atomic-drift false alarms remain valid only for their original experiment. The app labels that older study separately. Do not combine its rates, errors or scenario names with the newer experiment.
@@ -87,4 +112,4 @@ The quantum-dot work is separate from the earlier frozen research snapshot and t
 
 These optical measurements come from Münzberg and colleagues, not the team. The toy coherence model is not fitted to them. The reanalysis cannot establish that a hidden defect caused an observed reduction, that a quantum algorithm speeds up diagnosis, or that a source is suitable for a lithography tool.
 
-For the judges, the connection is a requirement for the next QRSM observation model. Its original sequential binary record does not include a joint two-photon interference measurement. The illustrative offset example also gives overlap 1.00 versus 0.60 for persistent versus independently redrawn offsets while each photon's frequency distribution stays fixed. This supports checking temporal correlations and appropriate measurements; it does not establish coherent defect memory. A calibrated extension could test candidate explanations when qualifying or tuning a semiconductor photon source, but the two-photon instrument and device fit remain unimplemented.
+For the judges, the connection is a requirement for the next QRSM observation model. Its original sequential binary record does not include a joint two-photon interference measurement. The illustrative offset example also gives overlap 1.00 versus 0.60 for persistent versus independently redrawn offsets while each photon's frequency distribution stays fixed. This supports checking temporal correlations and appropriate measurements; it does not establish coherent defect memory. The joint-photon extension is now implemented and has synthetic and real gate-model checks. A physical device fit remains absent. Its acquisition and nuisance tests show why calibrated controls and strong classical alternatives are essential for source qualification.

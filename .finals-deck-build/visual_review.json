@@ -1,6 +1,6 @@
 {
-  "review_scope": "All 31 finalized PPTX slides imported and rendered at 1280x720. Changed slides 10, 30 and 31 individually visually inspected. The remaining 28 are pixel-identical to the immediately preceding fully inspected deck. All 31 PDF pages rendered with Poppler at 96 dpi, with every embedded image and page bound checked; changed pages individually visually inspected.",
-  "reviewed_slide_count": 31,
+  "review_scope": "All35 finalized PPTX slides imported, rendered and individually inspected at1280x720. All35 PDF pages rendered with Poppler at96dpi, with every embedded image and page bound verified. Changed and new pages compared with authored and preceding versions.",
+  "reviewed_slide_count": 35,
   "visual_findings": [],
   "rows": [
     {
@@ -56,7 +56,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 1.8510051359953703
+      "pdf_raster_mean_absolute_rgb_error": 1.8695005063657408
     },
     {
       "slide": 6,
@@ -78,7 +78,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.904870515046296
+      "pdf_raster_mean_absolute_rgb_error": 2.939968171296296
     },
     {
       "slide": 8,
@@ -89,7 +89,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.4623766637731483
+      "pdf_raster_mean_absolute_rgb_error": 2.456464482060185
     },
     {
       "slide": 9,
@@ -104,14 +104,14 @@
     },
     {
       "slide": 10,
-      "final_matches_authored": false,
-      "accepted_import_render_difference": true,
+      "final_matches_authored": true,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 3.2933995225694446
+      "pdf_raster_mean_absolute_rgb_error": 3.4327390769675925
     },
     {
       "slide": 11,
@@ -144,7 +144,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.634892578125
+      "pdf_raster_mean_absolute_rgb_error": 2.6517599826388887
     },
     {
       "slide": 14,
@@ -155,7 +155,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.2542849392361113
+      "pdf_raster_mean_absolute_rgb_error": 2.6277437789351854
     },
     {
       "slide": 15,
@@ -166,7 +166,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.515810185185185
+      "pdf_raster_mean_absolute_rgb_error": 2.602339409722222
     },
     {
       "slide": 16,
@@ -210,7 +210,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.948913845486111
+      "pdf_raster_mean_absolute_rgb_error": 2.955152994791667
     },
     {
       "slide": 20,
@@ -232,7 +232,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.026262297453704
+      "pdf_raster_mean_absolute_rgb_error": 2.25186595775463
     },
     {
       "slide": 22,
@@ -254,7 +254,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 3.059445167824074
+      "pdf_raster_mean_absolute_rgb_error": 3.042630208333333
     },
     {
       "slide": 24,
@@ -265,7 +265,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 3.5215382667824073
+      "pdf_raster_mean_absolute_rgb_error": 3.499540653935185
     },
     {
       "slide": 25,
@@ -298,7 +298,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.819402126736111
+      "pdf_raster_mean_absolute_rgb_error": 2.863835358796296
     },
     {
       "slide": 28,
@@ -331,7 +331,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 3.1304871961805554
+      "pdf_raster_mean_absolute_rgb_error": 3.0668077256944444
     },
     {
       "slide": 31,
@@ -343,6 +343,50 @@
         540.0
       ],
       "pdf_raster_mean_absolute_rgb_error": 2.563943142361111
+    },
+    {
+      "slide": 32,
+      "final_matches_authored": true,
+      "accepted_import_render_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.7529166666666667
+    },
+    {
+      "slide": 33,
+      "final_matches_authored": true,
+      "accepted_import_render_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.5665357349537037
+    },
+    {
+      "slide": 34,
+      "final_matches_authored": true,
+      "accepted_import_render_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.0029069010416665
+    },
+    {
+      "slide": 35,
+      "final_matches_authored": true,
+      "accepted_import_render_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.8681731047453702
     }
   ],
   "native_powerpoint_opened": false,
@@ -376,8 +420,8 @@
     {
       "slide": 5,
       "seconds": 45,
-      "words": 98,
-      "words_per_minute": 130.7
+      "words": 94,
+      "words_per_minute": 125.3
     },
     {
       "slide": 6,
@@ -394,8 +438,8 @@
     {
       "slide": 8,
       "seconds": 60,
-      "words": 125,
-      "words_per_minute": 125.0
+      "words": 127,
+      "words_per_minute": 127.0
     },
     {
       "slide": 9,
@@ -406,8 +450,8 @@
     {
       "slide": 10,
       "seconds": 40,
-      "words": 89,
-      "words_per_minute": 133.5
+      "words": 92,
+      "words_per_minute": 138.0
     },
     {
       "slide": 11,
@@ -424,14 +468,14 @@
     {
       "slide": 13,
       "seconds": 30,
-      "words": 69,
-      "words_per_minute": 138.0
+      "words": 71,
+      "words_per_minute": 142.0
     }
   ],
   "pdf": "Static image-based fallback without speaker notes",
-  "pptx_sha256": "30b46dbf0369eae4e839daa140d079dd885d5350ce4fcfa150ff8caba14b3eb4",
-  "pdf_sha256": "0ec53fb6f0ef6558153d8df0941b05e35bfd3e8da5a1f38972d4a0b1adb2a356",
-  "pdf_raster_note": "Poppler interpolates the full-page raster slightly. Embedded PDF images preserve final slide pixels exactly.",
+  "pptx_sha256": "cde68fee746f3abde22e2318729ea362c873833688e2327d81ece859e0594db7",
+  "pdf_sha256": "ebd0a9712e5a35b85bf62a2e2d1006280018a6e39af7ccc92340550572a297e3",
+  "pdf_raster_note": "Poppler interpolates the raster slightly. Every embedded PDF image preserves final slide pixels exactly.",
   "accepted_import_difference": [
     {
       "slide": 2,
@@ -440,27 +484,30 @@
         420,
         1212,
         501
-      ],
-      "reason": "Existing paragraph wrap"
-    },
-    {
-      "slide": 10,
-      "bbox": [
-        148,
-        237,
-        480,
-        266
-      ],
-      "reason": "Subheading glyph-spacing rasterization; full text retained"
+      ]
     }
   ],
-  "revision": "Explicit QRSM bridge: why photonic operations need interference, how hidden-environment candidates would connect to a proposed joint-photon readout, identical photon marginals with different pair correlations, and source-qualification controls. Both completed dot studies are classical analyses; no dot QRSM fit or physical defect diagnosis. 13 main slides, 18 backups, 45-second original-model demo.",
+  "revision": "Fresh IBM campaign: selected precision follow-up, raw conditional answer quality, retained implementation failures, implemented joint-photon instrument, prospective acquisition/calibration limits, digital atomic/photon channels and coverage ledger.13main35total560seconds45second demo.",
   "changed_from_previous_slides": [
+    5,
+    7,
+    8,
     10,
+    13,
+    14,
+    15,
+    19,
+    21,
+    23,
+    24,
+    27,
     30,
-    31
+    32,
+    33,
+    34,
+    35
   ],
-  "unchanged_pixel_identical_slide_count": 28,
-  "validation_receipt": "visual_validation_qrsm_dot_bridge_v7.json",
-  "source_hash_count": 24
+  "unchanged_pixel_identical_slide_count": 18,
+  "validation_receipt": "visual_validation_ibm_campaign_v8.json",
+  "source_hash_count": 47
 }

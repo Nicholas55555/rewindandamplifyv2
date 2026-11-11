@@ -66,7 +66,7 @@ test('Original after-click explorer retains the verified query and distinct long
 function research(){const context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'research-data.js'),'utf8'),context);return context.window.RESEARCH_DATA;}
 test('Current research has byte-exact evidence copies and canonical hashes, separate from the old sensor',()=>{
  const d=research(),hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
- assert.equal(Object.keys(d.sources).length,10);
+ assert.equal(Object.keys(d.sources).length,14);
  for(const [key,meta] of Object.entries(d.provenance)){
   const bytes=fs.readFileSync(path.join(__dirname,meta.local));assert.equal(hash(bytes),meta.sha256);
   assert.equal(JSON.stringify(d.sources[key]),JSON.stringify(JSON.parse(bytes)));
@@ -160,4 +160,36 @@ test('Inspection uses the global task, charged budgets, and explicit constructio
  assert.equal(d.spatial.explicit_synthesis_costs.ceil.complete_one_round_generic_cx_constructive_upper_bound,2874028);
  assert.equal(d.spatial.explicit_synthesis_costs.floor.complete_one_round_generic_cx_constructive_upper_bound,3382108);
  assert.equal(d.inference_ignored.test_sha256,d.inference_aware.test_sha256);
+});
+
+
+test('Implemented joint HOM study retains passive negative and main denominators',()=>{
+ const r=research().sources.joint_hom;
+ const passive=r.regimes.find(x=>x.name==='passive');for(const c of passive.cases)assert.equal(c.flagged_records,0);
+ const controlled=r.regimes.find(x=>x.name==='controlled');
+ for(const c of controlled.cases){near(c.flag_rate,c.flagged_records/c.records);assert.equal(c.pair_trials_per_record,64);assert.equal(c.records,2000);}
+ near(controlled.cases.find(c=>c.name==='coherent_nominal').flag_rate,112/2000);
+ near(controlled.cases.find(c=>c.name==='classical_nominal').flag_rate,90/2000);
+});
+test('Selected dot design retains full power curve, reset resources, nuisances and strong HMM control',()=>{
+ const d=research().sources,r=d.dot_design_validation;
+ assert.equal(r.provenance.design_results_sha256,research().provenance.dot_design.sha256);
+ assert.equal(r.power_trials.length,6);
+ for(const t of r.power_trials){assert.equal(t.attempted_pairs,4*t.independent_blocks);assert.equal(t.source_excitations,8*t.independent_blocks);for(const c of t.cases)near(c.flag_rate,c.flags/c.records);}
+ const largest=r.power_trials.at(-1);near(largest.cases.find(c=>c.name==='classical_loss_shift').flag_rate,.72);
+ near(largest.cases.find(c=>c.name==='classical_mode_mismatch').flag_rate,.5325);
+ const h=r.prediction_scores.hmm_8.paired_gain_vs_calibrated_physical;assert.ok(h.approximate_interval95[0]<0&&h.approximate_interval95[1]>0);
+ for(const fit of r.classical_hmms){assert.equal(fit.starts,10);assert.ok(fit.all_start_iterations.every(n=>n===200));}
+ near(d.dot_design.selected.information.sufficient_independent_blocks_alpha05_power80,1911);
+});
+test('Current IBM campaign retains immutable raw hashes, shots and conditional-answer failures',()=>{
+ const h=research().sources.hardware;assert.equal(h.status,'complete');assert.equal(h.jobs,10);assert.equal(new Set(h.runs.map(r=>r.job_id)).size,h.jobs);
+ assert.equal(h.total_shots,h.runs.reduce((sum,r)=>sum+r.total_shots,0));near(h.actual_campaign_quantum_seconds,h.runs.reduce((sum,r)=>sum+r.actual_quantum_seconds,0));
+ for(const r of h.runs)assert.equal(r.workload_portal_url,'https://quantum.cloud.ibm.com/workloads');
+ for(const [rel,expected]of Object.entries(h.input_sha256)){const local=path.join(__dirname,'evidence/hardware',rel.replace(/^hardware_campaign\//,''));assert.equal(crypto.createHash('sha256').update(fs.readFileSync(local)).digest('hex'),expected);}
+ for(const row of [h.headline_original.local,h.headline_original.full])near(row.probability,row.accepted/row.shots);
+ assert.equal(h.headline_original.local.accepted,6300);assert.equal(h.headline_original.full.accepted,5674);
+ const failure=h.family_results.optical_dilation.find(r=>r.name==='optical_2bin_0p03_all_r1');near(failure.observables.raw_event_probability,8/512);assert.ok(failure.observables.selected_data_z_distribution_tv>.75);
+ for(const row of h.family_results.optical_dilation.filter(r=>r.observables.accepted_shots===0))assert.equal(row.observables.selected_data_z_distribution_tv,null);
+ assert.ok(h.family_results.dot_selected_four_pair.every(r=>Array.isArray(r.reference_marginal_qubits)));
 });

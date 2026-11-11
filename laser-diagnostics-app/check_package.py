@@ -81,13 +81,20 @@ def main():
         if url=='#':continue
         if url.startswith('#'):assert url[1:] in p.ids,url
         else:assert (HERE/url.split('#')[0].split('?')[0]).is_file(),url
-    for script in ['app.js','research.js','quantum-dots.js']:
+    for script in ['app.js','research.js','quantum-dots.js','joint-hom.js','hardware.js']:
         js=(HERE/script).read_text(encoding='utf8')
         for element in re.findall(r"\$\('([^']+)'\)",js):assert element in p.ids,(script,element)
         assert 'fetch(' not in js and 'XMLHttpRequest' not in js
     manifest=json.loads((HERE/'evidence/manifest.json').read_text())
     for rel,expected in manifest['files'].items():assert hashlib.sha256((HERE/rel).read_bytes()).hexdigest()==expected,rel
-    assert all('research_'+key+'.json' in (HERE/'research-data.js').read_text(encoding='utf8') for key in ['frequency','drive','prior','phase','spatial','inference_ignored','inference_aware','dot','hom_reference','hom_analysis'])
+    assert all('research_'+key+'.json' in (HERE/'research-data.js').read_text(encoding='utf8') for key in ['frequency','drive','prior','phase','spatial','inference_ignored','inference_aware','dot','hom_reference','hom_analysis','joint_hom','dot_design','dot_design_validation','hardware'])
+    hardware=json.loads((HERE/'evidence/research_hardware.json').read_text())
+    assert hardware['status']=='complete' and hardware['jobs']==len(hardware['runs'])
+    for rel,expected in hardware['input_sha256'].items():
+        local=HERE/'evidence/hardware'/Path(rel).relative_to('hardware_campaign')
+        assert hashlib.sha256(local.read_bytes()).hexdigest()==expected,rel
+    for name in ['main/independent_review.json','exploratory_design/validation_run/independent_review.json','exploratory_design/hardware_bundle/independent_review.json']:
+        assert json.loads((HERE/'evidence/joint-hom'/name).read_text())['all_checks_passed']
     reference=json.loads((HERE/'evidence/research_hom_reference.json').read_text())
     assert reference['all_checks_passed'] and len(reference['files'])==6
     assert reference['license']['id']=='CC-BY-4.0' and not reference['compatibility']['team_data']

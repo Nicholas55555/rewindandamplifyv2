@@ -1,5 +1,30 @@
 # Rewind & Amplify: application and viability findings
 
+## November 11: new real IBM execution and photon-memory research
+
+The [hardware campaign](hardware_campaign/README.md) now contains newly submitted
+and retrieved real IBM jobs, immutable circuits, raw counts, calibrations and
+[analysis](hardware_campaign/RESULTS.md). Its [25-family coverage ledger](hardware_campaign/coverage.json)
+distinguishes complete gate-model executions, component emulations, classical
+studies and physical/resource limits. A component run does not reproduce an
+entire online diagnostic or optical apparatus.
+
+The [joint-photon QRSM extension](quantum_dot_bridge/qrsm_hom_followup/README.md)
+is implemented and checked: sequential emission retains an environment state,
+then a joint two-photon measurement conditions that state. Passive observations
+can contain no information about the tested memory. At the initial controlled
+64-pair budget, detection was 5.60% versus 4.50% null flags. A separately selected
+and freshly validated control design reached 79.75% versus 4.85% at **2,584
+attempted pairs**, with perfect reset/control assumptions. Strong classical HMMs
+predicted equally well within uncertainty. At larger budgets, detector, mode or
+collection changes produced severe false diagnoses. No physical dot was fitted
+or diagnosed, and no quantum computational advantage was established.
+
+Real superconducting circuits now test these specified models. They do not
+establish optical coupling, wavelength compatibility, detector calibration,
+resist response, manufacturing yield or economic savings. The available devices
+have 156 qubits; the full 219/389-qubit spatial constructions cannot fit.
+
 This is a working research note for the 14 November 2026 finals. It separates observed hardware results, toy simulations, an independent published optical measurement, and open research questions. It does not claim an industrial deployment or quantum advantage.
 
 The current finals story and cost definitions are in `START_HERE_FINALS.md` and `FINALS_RUBRIC.md`. The original after-click question now has an independent reproduction in `research-validation/original_after_click_verification.json`: its two specified models predict 4.67% versus 10.10% for a step-6 click given a step-3 click. This is a model prediction, not an unknown physical-defect diagnosis. The later, more realistic sensing study is in `laser_sensor_viability/README.md`; it finds incremental information relative to one conventional baseline, while a second independent conventional reference performs better. Earlier toy findings below remain distinct from that study.

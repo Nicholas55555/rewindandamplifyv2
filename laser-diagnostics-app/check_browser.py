@@ -22,6 +22,8 @@ def main():
     dot=json.loads((HERE/'evidence/research_dot.json').read_text())
     hom=json.loads((HERE/'evidence/research_hom_reference.json').read_text())
     hom_analysis=json.loads((HERE/'evidence/research_hom_analysis.json').read_text())
+    dot_validation=json.loads((HERE/'evidence/research_dot_design_validation.json').read_text())
+    hardware=json.loads((HERE/'evidence/research_hardware.json').read_text())
     errors=[];requests=[];checks=[];screens=[]
     def screenshot(page,name,selector=None):
         path=HERE/name
@@ -40,7 +42,9 @@ def main():
         browser=p.chromium.launch(headless=True,channel='chrome')
         context=browser.new_context(viewport={'width':1440,'height':1000},device_scale_factor=1)
         page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:requests.append(r.url))
-        page.goto((HERE/'index.html').as_uri()+'?focus=1#research');page.wait_for_selector('#research-frequency',state='visible')
+        page.goto((HERE/'index.html').as_uri()+'?focus=1');page.wait_for_selector('#rewind',state='visible')
+        assert page.locator('body').evaluate('(e)=>e.classList.contains("focus-view")')
+        page.locator('#tab-research').click();page.wait_for_selector('#research-frequency',state='visible')
         assert page.locator('#tab-research').get_attribute('aria-selected')=='true'
         for case in frequency['scenarios']:
             page.locator('#frequency-case').select_option(case['id'])
@@ -87,6 +91,20 @@ def main():
             expect_text(page,'#dot-project-bridge',phrase)
         screenshot(page,'preview-research-dot-bridge.png','#dot-project-bridge')
         checks.append('QRSM-to-dot bridge distinguishes measured observables, proposed model mapping and future semiconductor-device QA')
+        expect_text(page,'#dot-instrument','5.60%');expect_text(page,'#dot-instrument','4.50%');expect_text(page,'#dot-instrument','No information')
+        expect_text(page,'#dot-project-bridge','new extension now prepares emitted photon modes')
+        screenshot(page,'preview-research-joint-hom.png','#dot-instrument')
+        for trial in dot_validation['power_trials']:
+            page.locator('#dot-design-budget').select_option(str(trial['independent_blocks']))
+            for i,name in enumerate(['coherent_nominal','classical_nominal','classical_mode_mismatch']):
+                rate=next(c for c in trial['cases'] if c['name']==name)['flag_rate']
+                assert percent_matches(page.locator('#dot-design-values strong').nth(i).inner_text(),rate)
+            expect_text(page,'#dot-design-detail',f"{trial['attempted_pairs']:,} attempted pairs")
+            no_overflow(page)
+        expect_text(page,'#dot-design-warning','72.00%');expect_text(page,'#dot-design-warning','53.25%')
+        expect_text(page,'#dot-hmm-finding','includes zero');expect_text(page,'#dot-design-cost','1,984,376')
+        page.locator('#dot-design-budget').select_option('646');screenshot(page,'preview-research-dot-design.png','#dot-design')
+        checks.append('Implemented joint instrument keeps passive/main negative; all six fresh budgets match, including loss/mode nuisance failure and HMM comparison')
         for case in dot['benchmark_cases']:
             page.locator('#dot-case').select_option(case['case'])
             assert percent_matches(page.locator('#dot-overlap').inner_text(),case['conditional_overlap'])
@@ -119,6 +137,32 @@ def main():
         screenshot(page,'preview-research-dot.png');screenshot(page,'preview-research-dot-model.png','#research-dot .dot-benchmark');screenshot(page,'preview-research-dot-data.png','#research-dot .dot-published')
         checks.append('All four quantum-dot toy cases, four trap settings and six loss settings match frozen values; native keyboard selector works')
         checks.append('All three external HOM pairs and both display windows retain raw counts, attribution and paper-reported labels; new extraction values/conditional intervals/protocol ranges match saved results')
+        page.locator('#study-hardware').click();expect_text(page,'#hardware-summary','688,640');expect_text(page,'#hardware-original','6,300 / 8,192');expect_text(page,'#hardware-original','5,674 / 8,192')
+        expect_text(page,'#hardware-original','0.1177');expect_text(page,'#hardware-original','0.1814')
+        for family in ['dot_frozen','dot_joint','dot_selected_four_pair','atomic','photon','spatial','optical_dilation']:
+            page.locator('#hardware-family').select_option(family)
+            for i,row in enumerate(hardware['family_results'][family]):
+                page.locator('#hardware-circuit').select_option(str(i));expect_text(page,'#hardware-circuit-context',row['name'])
+                expect_text(page,'#hardware-circuit-context',f"{row['native_two_qubit_gate_count']:,} compiled")
+                o=row['observables']
+                if 'raw_event_probability' in o:
+                    assert percent_matches(page.locator('#hardware-values strong').first.inner_text(),o['raw_event_probability'])
+                    expected='No accepted shots' if o['selected_data_z_distribution_tv'] is None else f"{o['selected_data_z_distribution_tv']:.4f}"
+                    expect_text(page,'#hardware-values',expected)
+                elif 'histories' in o:
+                    for history,h in o['histories'].items():
+                        page.locator('#hardware-history').select_option(history)
+                        assert percent_matches(page.locator('#hardware-values strong').first.inner_text(),h['observed']['probability'])
+                no_overflow(page)
+        expect_text(page,'#hardware-failure-values','0.7604');expect_text(page,'#hardware-failure-values','8 / 512')
+        assert page.locator('.hardware-job').count()==hardware['jobs']
+        for link in page.locator('.hardware-job a').all():
+            href=link.get_attribute('href')
+            if href.startswith('https:'):assert href=='https://quantum.cloud.ibm.com/workloads'
+            else:assert (HERE/href).is_file()
+        page.locator('#hardware-family').select_option('dot_selected_four_pair')
+        screenshot(page,'preview-research-hardware.png','.hardware-hero');screenshot(page,'preview-research-hardware-dot.png','.hardware-panel:has(#hardware-family)')
+        checks.append('All seven hardware families/circuit selectors and every dot flag history match saved raw data; native costs, no-hit failures and job/raw links verified')
         # Chapter keyboard routing and modified browser shortcut behavior.
         page.locator('#tab-research').focus();page.keyboard.press('ArrowRight');assert page.locator('#sensor').is_visible()
         expect_text(page,'.history-note','told that the event starts at 64 s')
@@ -140,18 +184,21 @@ def main():
             videos.append({'id':identifier,'duration':duration,'play_pause_seek':'passed'})
         # Responsive behavior at phone width; preserve previous screenshots.
         page.set_viewport_size({'width':390,'height':844});page.locator('#tab-research').click()
-        for study in ['frequency','drive','phase','progress','dot']:
+        for study in ['frequency','drive','phase','progress','dot','hardware']:
             page.locator('#study-'+study).click();no_overflow(page)
             screenshot(page,'preview-research-'+study+'-mobile.png')
+        screenshot(page,'preview-research-hardware-dot-mobile.png','.hardware-panel:has(#hardware-family)')
+        page.locator('#study-dot').click()
         screenshot(page,'preview-research-dot-model-mobile.png','#research-dot .dot-benchmark');screenshot(page,'preview-research-dot-data-mobile.png','#research-dot .dot-published')
         screenshot(page,'preview-research-dot-bridge-mobile.png','#dot-project-bridge')
-        checks.append('390x844 mobile: all five study views have no document horizontal overflow and readable HTML data')
+        screenshot(page,'preview-research-joint-hom-mobile.png','#dot-instrument');screenshot(page,'preview-research-dot-design-mobile.png','#dot-design')
+        checks.append('390x844 mobile: all six study views have no document horizontal overflow and readable HTML data')
         page.emulate_media(reduced_motion='reduce');page.reload();page.wait_for_selector('#tab-research');assert page.locator('#motion').is_disabled() and page.locator('#replay').is_disabled() and page.locator('#walk').is_disabled()
         checks.append('Reduced-motion preference disables historical autoplay-style controls; MP4s have no autoplay')
         assert not errors,errors
         assert all(url.startswith('file:') for url in requests),requests
         version=browser.version;browser.close()
-    receipt={'status':'passed','all_checks_passed':True,'route':'Existing Python Playwright + installed system Chrome in an isolated headless profile, standalone file URL. Uses the previously verified local fallback; no user browser profile or account used.','route_note':'Previous QA found CUA IAB unavailable and bundled Chromium 138 lacked H.264 decoding. This revision uses installed Chrome directly; media bytes remain unchanged.','python':platform.python_version(),'chromium':version,'checks':checks,'page_errors':errors,'network_requests':0,'videos':videos,'screenshots':screens,'source_sha256':{name:sha(HERE/name) for name in ['index.html','app.js','research.js','quantum-dots.js','styles.css','model.js','data.js','research-data.js','check_browser.py']},'evidence_manifest_sha256':sha(HERE/'evidence/manifest.json')}
+    receipt={'status':'passed','all_checks_passed':True,'route':'Existing Python Playwright + installed system Chrome in an isolated headless profile, standalone file URL. Uses the previously verified local fallback; no user browser profile or account used.','route_note':'Previous QA found CUA IAB unavailable and bundled Chromium 138 lacked H.264 decoding. This revision uses installed Chrome directly; media bytes remain unchanged.','python':platform.python_version(),'chromium':version,'checks':checks,'page_errors':errors,'network_requests':0,'videos':videos,'screenshots':screens,'source_sha256':{name:sha(HERE/name) for name in ['index.html','app.js','research.js','quantum-dots.js','joint-hom.js','hardware.js','styles.css','model.js','data.js','research-data.js','check_browser.py']},'evidence_manifest_sha256':sha(HERE/'evidence/manifest.json')}
     (HERE/'research_browser_validation.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf8')
     print(json.dumps({'all_checks_passed':True,'checks':len(checks),'screenshots':len(screens),'page_errors':errors,'chromium':version},indent=2))
 

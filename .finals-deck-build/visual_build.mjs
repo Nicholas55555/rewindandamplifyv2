@@ -22,7 +22,7 @@ function slide(title,n,dark=false){const s=P.slides.add();s.background.fill=dark
  txt(s,String(n).padStart(2,'0'),1160,671,56,20,14,dark?C.light:C.muted,false,'right');return s;}
 function footer(s,t,dark=false){txt(s,t,64,628,1100,39,17,dark?C.light:C.muted);}
 async function img(s,p,x,y,w,h,alt,fit='contain'){const b=await fs.readFile(p);s.images.add({blob:b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),contentType:/\.gif$/i.test(p)?'image/gif':/\.jpe?g$/i.test(p)?'image/jpeg':'image/png',alt,fit,position:{left:x,top:y,width:w,height:h}});}
-function readable(t){return t.replace(/([a-z])(\d)/g,'$1 $2').replace(/(\d)([A-Za-z])/g,'$1 $2').replaceAll('outof','out of');}
+function readable(t){return t.replace(/([a-z])(\d)/g,'$1 $2').replace(/(\d)([A-Za-z])/g,'$1 $2').replace(/:(?=\d)/g,': ').replaceAll('outof','out of').replaceAll('CZgates','CZ gates').replaceAll('nativeCZ','native CZ').replaceAll('haveTV','have TV').replaceAll('throughN','through N').replaceAll('adaptiveBBHT','adaptive BBHT').replaceAll('%interval','% interval').replaceAll('A20','A 20');}
 function note(s,title,time,text,sources,cue=''){text=readable(text);cue=readable(cue);s.speakerNotes.text=`${time}\n\n${text}\n\nPRESENTER CUE: ${cue}\n\nSOURCES: ${sources}`;scripts.push({title,time,text,sources,cue});}
 function chart(s,type,opt){const c=s.charts.add(type,opt);applyPresentationChartFont(c,{fontFamily:'Arial'});return c;}
 function table(s,values,widths,top=180,height=350,size=24){const t=s.tables.add({rows:values.length,columns:values[0].length,left:64,top,width:1152,height,columnWidths:widths,values});
@@ -46,6 +46,18 @@ const spatialNow=JSON.parse(await fs.readFile(root+'/finals-lithography/full_spa
 const exposureNow=JSON.parse(await fs.readFile(root+'/quantum_lithography_poc/exposure_followup/results.json','utf8'));
 const dotBridge=JSON.parse(await fs.readFile(root+'/quantum_dot_bridge/results.json','utf8'));
 const homAnalysis=JSON.parse(await fs.readFile(root+'/quantum_dot_bridge/hom_analysis/results.json','utf8'));
+const campaignNow=JSON.parse(await fs.readFile(root+'/hardware_campaign/results.json','utf8'));
+const campaignRun=async id=>JSON.parse(await fs.readFile(root+'/'+campaignNow.runs.find(r=>r.id===id).analysis_path,'utf8'));
+const hwPrecision=await campaignRun('original_precision_v1');
+const hwHero=JSON.parse(await fs.readFile(root+'/hardware_campaign/runs/original_precision_v1/hero_acceptance_contrast.json','utf8'));
+const hwLoops=JSON.parse(await fs.readFile(root+'/hardware_campaign/runs/original_precision_v1/loop_contrasts.json','utf8'));
+const hwFirst=await campaignRun('original_plain_v2');
+const hwSuppressed=await campaignRun('original_suppressed_v1');
+const hwOptical=await campaignRun('optical_dilation_plain_v2');
+const hwChannels=await campaignRun('optical_controls_plain_v1');
+const hwDots=await campaignRun('dots_plain_v1');
+const dotStudy=JSON.parse(await fs.readFile(root+'/quantum_dot_bridge/qrsm_hom_followup/main/results.json','utf8'));
+const dotDesign=JSON.parse(await fs.readFile(root+'/quantum_dot_bridge/qrsm_hom_followup/exploratory_design/validation_run/results.json','utf8'));
 const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
 {
  const s=slide('',1,true);
@@ -122,9 +134,9 @@ const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
  txt(s,'without hidden defect',931,357,280,40,20,C.muted);
  txt(s,'4.67%',927,430,290,65,49,C.teal,true);
  txt(s,'with hidden defect',931,496,280,40,20,C.muted);
- footer(s,'Exact model predictions. We compare known model alternatives. No unknown physical defect was diagnosed.');
+ footer(s,'Exact predictions. The new IBM follow-up separates these programmed models in one circuit, with persistent bias.');
  note(s,'Hidden memory changes what follows a click','2:35–3:20',
- 'This is the useful prediction. Given a click at step three, how likely is another at steps four, five and six? With no hidden defect, the click resets the modeled emitter. With a coupled hidden qubit, memory survives and changes what follows. At step six, the two models predict about ten percent and five percent. Comparing these predictions with data can help evaluate a candidate mechanism. Here the model alternatives are deliberately specified. These curves show exact model behavior, not discovery of an unknown physical defect. They also explain why the history matters beyond an overall click count.',
+ 'This is the useful prediction. Given a click at step three, how likely is another later? Without a hidden defect, the click resets the modeled emitter. A coupled hidden qubit retains memory and changes what follows. At step six, these models predict about ten percent and five percent. History gives a richer test than an overall count. A new IBM follow-up separates the programmed alternatives in one circuit, but keeps substantial bias. Other implementations reverse the contrast. The exact curves explain what the query should return. More accepted shots must also preserve that answer.',
  'research-validation/original_after_click_verification.json. Direct reproduction of qrsm_grover/queries.py exact_after_click and results/e5_inside_loop/noiseless.json. Conditional probabilities given step3=1, not stationary optical g2. Coupling phi=.45,zeta=.3 versus no hidden defect, theta=.6,gamma=.2.',
  'The audience should understand the two curves before hearing how Grover obtains the samples.');
 }
@@ -161,7 +173,7 @@ const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
  txt(s,'Fewer gates\nwith approximation',652,558,278,60,22,C.muted);
  txt(s,'Check the answer',946,515,278,39,25,C.ink,true);
  txt(s,'Event rate and\nconditional accuracy',946,558,278,60,22,C.muted);
- footer(s,'Qiskit circuit construction, Aer verification, IBM compilation and archived device counts.');
+ footer(s,'Qiskit circuit construction, Aer verification, IBM compilation and archived plus fresh device counts.');
  note(s,'A reversible model makes amplification possible','4:05–5:00',
  'Grover must run the model backward, but a reset discards information. We replace each reset with a fresh output qubit and defer measurement. A prepares the histories. The oracle marks the selected condition. A dagger reverses the preparation. A reflection followed by preparation changes interference so matching histories become more likely. We then reduce hardware cost. Steering is classical tuning of a supported event. Local reflection checks fewer qubits but introduces approximation. We verify both event rate and conditional accuracy. Qiskit builds the circuits, Aer checks the exact model, and compiled circuits run on IBM. Amplification is established. Our contribution is this recurrent-model construction and its tested adaptations.',
  'rewindandamplify-main/qrsm_grover/model.py, amplify.py, queries.py and tests. Steering helpers are in amplify.py. Original circuit figure fig_circuit_grover.png with corrected prepared-state terminology. Prior amplification and Bayesian-network inference: Brassard et al. and Low, Yoder, Chuang 2014. Before-event QRSM and during-event contributions documented in original README.',
@@ -169,20 +181,20 @@ const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
 }
 
 {
- const s=slide('More matching answers with fewer gates',8,true);
- txt(s,'Actual IBM Kingston run. Same steering, one amplification round.',64,134,1150,43,25,C.light);
+ const s=slide('Fewer gates, more matching answers',8,true);
+ txt(s,'Fresh IBM Marrakesh follow-up. Same steering and initial qubit mapping.',64,134,1150,43,25,C.light);
  txt(s,'Raw matching-event rate',64,184,748,33,23,C.light);
- chart(s,'bar',{position:{left:62,top:215,width:748,height:320},categories:['Local reflection','Full reflection'],series:[{name:'Raw selected-event rate',values:[local.raw.hit,full.raw.hit],points:[{idx:0,fill:C.cyan},{idx:1,fill:C.amber}],valuesFormatCode:'0.00%'}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:90},hasLegend:false,chartFill:C.navy,plotAreaFill:C.navy,xAxis:{textStyle:{fontSize:24,fill:C.cream},line:{fill:'none',width:0},majorGridlines:null},yAxis:{min:0,max:1,numberFormatCode:'0%',textStyle:{fontSize:18,fill:C.light},majorGridlines:{fill:C.slate,width:.6},line:{fill:'none',width:0}},dataLabels:{showValue:true,position:'outEnd',numberFormatCode:'0.00%',textStyle:{fontSize:28,fill:C.cream,bold:true}}});
- txt(s,'40 vs 85',908,221,310,72,53,C.cyan,true);
- txt(s,'two-qubit gates\nlocal / full',912,301,300,66,23,C.cream);
- txt(s,'0.055 / 0.069',908,398,310,49,32,C.cream,true);
- txt(s,'conditional-history error*\nlocal / full',912,451,300,65,22,C.light);
- txt(s,'Cost matters: fewer executed gates per accepted answer in this pair',64,555,1150,60,27,C.cyan,true);
- footer(s,'4,096 shots each. *Corrected TVD, lower is closer. Layouts differ. Gate accounting excludes other costs.',true);
- note(s,'More matching answers with fewer gates','5:00–6:00',
- 'On IBM Kingston, local reflection returned the selected event in86.06percent of raw shots, versus78.49percent for full reflection. Both use steering and one round. They compiled to40and85two-qubit gates. Gates consume scarce device operations and introduce errors. In this pair, the shorter circuit returns more accepted answers per executed gate. That is limited operation accounting, not dollar savings or a classical speedup. Conditional accuracy matters too. Corrected total variation distance is0.055versus0.069, where lower is closer to the right distribution. Different physical placements confound the comparison. An archived repeat supports the pattern but does not isolate its cause. Reliable qubits are valuable because accurate answers require both a workable circuit and trustworthy measurements.',
- 'research-validation/hardware_verification.json. First raw counts3525/4096 and3215/4096. Same steering and r=1. Corrected conditional-history TVD .055 versus.069. Two-qubit gate executions per raw accepted event:40/(3525/4096)=46.48 versus85/(3215/4096)=108.29. This excludes calibration, readout, compilation, duration and distribution-bias costs. No monetary savings or causal attribution. Job dbmfqlt8ft8s738uplmg,5Nov2026.',
- 'Dillon presents the result and cost limitation. Mention the repeat, with details available in backup.');
+ chart(s,'bar',{position:{left:62,top:215,width:748,height:320},categories:['Local reflection','Full reflection'],series:[{name:'Raw selected-event rate',values:[hwHero.first.probability,hwHero.second.probability],points:[{idx:0,fill:C.cyan},{idx:1,fill:C.amber}],valuesFormatCode:'0.00%'}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:90},hasLegend:false,chartFill:C.navy,plotAreaFill:C.navy,xAxis:{textStyle:{fontSize:24,fill:C.cream},line:{fill:'none',width:0},majorGridlines:null},yAxis:{min:0,max:1,numberFormatCode:'0%',textStyle:{fontSize:18,fill:C.light},majorGridlines:{fill:C.slate,width:.6},line:{fill:'none',width:0}},dataLabels:{showValue:true,position:'outEnd',numberFormatCode:'0.00%',textStyle:{fontSize:28,fill:C.cream,bold:true}}});
+ txt(s,'58 vs 125',908,221,310,72,50,C.cyan,true);
+ txt(s,'native CZ gates\nlocal / full',912,301,300,66,23,C.cream);
+ txt(s,'0.118 / 0.181',908,398,310,49,32,C.cream,true);
+ txt(s,'raw conditional error*\nlocal / full',912,451,300,65,22,C.light);
+ txt(s,'Useful computation needs both accepted samples and accurate answers',64,555,1150,60,27,C.cyan,true);
+ footer(s,'8,192 shots each. *Conditional-history TV, lower is closer. Follow-up selected after the first run. Routing differs.',true);
+ note(s,'Fewer gates, more matching answers','5:00–6:00',
+ 'We repeated the comparison on IBM Marrakesh with a common initial qubit mapping. In this fresh follow-up, local reflection returned76.90percent matching shots, versus69.26percent for full reflection. It used58rather than125native two-qubit gates. The gain is7.64percentage points, with a shot-based interval from6.29to8.99. Shorter circuits use fewer scarce operations per accepted answer here. Conditional error is also lower:0.118versus0.181, where zero is ideal. This still leaves bias. Routing and circuit widths differ, and the follow-up was selected after the first run. Suppression did not improve the earlier comparison. Reliable qubits and accurate circuits matter together. We claim this bounded cost-and-quality result, not dollar savings or a classical speedup.',
+ 'hardware_campaign/runs/original_precision_v1/analysis.json and hero_acceptance_contrast.json. Raw6300/8192 versus5674/8192. Same steering,r1, shared initial logical-to-physical map prefix. NativeCZ58/125, raw conditional-history TV versus unsteered ideal.1177208/.1813871. Independent stationary Bernoulli interval excludes drift, calibration, context and model error. First current run77.39/64.26% at2048shots, not pooled. Archived Kingston86.06/78.49% and40/85gates remain historical evidence. No universal causal or total-cost advantage.',
+ 'Dillon identifies this as the new precision follow-up. Separate raw quality, event yield and native operations. Backup14 preserves first run, suppression and historical context.');
 }
 
 {
@@ -200,18 +212,18 @@ const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
 {
  const s=slide('Quantum-dot source quality and the QRSM',10,true);
  txt(s,'The original question: what hidden environment could explain the record?',64,134,1150,45,28,C.cream);
- txt(s,'What the dot model taught us',64,223,570,50,31,C.cyan,true);
+ txt(s,'The semiconductor task',64,223,570,50,31,C.cyan,true);
  txt(s,'Equal photon counts can hide\ndifferent interference quality.',64,301,570,121,30,C.cream);
  txt(s,'Engineers: qualify and tune\nsources for photonic chips.',64,467,570,80,27,C.light);
- txt(s,'Proposed QRSM extension',724,223,492,50,30,C.amber,true);
- txt(s,'A dot + environment model\nwould predict the joint readout\nfrom two photons.',724,301,492,121,27,C.cream);
- txt(s,'Needs a calibrated measurement\nand held-out photon records.',724,467,492,80,26,C.light);
+ txt(s,'Joint observation implemented',724,223,492,50,28,C.amber,true);
+ txt(s,'A new dot + environment model\npredicts two-photon outcomes\nand updates hidden memory.',724,301,492,121,27,C.cream);
+ txt(s,'Classical predictions checked.\nDigital circuits tested on IBM.',724,467,492,80,26,C.light);
  txt(s,'Photonic operations rely on predictable interference',64,565,1152,54,29,C.cyan,true);
- footer(s,'Dot studies ran classically. No dot QRSM fit or defect diagnosis. Laser-frequency monitoring is a separate experiment.',true);
+ footer(s,'Hypothetical source model. No fit to a real dot or defect diagnosis. Laser-frequency monitoring is a separate experiment.',true);
  note(s,'Quantum-dot source quality and the QRSM','6:45–7:25',
- 'Quantum dots bring the QRSM question to photon-source quality: what hidden environment could explain the observations? Photonic operations rely on predictable interference. Equally bright sources can produce photons with different interference quality. Engineers qualifying sources for photonic chips should measure interference alongside collection loss. The proposed QRSM extension would model the dot and candidate fluctuations, then predict a two-photon readout. That needs a calibrated measurement model and held-out records. Both dot studies ran classically. No dot QRSM was fitted or physical defect diagnosed. Next is our separate laser-frequency experiment.',
- 'Original qrsm_grover/model.py supplies the sequential conditional-state and observation framework. quantum_dot_bridge/README.md, PROTOCOL.md and results.json provide the separate illustrative radiative-emitter benchmark with ideal preparation and frequency-independent loss. The dot pair-memory example is classical environmental correlation, not evidence for a coherent hidden qubit. A joint two-photon HOM instrument has not been implemented in the QRSM or fitted to these external histograms. Real integration precedent: Davancoetal2017, https://www.nist.gov/publications/heterogeneous-integration-chip-quantum-photonic-circuits-single-quantum-dot-devices. Interference role in photonic information protocols: Munzberg etal2022, https://arxiv.org/html/2203.08682v1 Introduction. Existing source-characterization physics and semiconductor photon-source integration are prior work, not our invention. External data: quantum_dot_bridge/hom_analysis/README.md and results.json. Lithography transfer remains separate, as detailed in backup20.',
- 'Nicholas distinguishes the completed dot analyses from the proposed QRSM extension. The concrete engineering task is source qualification and tuning for photonic chips, with calibrated controls before assigning a cause. Backups30–31 explain the correlation lesson and experimental normalization limits. Transition to the separate atomic-frequency benchmark on11.');
+ 'Quantum dots connect our question to semiconductor photon sources. Photonic operations rely on predictable interference, which equal brightness cannot guarantee. Engineers need to qualify and tune sources for photonic chips. We now implement a joint-photon observation model: the hidden environment changes emitted modes, and each pair outcome updates its conditional state. Classical calculations verify it, and IBM circuits test its digital representation. The first small-data test barely distinguishes the hypotheses. More controlled data helps, but calibration errors can imitate the signal. No real dot is fitted. Next is our separate frequency-monitoring study.',
+ 'quantum_dot_bridge/qrsm_hom_followup/README.md, physical_model.py, circuits.py and main/results.json. New complete-emission dispersive surrogate, not the original QRSM excitation-exchange model. Complex temporal Gram embedding and controlled-SWAP parity represent HOM, checked independently with bosonic operators. Main64attempted-pair held-out flags5.60% coherent versus4.50% classical. Separate selected design uses ideal resets and calibrated source shifts; stronger HMM predictions tie within uncertainty. Hardware: hardware_campaign/runs/dots_plain_v1 and dots_suppressed_v1, plus selected-four-pair extension. No semiconductor source/laser measurement, fitted external GaAs trajectory or quantum-memory certification. Integration precedent: Davancoetal2017, https://www.nist.gov/publications/heterogeneous-integration-chip-quantum-photonic-circuits-single-quantum-dot-devices. HOM information context: https://arxiv.org/html/2203.08682v1. External histograms remain separately analyzed.',
+ 'Nicholas explains the implemented observation model and its limits. Keep the engineering task concrete: source qualification and tuning. Backups30–33 show why correlations, calibration and acquisition budget matter. Transition to the distinct atomic-frequency benchmark on11.');
 }
 
 {
@@ -247,14 +259,14 @@ const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
  footer(s,'Separate simulations. Drive: +20% field step, 32-bin detection horizon, 96-bin alarm record. No wafer result.');
  note(s,'The evidence changes our next experiment','8:10–8:50',
  'In simulation, a20percent drive step gives only3.71percent detections within32bins and6.84percent false alarms per96-bin stable record. Most amplitude-estimation gain comes from its prior, so this regime needs redesign. A separate phase simulation is promising: a charged hybrid reduces error from0.00791to0.00637radians at matched incident photons and ideal preparation. Loss and preparation time matter. Next, test a calibrated optical target with an independent reference. Computing also needs accurate answers at competitive total cost. Neither path has demonstrated a wafer benefit.',
- 'RESEARCH_RESULTS.md. Drive: qrsm_photon_poc/drive_diagnostics_followup/main/results.json and prior_only_estimation_control.json, independent reviews. Phase: quantum_lithography_poc/phase_inspection_followup/results.json high_efficiency/equal_sample_photons/global.20,000mean photons before object, both modes charged,T=.9,D=.9,p=1,10%coherent/90%NOON. RMSE hybrid.00637086 versus coherent.007908rad. Global phase prior over2pi, assumed known phase reference. No fabricated sample or industrial process test.',
+ 'RESEARCH_CURRENT.md; archived phase and drive studies summarized in RESEARCH_RESULTS.md. Drive: qrsm_photon_poc/drive_diagnostics_followup/main/results.json and prior_only_estimation_control.json, independent reviews. Phase: quantum_lithography_poc/phase_inspection_followup/results.json high_efficiency/equal_sample_photons/global.20,000mean photons before object, both modes charged,T=.9,D=.9,p=1,10%coherent/90%NOON. RMSE hybrid.00637086 versus coherent.007908rad. Global phase prior over2pi, assumed known phase reference. No fabricated sample or industrial process test.',
  'Nicholas states the negative amplitude result and the conditional phase opportunity. Save prior-control and ambiguity details for backups25–26.');
 }
 
 {
  const s=slide('Our contribution and what we learned',13,true);
  txt(s,'A queryable recurrent quantum model',64,151,1150,50,36,C.cyan,true);
- txt(s,'Reversible construction and hardware adaptations,\nwith exact-model checks and archived IBM results',64,217,1150,88,29,C.cream);
+ txt(s,'Reversible construction and hardware adaptations,\nwith independent checks and fresh IBM experiments',64,217,1150,88,29,C.cream);
  txt(s,'Controls changed our conclusions. Accuracy and total cost both matter.',64,337,1150,62,29,C.cream,true);
  txt(s,'Nicholas Taylor',64,445,535,33,24,C.cyan,true);txt(s,'QRSM research, Grover fusion, experiments',64,482,535,46,20,C.light);
  txt(s,'Timofey Yudintsev',725,445,491,33,24,C.cyan,true);txt(s,'Research, keyword-search idea',725,482,491,46,20,C.light);
@@ -262,7 +274,7 @@ const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
  txt(s,'Dillon Satria Sitepu',725,548,491,33,24,C.cyan,true);txt(s,'Formatting and revising',725,586,491,37,20,C.light);
  footer(s,'QRSM model predates the event. Known amplification methods. AI assistance: Claude and Codex / OpenAI.',true);
  note(s,'Our contribution and what we learned','8:50–9:20',
- 'Our contribution is a queryable recurrent quantum model with tested hardware adaptations. Controls changed our conclusions: accuracy and total cost both matter. The documented team roles are here. The QRSM predates the event, and amplification is established prior work. We used Claude for the original work and Codex with OpenAI models for the extensions. We now have a tested computing question and clearer optical experiments to pursue. Thank you.',
+ 'Our contribution is a queryable recurrent quantum model with fresh hardware tests and a joint-photon observation extension. Controls changed our conclusions: accuracy and cost both matter. Our documented team roles are here. The QRSM predates the event, and amplification is established. We used Claude originally and Codex with OpenAI models for the extensions. These results show what the computing method achieves and what optical experiments still need to test. Thank you.',
  'Original README sections PriorworkandAIhelp and Team. User confirmed the documented roles. New finals assistance includes research reconstruction, simulation implementation, tests, source review, app and presentation authoring. Prior amplification Brassardetal2000 and quantum inference Lowetal2014. Project repository https://github.com/Nicholas55555/rewindandamplify.',
  'Nicholas closes. Slides 14 onward are Q&A only. The planned 9:20 finish leaves 40 seconds for handoffs or pauses. Rehearse to confirm the actual time.');
 }
@@ -270,28 +282,29 @@ const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
 async function addBackups(){
 // Backup11: archived hardware counts and the independently repeated comparison.
 {
- const s=slide('Hardware evidence and ablations',14);
- const wanted=['click3-full-r0','click3-steered-full-r0','click3-steered-full-r1','click3-steered-memory+last-1-r1','click3-full-r3'];
- const labels=['Plain sampling','Steering only','Steer + full, 1 round','Steer + local, 1 round','Full, unsteered, 3 rounds'];
- const vals=[['Circuit','Raw hits','Corrected hits','2-qubit gates','TVD*'],...wanted.map((n,i)=>{let r=summ.rows.find(a=>a.name===n);return[labels[i],(100*r.raw.hit).toFixed(2)+'%',(100*r.corrected.hit).toFixed(2)+'%',String(r.two_qubit_gates),r.corrected.tvd.toFixed(3)];})];
- table(s,vals,[415,190,210,195,142],174,370,22);
- txt(s,'Repeat: local 87.26% raw, full 78.61% raw',64,564,1140,43,27,C.teal,true);
- footer(s,'4,096 shots/circuit in each job. *Readout-corrected conditional-history TVD. Layouts differ.');
- note(s,'Hardware evidence and ablations','Backup',
- 'The complete set prevents the closer local-versus-full comparison from being confused with the older87-versus59percent headline, which changed several factors at once. Raw rates, corrected rates, gate costs and conditional-distribution errors are separate quantities. Two nearby archived jobs are a repeat, not validation across many devices or days. The local ideal reflection already introduces conditional-history error before hardware noise.',
- 'FINALS_EVIDENCE.md and research-validation/hardware_verification.json. First job dbmfqlt8ft8s738uplmg. Repeat dbmfv758ft8s738upsdg. Repeat raw selected counts local3574/4096 and full3220/4096. Correction assumes independent single-qubit readout flips and clips estimates. Classical baselines are faster at this size.');
+ const s=slide('Hardware repeats and noise controls',14);
+ const ids=['click3-steered-memory+last-1-r1','click3-steered-full-r1'];
+ const vals=[['Current run','Shots each','Local raw','Full raw','Conditional TV*'],...[[hwFirst,'First plain'],[hwSuppressed,'Suppressed'],[hwPrecision,'Precision follow-up']].map(([run,label])=>{const a=ids.map(id=>run.rows.find(x=>x.name===id));return[label,String(a[0].shots),pct(a[0].observables.selected.probability,2),pct(a[1].observables.selected.probability,2),a.map(r=>r.observables.selected_history_tv_to_unsteered_target.toFixed(3)).join(' / ')];})];
+ table(s,vals,[360,150,200,200,242],197,289,23);
+ txt(s,'58 / 125 native CZ gates, local / full, in every current run',64,520,1152,48,29,C.teal,true);
+ txt(s,'The follow-up confirms higher yield, with a different effect size',64,577,1152,42,27,C.ink,true);
+ footer(s,'*Raw conditional-history TV, local / full. Lower is closer. Same initial map prefix; widths, routing and times differ.');
+ note(s,'Hardware repeats and noise controls','Backup',
+ 'The three current runs remain separate. Suppression used dynamical decoupling and twirling; it did not improve this pair in the observed run. The larger-shot follow-up was chosen after inspecting the first campaign and must not be described as a preselected independent confirmation of all hypotheses. Its7.64point yield difference has an independent-shot interval6.29to8.99points, excluding drift and calibration uncertainty. First-run ablations also include plain6.74percent, steering-only24.07percent and unsteered full three-round48.73percent. Conditional accuracy differs strongly. Earlier Kingston results86.06/78.49percent and40/85gates remain historical, with different layouts. None are pooled or interpreted as a universal noise advantage.',
+ 'hardware_campaign/runs/original_plain_v2/analysis.json, original_suppressed_v1/analysis.json, original_precision_v1/analysis.json and hero_acceptance_contrast.json. All original43rows include the full earlier39circuit suite plus catalog repeats. Archived evidence research-validation/hardware_verification.json. Raw summaries primary; projected independent assignment inversion is a sensitivity analysis without calibration uncertainty.');
 }
 // Backup12: which approximation and which accuracy statement.
 {
- const s=slide('Three optical bins expose the circuit cost',15);
- txt(s,'All three bins must click. Full reflection preserves the retained model.',64,135,1152,52,27,C.muted);
- table(s,[['Choi cutoff','Qubits','Whole-query CX','Accepted rate¹','State error*'],['0.03','15','10,189','0.12783%','0.02604'],['0.003','18','19,864','0.12755%','0.01094']],[210,150,280,280,232],211,218,25);
- txt(s,'Implementation error < 6.3 × 10⁻¹³',64,465,1152,50,31,C.teal,true);
- txt(s,'Exact classical recursion already answers these small queries efficiently',64,546,1152,65,28,C.ink,true);
- footer(s,'¹After one round. *Trace distance versus the cavity-2 model. No three-bin noise, routing or physical sensor test.');
- note(s,'Three optical bins expose the circuit cost','Backup',
- 'The optical extension now retains three flags and all environments before reversal. Both approximations pass every history-branch and conditional-state circuit check. The tighter approximation improves the selected-state error but nearly doubles gate count. It does not establish physical cavity convergence. The original untruncated-in-Choi cavity-two triple-click probability is0.0147042percent, while the retained laws differ. Exact classical recursion answers the last-click or all-click query with only three channel applications. A separate one-bin noise test reaches conditional-state error about0.806or0.848at the largest chosen gate noise, even though recorded acceptance increases. Those one-bin values are not the noise performance of this three-bin circuit.',
-  'qrsm_photon_poc/multibin_followup/README.md, main/ideal_0p03.json, main/ideal_0p003.json, main/validation.json and branch NPZ archives. Whole all-click query includes preparation, oracle, inverse, full reflection and replay. Genericu,cx costs exclude routing. Separate cavity cutoff audit in qrsm_photon_poc/followup/dynamics_results.json.');
+ const s=slide('Deep optical queries show large distribution errors',15);
+ txt(s,'Three retained optical bins, all-click query, one amplification round on IBM',64,135,1152,52,27,C.muted);
+ const ids=['optical_3bin_0p03_all_r1','optical_3bin_0p003_all_r1'];
+ table(s,[['Choi cutoff','Qubits','Native CZ','Raw accepted','Data Z error*'],...ids.map((id,i)=>{let r=hwOptical.rows.find(x=>x.name===id);return[i===0?'0.03':'0.003',String(r.logical_qubits),r.native_two_qubit_gate_count.toLocaleString('en-US'),`${r.observables.accepted_shots} / ${r.shots}`,r.observables.data_z_distribution_tv.toFixed(3)];})],[210,150,270,280,242],211,218,25);
+ txt(s,'Ideal acceptance is only about 0.128%',64,465,1152,50,31,C.teal,true);
+ txt(s,'Zero hits alone is inconclusive at 512 shots. Distribution bias is substantial.',64,546,1152,65,27,C.ink,true);
+ footer(s,'*TV of measured data-register Z probabilities versus the declared circuit target. No optical sensor or full-state fidelity.');
+ note(s,'Deep optical queries show large distribution errors','Backup',
+ 'Both retained three-bin models pass exact branch and conditional-state checks before hardware. Native routing raises these queries to26,749and54,998CZgates. Each returns zero selected shots out of512. That alone is inconclusive: even ideal expected counts are below one. The measured data marginals have substantial total-variation error, while full data-plus-environment distributions deviate still more. The one-bin circuits can instead produce inflated acceptance with wrong conditional distributions. Better mathematical truncation therefore does not guarantee a more useful hardware answer. Classical recursion already solves these small models efficiently. Cavity-two is a deliberately truncated physical surrogate, and Z statistics do not establish full conditional-state fidelity.',
+ 'hardware_campaign/runs/optical_dilation_plain_v2/analysis.json and raw.json, rows optical_3bin_0p03_all_r1 and optical_3bin_0p003_all_r1. Raw0/512, Wilson upper.7447%, versus ideal.127833/.127551%. DataZTV.436846/.384204. Underlying genericCX10,189/19,864 from multibin_followup/main/ideal_0p03.json and ideal_0p003.json. State approximation error versus cavity2 .02604/.01094 before hardware is a different quantity.');
 }
 // Sensor technical backups use the frozen experiment output directly.
 {
@@ -331,12 +344,12 @@ async function addBackups(){
 // Backup16: separate physical sensing, inference and computational query claims.
 {
  const s=slide('Where the quantum component enters',19);
- table(s,[['Layer','What it does','Evidence today'],['Sensor physics','Atomic state responds to sampled laser','Classical Bloch simulation'],['Diagnostic inference','Combines measured or simulated records','Classical statistical estimator'],['Rare-history query','Amplifies a condition in a coherent model','Qiskit simulation + IBM surrogate']],[300,460,392],190,330,25);
+ table(s,[['Layer','What it does','Evidence today'],['Sensor dynamics','Atomic response to modeled laser drive','Bloch model + digital IBM channel'],['Diagnostic inference','Combines acquisition records','Classical synthetic benchmark'],['Rare-history query','Amplifies a condition in a coherent model','Qiskit + actual IBM circuits']],[300,460,392],190,330,25);
  txt(s,'A sensing benefit does not establish a computing speedup',64,565,1152,51,30,C.teal,true);
- footer(s,'The current sensor benchmark is not compiled into the IBM circuit or the small optical queries.');
+ footer(s,'Individual channels ran digitally. The full acquisition and diagnostic benchmark remains a separate simulation.');
  note(s,'Where the quantum component enters','Backup',
- 'A sensor can use quantum dynamics while a classical computer processes its readouts. The Ramsey benchmark is simulated classically and uses classical inference. The quantum-computing component is the separate recurrent-model rare-history query. Connecting a calibrated realistic sensor model to coherent preparation and an oracle is further work. No end-to-end quantum advantage has been demonstrated.',
- 'LASER_DIAGNOSTICS_ROADMAP.md, laser_sensor_viability documentation, qrsm_photon_poc/README.md and FINALS_EVIDENCE.md.');
+ 'A sensor can use quantum dynamics while a classical computer processes its readouts. We now compile the finite driven atomic channel, including dissipation, into an IBM digital circuit. That tests a bounded implementation on superconducting hardware, not an atom, physical optical coupling or a128second acquisition. Unknown-onset detection still runs as classical inference on synthetic records. The separate recurrent-model query uses coherent preparation and amplitude amplification. Connecting a calibrated full acquisition process to a competitive quantum algorithm remains further work. No end-to-end quantum advantage follows from executing a component.',
+ 'hardware_campaign/optical_controls/README.md, models.py and hardware_integration_review.json. Canonical laser_sensor_viability/model.py. Independent Bloch versus Lindblad/Stinespring checks. LASER_DIAGNOSTICS_ROADMAP.md and hardware_campaign/coverage.json distinguish component, classical and physical requirements.');
 }
 // Backup17: actual lithography source differences and the appropriate experiment.
 {
@@ -351,16 +364,15 @@ async function addBackups(){
 }
 await addBackups();
 {
- const s=slide('The continued query also ran on IBM',21);
- const rows=after.hardware_jobs[0].rows;
- const ids=['loop-defect-r0','loop-defect-r1','loop-nodefect-r0','loop-nodefect-r1'];
- const labels=['Hidden defect, plain','Hidden defect, steer + local','No defect, plain','No defect, steer + local'];
- table(s,[['Model and circuit','Accepted / 4,096','Click at step 6*','2-qubit gates'],...ids.map((id,i)=>{const r=rows.find(x=>x.name===id);return[labels[i],String(r.raw_selected_count),pct(r.raw_conditional_probabilities[2],2),String(r.two_qubit_gates)];})],[405,240,300,207],172,352,23);
- txt(s,'Exact targets: 4.67% with defect; 10.10% without',64,549,1150,62,29,C.teal,true);
- footer(s,'*Raw conditional rate given step-3 click. Separate, longer circuits than the main 86.06% result.');
- note(s,'The continued query also ran on IBM','Backup',
- 'These circuits amplify the step-three click and then continue the original machine through step six. The hidden-defect circuit retained290plainshots and3354steeredlocalshots, while the no-defect circuit retained503and3748. More accepted shots improve counting precision but hardware bias remains. In particular, the amplified hidden-defect step-six rate6.887percent exceeds the exact4.667percent. Layouts, widths and depths differ. The table is raw data, with the repeat and readout-corrected values available in the evidence. It is a test of deliberately programmed model alternatives, not discovery of unknown hardware or laser defects.',
- 'research-validation/original_after_click_verification.json hardware_jobs[0]. Archived raw_plain.json jobdbmfqlt8ft8s738uplmg. Reproduced circuit conditional probabilities and independent raw-count extraction. No significance claim, hidden-state tomography or physical optical timing.');
+ const s=slide('The continued query separates models with bias',21);
+ const ids=['plain','steered_local','steered_full','steered_memory'];
+ const labels=['Plain','Steer + local','Steer + full','Memory-only control'];
+ table(s,[['Circuit','Defect: step 6*','No defect: step 6*','Difference, points'],...ids.map((id,i)=>{const r=hwLoops.comparisons[id].find(x=>x.step===6);return[labels[i],pct(r.first.probability,2),pct(r.second.probability,2),(100*r.probability_difference).toFixed(2)];})],[380,270,280,222],181,330,24);
+ txt(s,'Exact: 4.67% / 10.10%. Local follow-up difference: −2.87 points.',64,543,1152,48,27,C.teal,true);
+ footer(s,'*Raw rate given step-3 click. 8,192 shots before conditioning. Local difference 95% shot interval: −3.89 to −1.84 points.');
+ note(s,'The continued query separates models with bias','Backup',
+ 'The selected precision follow-up uses8192shots per circuit. Its steered local implementation gives step-six rates8.794percent with the programmed defect and11.661percent without it. The raw contrast has the intended sign and a shot-based interval excluding zero. Both rates remain biased relative to4.667and10.102percent exact targets. Crucially, plain, steered full and memory-only implementations reverse the expected sign. The initial campaign also failed to resolve the small local contrast at its lower precision. We preserve these results rather than calling this reliable diagnosis. The effect distinguishes particular programmed circuits under particular conditions; it does not locate unknown defects in the IBM processor or a laser.',
+ 'hardware_campaign/runs/original_precision_v1/loop_contrasts.json and analysis.json. Local step6counts538/6118 versus834/7152 accepted histories. Contrast−.0286735, independent-shot Wilson-based95%interval[−.0389321,−.0183558]. Intervals exclude drift, readout-calibration and model uncertainty. Original ideal target research-validation/original_after_click_verification.json. Earlier archived continued jobs remain separate historical evidence.');
 }
 {
  const s=slide('One step of the recurrent quantum model',22);
@@ -373,7 +385,7 @@ await addBackups();
 }
 {
  const s=slide('Judging rubric and evidence map',23);
- table(s,[['Criterion','Weight','Where the talk addresses it'],['Problem and impact','15%','1–5, 8, 10, 12: purpose, measurement, cost'],['Quantum rationale','20%','4, 6–7, 15, 27: model, scaling, limits'],['Technical Qiskit implementation','20%','7–9, 14–15, 21–22, 27: circuit evidence'],['Results and evaluation','10%','4–5, 8, 11–12, 17–18, 25–31'],['Innovation','10%','7, 13, 24: contribution versus prior work'],['Presentation','15%','13 main slides, planned 9:20 including demo'],['Q&A and teamwork','10%','13–31: roles, lessons, evidence backups']],[380,135,637],150,458,22);
+ table(s,[['Criterion','Weight','Where the talk addresses it'],['Problem and impact','15%','1–5, 8, 10, 12: purpose, measurement, cost'],['Quantum rationale','20%','4, 6–7, 15, 27, 32: model and limits'],['Technical Qiskit implementation','20%','7–9, 14–15, 21–22, 32–35: circuits'],['Results and evaluation','10%','4–5, 8, 11–12, 14–18, 25–35'],['Innovation','10%','7, 13, 24, 32: contribution and prior work'],['Presentation','15%','13 main slides, planned 9:20 including demo'],['Q&A and teamwork','10%','13–35: roles, lessons, evidence backups']],[380,135,637],150,458,22);
  footer(s,'Hardware bonus: highest applicable tier, up to +5. Evidence supports evaluation, not a guaranteed score.');
  note(s,'Judging rubric and evidence map','Backup',
  'This map follows the supplied Qiskit Fall Fest judging rubric. Exceptional performance asks for a specific stakeholder and realistic impact, a defensible quantum rationale that considers classical alternatives and hardware scale, reproducible Qiskit implementation, rigorous comparisons, a clear contribution relative to reused ideas, accessible delivery within the time limit, and shared understanding. The hardware bonus is a separate highest-tier item, not an additive sum of all tier values. We do not predict a judge score.',
@@ -381,7 +393,7 @@ await addBackups();
 }
 {
  const s=slide('Contribution, prior work and AI assistance',24);
- table(s,[['Origin','What belongs there'],['Established prior work','Amplitude amplification and amplified conditional inference'],['Before the event','QRSM idea, physics-shaped model and exact filter'],['Original hackathon work','Qiskit realization, Grover fusion, steering, local reflection, experiments'],['Finals extension','Independent model audits, laser diagnostics and optical feasibility studies'],['AI assistance','Original: Claude. Finals: Codex with OpenAI models']],[370,782],164,390,23);
+ table(s,[['Origin','What belongs there'],['Established prior work','Amplitude amplification and amplified conditional inference'],['Before the event','QRSM idea, physics-shaped model and exact filter'],['Original hackathon work','Qiskit realization, Grover fusion, steering, local reflection, experiments'],['Finals extension','Independent model audits, joint-photon model and fresh hardware campaign'],['AI assistance','Original: Claude. Finals: Codex with OpenAI models']],[370,782],164,390,23);
  txt(s,'A sensing benefit and a computing speedup are separate claims',64,574,1150,47,28,C.teal,true);
  footer(s,'Atomic laser-noise spectroscopy also predates this project. No new atomic sensing principle is claimed.');
  note(s,'Contribution, prior work and AI assistance','Backup',
@@ -417,7 +429,7 @@ await addBackups();
  table(s,[['Constructed bound','Qubits','Generic CX upper bound','Dose-1.5 event probability'],['Floor weights','389','3,382,108','0.00423713'],['Ceiling weights','389','2,874,028','0.00422695']],[300,170,332,350],218,218,24);
  txt(s,'196 count qubits + 23 score qubits + 170 extra clean ancillas',64,471,1152,56,28,C.teal,true);
  txt(s,'Both circuit files round-trip. Classical evaluation is already tractable.',64,553,1152,57,28,C.ink,true);
- footer(s,'Constructive, unoptimized bounds. No full-state simulation, routing, hardware execution or physical optical claim.');
+ footer(s,'389 qubits exceed the available 156-qubit device. Unoptimized bounds; no full-state simulation or physical optical claim.');
  note(s,'The full spatial query is costly to construct','Backup',
  'This is an actual constructed reversible49-cell oracle, not an extrapolation from three cells. Four count qubits per cell encode a capped Poisson law,23bits accumulate the weighted score, and170extra clean ancillas support explicit reversible gates. Both389qubit circuits pass QPY serialization and independent structural, arithmetic and uncomputation checks. The CX values are constructive generic decomposition upper bounds, including preparation and one complete amplification round; they are not a routed device compilation. Rounding and capped-tail bounds bracket the original event, with relative bracket width0.2406percent at dose1.5and0.3526percent at dose1.8. Classical dynamic programming already solves this independent-cell distribution efficiently. Construction alone establishes neither computational advantage nor physical lithography feasibility.',
  'finals-lithography/full_spatial_circuit/README.md, results.json, process_bounds.py, independent_review.json. Floor and ceiling clean circuits389qubits; CX bounds3,382,108/2,874,028 and U5,050,537/4,288,741. Dose1.5 original event bracket [.004226948015,.004237128599]; conservative conditionalTVbound.00482. Cap15 value change usesPoisson tailN>=16, encoded cap probabilityusesN>=15. Check row direction against event interval: floor weights admit an upper event; ceiling weights give a lower event.');
@@ -450,11 +462,11 @@ await addBackups();
  txt(s,'Same brightness and one-photon frequency distribution. Different pair correlations.',64,135,1152,53,26,C.muted);
  const memory=dotBridge.classical_trap_pair_comparison.filter(r=>[0,.5].includes(r.switch_probability_between_endpoints));
  table(s,[['Frequency relation in a pair','Each photon’s offset','Overlap M','Coincidence per attempt'],...memory.map((r,i)=>[i===0?'Shared offset':'Independent offsets','50% at either offset',r.conditional_overlap.toFixed(2),pct(r.coincidence_probability_per_excitation_pair,1)])],[350,300,170,332],209,238,24);
- txt(s,'QRSM next step: predict joint measurements, then test competing models',64,479,1152,61,28,C.teal,true);
+ txt(s,'A joint observation model now tests this broader memory question',64,479,1152,61,28,C.teal,true);
  txt(s,'80% versus 20% survival: 16× as many attempts per pair at lower efficiency',64,554,1152,51,26,C.ink,true);
  footer(s,'Attempt = two excitations. Classical environment, ideal preparation, 20% survival. M = 1 is ideal overlap. No quantum-memory advantage.');
  note(s,'Equal photon counts can hide poor interference','Backup',
- 'This is the strongest connection to the original QRSM question. Each photon separately has the same brightness and the same fifty-fifty frequency distribution. Yet shared versus independent offsets change pair overlap from one to0.6. A single-photon marginal misses information present in the joint observation. The environmental correlation here is entirely classical; an HMM is a necessary competitor, and no coherent hidden qubit is established. We have not added this HOM measurement to the QRSM. That extension needs a calibrated joint-photon instrument and held-out records to compare physical and classical memory hypotheses. An engineer could then test source settings for interference quality while accounting for collection cost. At80percent survival, a pair takes1.5625attempts on average; at20percent, it takes25. These are surviving pairs, not necessarily two separately resolved output clicks.',
+ 'Each photon separately has the same brightness and fifty-fifty frequency distribution. Shared versus independent offsets still change pair overlap from one to0.6. A single-photon marginal misses information in the joint observation. This benchmark environment is entirely classical, and an HMM is a necessary competitor. The new sequential HOM instrument implements the broader hidden-state question using a different complete-emission source model. Its digital circuits also test these frozen pair controls. It does not turn this classical memory example into a coherent-defect witness. An engineer can use the distinction to select interference-sensitive source measurements alongside collection cost. At80percent survival, a pair takes1.5625attempts on average; at20percent, it takes25. These are surviving pairs, not necessarily resolved coincidences.',
  'quantum_dot_bridge/results.json classical_trap_pair_comparison endpoints p_switch=0 and.5, PROTOCOL.md and independent_review.json. Both marginals are(.5,.5), ideal g2(0)=0 and eta=.2. M1/.6 gives coincidence per attempted excitation pair0/.008 at a balanced beamsplitter. The classical state remains fixed within each wavepacket; the pair model does not infer a switching time. Other benchmark cases retain counts while giving overlap1/.5/.2/.25 from pure dephasing or detuning. Sixteen tests and independent density-kernel quadrature support the calculations. External GaAs histograms are separate and did not calibrate this illustrative model. No semiconductor defect, physical device setting, quantum advantage or lithography yield was identified.');
 }
 
@@ -466,8 +478,52 @@ await addBackups();
  txt(s,'Source diagnosis needs calibrated controls',64,554,1152,51,29,C.ochre,true);
  footer(s,'Our ±2 ns windows and four reference peaks. Published corrections. Conditional counting/calibration errors exclude systematics.');
  note(s,'External GaAs data: a conditional reanalysis','Backup',
- 'The real-data lesson is that a source-quality estimate depends on its measurement controls. These are external Hong–Ou–Mandel histograms analyzed classically, not team measurements or a QRSM fit. We normalize central peaks to side peaks and apply published splitter and multiphoton corrections. The intervals include conditional counting and calibration uncertainty but exclude polarization, routing and drift systematics. At39.4nanoseconds, co-only normalization changes the estimate from0.7724to0.7938. That discrepancy can guide an engineer to check polarization, alignment and normalization before blaming the dot. It does not identify which cause is responsible. These aggregated histograms also lack the sequential records needed to test the proposed QRSM extension. We need a calibrated two-photon observation model, repeated time-tagged acquisitions and held-out comparisons before claiming better diagnosis. No monotonic decay, reproduced author pipeline or improved device performance follows here.',
+ 'The real-data lesson is that a source-quality estimate depends on measurement controls. These are external Hong–Ou–Mandel histograms analyzed classically, not team measurements or a QRSM fit. We normalize central peaks to side peaks and apply published splitter and multiphoton corrections. The intervals exclude polarization, routing and drift systematics. At39.4nanoseconds, co-only normalization changes the estimate from0.7724to0.7938. That discrepancy guides checks of polarization, alignment and normalization before assigning a cause. The new joint-photon instrument supplies a mathematical candidate model, but these aggregate histograms lack the sequential records and source calibration needed to fit and test it. Repeated time-tagged acquisitions and held-out comparisons remain necessary. No microscopic cause, monotonic decay, reproduced author pipeline or improved device performance follows.',
  'quantum_dot_bridge/hom_analysis/results.json, PROTOCOL.md and independent review. Dataset https://doi.org/10.5281/zenodo.6337697, CC BY4.0, by Julian Munzberg, Franz Draxl, Saimon Filipe Covre da Silva, Yusuf Karli, Santanu Manna, Armando Rastelli, Gregor Weihs and Robert Keil. Paper https://arxiv.org/html/2203.08682v1 SectionIV Eqs3–4. Quoted paper V=.803(.005),.826(.004),.774(.004) remain separate. Our primary extraction uses half-open windows of half-width2ns, no background subtraction, reference cycle indices−2,−1,+1,+2 and200000Monte Carlo draws. R=.514±.007,g2=.016±.001, assumed independent but shared across separations. Data hashes verified against reference_hom/provenance_manifest.json. These aggregate histograms cannot provide original QRSM binary histories or uniquely identify charge traps.');
+}
+
+{
+ const s=slide('The joint-photon QRSM observation model',32);
+ txt(s,'A new complete-emission surrogate carries the hidden environment between pairs',64,135,1152,54,26,C.muted);
+ table(s,[['Physical step','Digital representation','Retained information'],['Emit each photon','Complex wavepacket Gram modes','Photon modes + environment'],['Observe a photon pair','Controlled-SWAP parity = HOM statistic','Conditional environment state'],['Predict the next pair','Repeated completely positive maps','Dependence on the full record']],[300,475,377],209,246,24);
+ txt(s,'Simulation, 64 pairs: 5.60% coherent flags, 4.50% classical false flags',64,483,1152,58,27,C.ochre,true);
+ txt(s,'IBM four-pair flag-distribution TV: 0.249 coherent / 0.286 classical',64,557,1152,54,27,C.ink,true);
+ footer(s,'TV is raw measured versus ideal flag probabilities, lower is closer. These tests do not identify a physical defect.');
+ note(s,'The joint-photon QRSM observation model','Backup',
+ 'The missing observation model is now implemented. A fully excited emitter decays into a photon whose exponential temporal mode depends on the environmental state. Complex Gram overlaps embed the finite mode family exactly. A controlled-SWAP parity measurement equals the balanced-HOM symmetry statistic, and tracing the photon modes produces a conditional environmental map. Independent bosonic calculations check probabilities and conditional coherences. The environment persists between pairs. Passive outcomes cannot separate these hypotheses. A calibrated shift introduces a small joint effect, but the64pair simulated study gives only5.60percent coherent flags versus4.50percent classical false flags. The separate selected four-pair IBM circuits use22/29qubits and256/334nativeCZgates. Their raw flag distributions haveTV.249/.286, so implementation noise remains substantial. They do not validate the optical assumptions or certify quantum memory.',
+ 'quantum_dot_bridge/qrsm_hom_followup/README.md, physical_model.py, circuits.py, main/results.json and main/independent_review.json. Thirty thousand synthetic records replayed independently. Hardware current summary family_results.dot_selected_four_pair, selected_four_coherent and selected_four_classical,4096shots each. Distinct chosenθ3π/4,+2Γfour-pair control. Zconditional memory is not fullstate tomography. Main14circuit bundle uses earlierθπ/3. New source assumes full emission, fixed environment during each packet and controlled gaps. Original QRSM excitation-exchange dynamics are distinct. Measurement precedent Garcia-Escartin and Chamorro-Posada, https://arxiv.org/html/1303.6814v1.');
+}
+{
+ const s=slide('More data helps only under trusted calibration',33);
+ txt(s,'Selected control and ideal resets between independent four-pair blocks',64,135,1152,51,27,C.muted);
+ table(s,[['Attempted pairs / record','Nominal coherent flags','Classical false flags'],...dotDesign.power_trials.map(r=>[r.attempted_pairs.toLocaleString('en-US'),pct(r.cases[0].flag_rate,2),pct(r.cases[1].flag_rate,2)])],[440,356,356],202,326,23);
+ txt(s,'The stronger 8-state HMM predicts as well within uncertainty',64,550,1152,45,28,C.teal,true);
+ footer(s,'At 7,644 pairs: changed collection gives 72% false flags, mode overlap 53.25%, readout 21.05%. Each cell: 2,000 records.');
+ note(s,'More data helps only under trusted calibration','Backup',
+ 'After preserving the negative main result, an exact648setting scan selected a new control and gap rotation. A separate prospective simulation uses ideal resets between four-pair blocks and independently calibrated thresholds at every budget. At2584attempted pairs, nominal flags reach79.75percent with4.85percent classical false flags. The full budget curve remains visible. This is a different preparation protocol, not a tuned replacement of the64pair study. At7644pairs, changes in collection, mode overlap or readout give72,53.25and21.05percent false flags from still-classical sources. The8state HMM differs from the calibrated physical predictor by only0.0000092nats per pair, with an interval spanning zero. All20HMM starts reached the iteration cap. More data cannot repair a wrong measurement model, and no classical impossibility or physical defect follows.',
+ 'quantum_dot_bridge/qrsm_hom_followup/exploratory_design/README.md, design_results.json, VALIDATION_PROTOCOL.md, validation_run/results.json and independent_review.json. θ3π/4, second-emission shift+2Γ, eta.8, resetI/2 per4pair block. All lost pairs charged,2source excitations per pair. Independent20k training and20k predictive blocks,4/8state HMM10starts/200iterations. Rigorous simple-hypothesis bound1911blocks uses a different exact-model log4 threshold, not the empirical curves. No validated physical control/reset time.');
+}
+{
+ const s=slide('Atomic and photon channels on IBM',34);
+ txt(s,'Actual gate execution of bounded physical models, with raw readout retained',64,135,1152,53,27,C.muted);
+ const ids=['atomic_d-5_Z','atomic_d+0_Z','atomic_d+5_Z'];
+ table(s,[['Atomic detuning','Ideal excited probability','Raw IBM probability','95% shot interval'],...ids.map((id,i)=>{const r=hwChannels.rows.find(x=>x.name===id).observables;return[['−5 Hz','0 Hz','+5 Hz'][i],pct(r.ideal_system_zero_probability,2),pct(r.raw_system_zero_probability,2),r.raw_system_zero_wilson95.map(v=>pct(v,2)).join(' to ')];})],[270,320,280,282],203,251,24);
+ txt(s,'Finite pulses and dissipation. 4 qubits, 22 native CZ gates.',64,482,1152,47,29,C.teal,true);
+ txt(s,'Two-photon NOON at phase 0.35: raw occupation TV = 0.033',64,546,1152,65,28,C.ink,true);
+ footer(s,'2,048 shots each. These are superconducting encodings, not measured atoms, photons or a 128-second optical monitor.');
+ note(s,'Atomic and photon channels on IBM','Backup',
+ 'The atomic adapter exponentiates the actual driven Lindblad evolution through finite pulses and free precession, constructs its complete channel and synthesizes a Stinespring isometry. It does not rotate a qubit directly to an analytic output probability. Independent affine-Bloch calculations verify the ideal response. IBM results show the response direction but retain material bias, especially at the outer detunings. Separate photon circuits prepare actual finite mode states, apply phases, recombine and encode loss. A coherent source is represented by its unnormalized Poisson sectors throughN8; vacuum and the omitted tail remain charged. Raw occupancy moments include source failures. These are meaningful implementation tests, while acquisition, calibration and apparatus costs remain optical questions.',
+ 'hardware_campaign/optical_controls/README.md, PROTOCOL.md, models.py, bundle_v2/manifest.json and hardware_integration_review.json. hardware_campaign/runs/optical_controls_plain_v1/analysis.json,33science rows. Atomic originalT1=100s,T2=.2s,2.5ms pulses,20ms dark interval,1% preparation error; physical optical2/4%readout assumptions not added as if hardware correction. Coherent mean2before object, tailN>8=.0002374473, source/detection/object losses declared. Independent compiled mapping and moments audit passed.');
+}
+{
+ const s=slide('Hardware coverage and circuit limits',35);
+ txt(s,`${campaignNow.jobs} IBM jobs, ${campaignNow.science_circuit_executions} science executions, ${campaignNow.actual_campaign_quantum_seconds} charged QPU seconds`,64,135,1152,54,28,C.muted);
+ table(s,[['Research family','What ran or was constructed','Boundary'],['Original QRSM','Full original suite, precision follow-up','Bias and routing still matter'],['Dot / atomic / photon models','Prepared states, channels and joint readout','Digital emulation, no optical setup'],['Spatial and long queries','Small models plus deeper stress tests','High acceptance can hide wrong answers'],['Full 49-cell process','389-qubit constructive circuit','Exceeds the 156-qubit device']],[310,480,362],204,327,24);
+ txt(s,'All 25 research families have an explicit evidence and gap ledger',64,559,1152,51,29,C.teal,true);
+ footer(s,'Classical fitting, published optical data and industrial process calibration remain distinct from superconducting execution.');
+ note(s,'Hardware coverage and circuit limits','Backup',
+ 'Ten completed jobs execute207science circuits and40calibration circuits, totaling688640shots and244charged QPU seconds. These are circuit executions including repeats, not207independent discoveries. The campaign covers the original suite and meaningful rungs of circuit-ready families. Independent3/5/7site contacts compare enumeration and clean counters. The1024entry seeded-diagonal stress circuit reaches98,680nativeCZgates and46.58percent raw matches versus99.23percent ideal. It is distinct from semantic retrieval. Eight-step rounds and ten-step bounded rewinds test ingredients, not full adaptiveBBHT. Four-pair dot circuits use22/29qubits and a declared32entry flag-memory marginal. The389qubit49cell construction cannot fit156qubits. Classical benchmarks, published optical data and real process calibration remain separate requirements.',
+ 'hardware_campaign/results.json and RESULTS.md, all10job IDs with immutable plans/raw counts and exact ISAQPY. coverage.json and coverage.md; extensions/bundle_v1/manifest.json and independent_review.json; quantum_dot_bridge/qrsm_hom_followup/exploratory_design/HARDWARE_EXTENSION.md and hardware_bundle/manifest.json. Native counts differ from generic constructions. Z marginal checks are not full-state fidelity. Full49 results in finals-lithography/full_spatial_circuit/results.json.');
 }
 
 await fs.mkdir(build,{recursive:true});
@@ -475,7 +531,7 @@ for(let i=0;i<P.slides.items.length;i++){const b=await P.export({slide:P.slides.
 await fs.writeFile(build+'/visual_notes.json',JSON.stringify(scripts,null,2));
 const candidate=build+'/visual-candidate.pptx';await(await PresentationFile.exportPptx(P)).save(candidate);
 if(!draft){
- const tableOwners=[3,4,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31];
- const result=await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath:process.env.OUTPUT_PPTX??root+'/finals-deck/Rewind_Amplify_Finals_Visual.pptx',pythonExecutable:py,integrityValidatorPath:skill+'/container_tools/inspect_presentation_package_integrity.py',layoutValidatorPath:skill+'/container_tools/inspect_presentation_layout_geometry.py',layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit',...tableOwners.flatMap(n=>['--require-native-table-slide',String(n)])],explicitTotalSlideCount:31,requiredNativeChartOwnerSlides:[5,8,11],requiredNativeTableOwnerSlides:tableOwners,materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:['Arial']},verifyArtifactToolImport:true,receiptPath:process.env.OUTPUT_RECEIPT??build+'/visual_validation.json'});console.log(JSON.stringify(result));
+ const tableOwners=[3,4,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35];
+ const result=await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath:process.env.OUTPUT_PPTX??root+'/finals-deck/Rewind_Amplify_Finals_Visual.pptx',pythonExecutable:py,integrityValidatorPath:skill+'/container_tools/inspect_presentation_package_integrity.py',layoutValidatorPath:skill+'/container_tools/inspect_presentation_layout_geometry.py',layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit',...tableOwners.flatMap(n=>['--require-native-table-slide',String(n)])],explicitTotalSlideCount:35,requiredNativeChartOwnerSlides:[5,8,11],requiredNativeTableOwnerSlides:tableOwners,materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:['Arial']},verifyArtifactToolImport:true,receiptPath:process.env.OUTPUT_RECEIPT??build+'/visual_validation.json'});console.log(JSON.stringify(result));
 }
 console.log(JSON.stringify({draft,slides:P.slides.items.length,scriptCount:scripts.length}));

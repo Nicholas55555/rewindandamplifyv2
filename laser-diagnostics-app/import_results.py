@@ -26,6 +26,10 @@ RESEARCH_SOURCES={
     'dot':'quantum_dot_bridge/results.json',
     'hom_reference':'quantum_dot_bridge/reference_hom/provenance_manifest.json',
     'hom_analysis':'quantum_dot_bridge/hom_analysis/results.json',
+    'joint_hom':'quantum_dot_bridge/qrsm_hom_followup/main/results.json',
+    'dot_design':'quantum_dot_bridge/qrsm_hom_followup/exploratory_design/design_results.json',
+    'dot_design_validation':'quantum_dot_bridge/qrsm_hom_followup/exploratory_design/validation_run/results.json',
+    'hardware':'hardware_campaign/results.json',
 }
 
 def build_research(evidence):
@@ -38,6 +42,8 @@ def build_research(evidence):
     assert sources['dot']['provenance']['all_quadrature_checks_passed']
     assert sources['hom_reference']['all_checks_passed']
     assert sources['hom_analysis']['schema']=='hom-area-analysis-v1'
+    assert sources['hardware']['schema']=='ra-hardware-campaign-summary-v1'
+    assert sources['hardware']['status']=='complete'
     assert sources['hom_analysis']['reference_manifest_sha256']==sha(ROOT/RESEARCH_SOURCES['hom_reference'])
     primary_review=json.loads((ROOT/'quantum_dot_bridge/hom_analysis/independent_primary.json').read_text())
     assert primary_review['results_sha256']==sha(ROOT/RESEARCH_SOURCES['hom_analysis'])
@@ -65,6 +71,7 @@ def build_research(evidence):
     files={ROOT/rel:evidence/f'research_{key}.json' for key,rel in RESEARCH_SOURCES.items()}
     for src,name in {
         'RESEARCH_RESULTS.md':'RESEARCH_RESULTS.md',
+        'RESEARCH_CURRENT.md':'RESEARCH_CURRENT.md',
         'laser_sensor_viability/followup/README.md':'CURRENT_FREQUENCY.md',
         'qrsm_photon_poc/drive_diagnostics_followup/README.md':'CURRENT_DRIVE.md',
         'quantum_lithography_poc/phase_inspection_followup/README.md':'PHASE_INSPECTION.md',
@@ -89,7 +96,20 @@ def build_research(evidence):
     (evidence/'hom').mkdir(exist_ok=True)
     for entry in sources['hom_reference']['files']:
         files[ROOT/'quantum_dot_bridge/reference_hom'/entry['path']]=evidence/'hom'/entry['path']
-    return files
+    # Keep this evidence tree intact: its protocols, receipts and source links
+    # remain usable when the app folder is copied without the repository.
+    joint_root=ROOT/'quantum_dot_bridge/qrsm_hom_followup'
+    extra_files=[]
+    for path in joint_root.rglob('*'):
+        if path.is_file() and '__pycache__' not in path.parts and path.suffix!='.pyc':
+            extra_files.append((path,evidence/'joint-hom'/path.relative_to(joint_root)))
+    for name in ['README.md','RESULTS.md','coverage.md','coverage.json']:
+        files[ROOT/'hardware_campaign'/name]=evidence/'hardware'/name
+    for rel,expected in sources['hardware']['input_sha256'].items():
+        source=ROOT/rel
+        assert sha(source)==expected,rel
+        files[source]=evidence/'hardware'/source.relative_to(ROOT/'hardware_campaign')
+    return list(files.items())+extra_files
 
 def build():
     result_path=ROOT/'laser_sensor_viability/results.json'
@@ -148,8 +168,22 @@ def build():
     for name in ['laser-diagnostic-lenses','rewind-amplify']:
         for ext in ['mp4','png']:files[ROOT/'animations'/f'{name}.{ext}']=assets/f'{name}.{ext}'
     files[ROOT/'animations/video_manifest.json']=assets/'video_manifest.json'
-    files.update(build_research(evidence))
-    for src,dst in files.items():shutil.copy2(src,dst)
+    files=list(files.items())+build_research(evidence)
+    for src,dst in files:
+        dst.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copy2(src,dst)
+    # Preserve local navigation from the complete new study to the separately
+    # packaged hardware tree. Canonical scientific JSON/source bytes are unchanged.
+    link_adaptations={
+        'evidence/joint-hom/README.md':('../../hardware_campaign/','../hardware/'),
+        'evidence/joint-hom/exploratory_design/README.md':('../../../hardware_campaign/','../../hardware/'),
+    }
+    adapted=[]
+    for rel,(before,after) in link_adaptations.items():
+        path=HERE/rel;old=path.read_text(encoding='utf8');new=old.replace(before,after)
+        if old!=new:
+            canonical_hash=sha(path);path.write_text(new,encoding='utf8')
+            adapted.append({'file':rel,'canonical_sha256':canonical_hash,'change':'Relative hardware-campaign links adapted for standalone folder layout.'})
     # Retire only this app's generated GIF copies after successful MP4 packaging.
     # The original scientific-animation sources remain in animations/.
     for name in ['laser-diagnostic-lenses','rewind-amplify']:
@@ -158,7 +192,7 @@ def build():
         if legacy.is_file() and original_gif.is_file() and sha(legacy)==sha(original_gif):
             if legacy.resolve().parent != assets.resolve():raise ValueError('Unexpected legacy asset path')
             legacy.unlink()
-    (evidence/'manifest.json').write_text(json.dumps({'generated_by':'import_results.py','files':{str(dst.relative_to(HERE)).replace('\\','/'):sha(dst) for dst in files.values()}},indent=2)+'\n')
+    (evidence/'manifest.json').write_text(json.dumps({'generated_by':'import_results.py','document_link_adaptations':adapted,'files':{str(dst.relative_to(HERE)).replace('\\','/'):sha(dst) for _,dst in files}},indent=2)+'\n')
     print(f'Packaged {len(scenarios)} frozen scenarios and {len(files)} evidence/assets files.')
 
 if __name__=='__main__':build()
