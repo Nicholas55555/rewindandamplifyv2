@@ -26,6 +26,8 @@ Project-authored code and documentation continue the original project's MIT lice
 
 `assessment.json` and `data_assessment.png` are derived analyses/plots; source values are unchanged. See [DATA_USE.md](external_data/gaas_qd5/DATA_USE.md). Integrated counts do not supply the individual photon arrival times required by several proposed diagnostics.
 
+The six unmodified HOM histogram CSVs and `source_readme.md` in `quantum_dot_bridge/reference_hom/` come from the same authors and dataset under **CC BY 4.0**. The separate [data notice](quantum_dot_bridge/reference_hom/DATA_LICENSE.md) and [provenance manifest](quantum_dot_bridge/reference_hom/provenance_manifest.json) identify exact source files and checksums. Their derived raw plots convert the timing axis from ps to ns without fitting visibility or normalizing acquisitions. These experimental files are separate from our synthetic quantum-dot benchmark.
+
 ## Presentation and software dependencies
 
 The conceptual cover image was generated with OpenAI image generation; it is not experimental evidence. AI assistance is disclosed in the project README and presenter guide. Referenced papers are cited, rather than redistributed as source PDFs. The supplied judging workbook, competitors' scores and private conversation exports are not part of this public repository.

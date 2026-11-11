@@ -30,6 +30,8 @@ SUITES = (
     'quantum_lithography_poc/exposure_followup',
     'quantum_lithography_poc/phase_inspection_followup',
     'external_data/gaas_qd5',
+    'quantum_dot_bridge',
+    'quantum_dot_bridge/reference_hom',
 )
 
 

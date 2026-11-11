@@ -11,6 +11,7 @@ This guide maps the public continuation of [Rewind & Amplify](https://github.com
 | Present the current work | [PPTX](../finals-deck/Rewind_Amplify_Finals_Visual.pptx), [PDF](../finals-deck/Rewind_Amplify_Finals_Visual.pdf), [timed guide](../finals-deck/Visual_Presenter_Guide.md) |
 | Check the actual IBM comparison | [Evidence note](../FINALS_EVIDENCE.md), [raw hardware directory](../rewindandamplify-main/results/hardware/), [reproduction receipt](../research-validation/hardware_verification.json) |
 | Read the completed local research | [Research findings](../RESEARCH_RESULTS.md), then the relevant study README below |
+| Explore the semiconductor connection | [Quantum-dot bridge](../quantum_dot_bridge/README.md): checked photon-coherence benchmark and external HOM reference |
 | See what remains open | The final sections of [Research findings](../RESEARCH_RESULTS.md) and the [bounded-program completion audit](../research-validation/completion_audit.json) |
 
 The presentation contains **13 main slides and 16 backups**, with a planned **9:20** main talk including a **45-second original-model demo**. This is a rehearsal plan, not measured delivery time. The PPTX has speaker notes and editable text/charts/tables. The PDF is a static image fallback without notes. Exported slides and package structure were checked; native PowerPoint playback still needs testing on the presentation machine.
@@ -21,6 +22,7 @@ The directory layout preserves the development history:
 
 - `rewindandamplify-main/` contains the original project. Its README/report describe their own snapshot and sometimes use a broader hardware headline than the closer pair featured in the current evidence note.
 - `RESEARCH_RESULTS.md` summarizes the completed followups. Its delivery section was written before those findings were integrated into the current deck and app. The current presentation links above already include the new research.
+- `quantum_dot_bridge/` is a later, separate exploration. Its results and per-study verification do not alter the 285-file frozen research snapshot or the current presentation. Its README distinguishes the illustrative calculation from imported experimental histograms.
 - The `followup/`, `drive_diagnostics_followup/`, `multibin_followup/`, `exposure_followup/`, `phase_inspection_followup/` and `full_spatial_circuit/` directories contain newer work. Earlier roadmaps may still describe these as proposed.
 - `laser_sensor_viability/results.json` is the **earlier known-onset** batch experiment. `laser_sensor_viability/followup/main/results.json` is the **newer unknown-onset** experiment. Their tasks, calibration and headline rates differ. The app labels them separately.
 - An `archive/`, `smoke/`, preliminary or failed-attempt record documents development. It is not automatically canonical evidence or an additional independent experiment. Each study README identifies its final outputs.

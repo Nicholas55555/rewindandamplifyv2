@@ -62,6 +62,8 @@ All entries below are **synthetic studies or circuit construction**, separate fr
 
 The exposure study also tests loss, blur, linear background and conventional illumination alternatives. Stronger fringe contrast does not establish a better manufactured feature, favorable dose or wafer yield. A lithography connection needs a compatible wavelength and monitoring point, measured source/detector response, strong conventional references and a measured link to exposure quality. The hypothetical 698 nm atomic study does not establish DUV/EUV compatibility.
 
+**Semiconductor connection: quantum dots.** The [new quantum-dot bridge](quantum_dot_bridge/README.md) connects confined semiconductor states, photon emission and source diagnostics. A checked illustrative model shows how equal photon counts and ideal single-photon purity can coexist with different interference quality. Six separately attributed experimental GaAs-dot HOM histograms provide a suitable observable for a future calibrated data comparison. No dot was fabricated or diagnosed, and no visibility fit to those measurements is claimed.
+
 ## Try it without a quantum account
 
 **Offline audience demo:** download or clone this repository, then open [`laser-diagnostics-app/index.html`](laser-diagnostics-app/index.html) in a local browser. No server, installation or internet is needed. GitHub displays HTML source rather than running the app. Keep the app folder intact.
@@ -105,6 +107,7 @@ To create a local shareable bundle, run `python build_finals_pack.py --public`. 
 | [`qrsm_photon_poc/`](qrsm_photon_poc/) | Emitter–cavity companion, inference, changing-drive diagnosis and coherent-history circuits |
 | [`laser_sensor_viability/`](laser_sensor_viability/) | Finite-pulse atomic/reference model and newer unknown-onset monitoring study |
 | [`quantum_lithography_poc/`](quantum_lithography_poc/) | Quantum-light exposure and separate phase-inspection models |
+| [`quantum_dot_bridge/`](quantum_dot_bridge/) | Semiconductor photon-source coherence benchmark, cost accounting and external HOM histograms |
 | [`finals-lithography/`](finals-lithography/) | Spatial process models, classical baselines and reversible circuit construction |
 | [`research-validation/`](research-validation/) | Reproduction tools, source hashes and scoped verification receipts |
 

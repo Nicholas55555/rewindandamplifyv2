@@ -24,7 +24,7 @@ DECKS = ["finals-deck/Rewind_Amplify_Finals_Visual.pptx", "finals-deck/Rewind_Am
          ".finals-deck-build/visual_build.mjs", ".finals-deck-build/visual_render_final.mjs",
          ".finals-deck-build/visual_finish.py", ".finals-deck-build/visual_notes.json"]
 TREES = ["finals-lithography", "photon_reference", "qrsm_photon_poc", "rewindandamplify-main", "external_data", "quantum_lithography_poc", "laser_sensor_poc",
-         "laser_sensor_viability", "laser-diagnostics-app", "animations", "research-validation", "finals-deck/assets"]
+         "laser_sensor_viability", "laser-diagnostics-app", "animations", "research-validation", "finals-deck/assets", "quantum_dot_bridge"]
 EXCLUDED_PARTS = {"__pycache__", ".pytest_cache", ".git", ".venv", "node_modules"}
 PRIVATE_DOCUMENTS = {"results.csv", "Qiskit_Fall_Fest_Judging_Rubric.xlsx", "WORKSPACE_AUDIT.md"}
 PUBLIC_DOCUMENTS = ["README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "CONTRIBUTING.md",

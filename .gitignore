@@ -27,6 +27,7 @@
 !/laser_sensor_poc/
 !/laser_sensor_viability/
 !/quantum_lithography_poc/
+!/quantum_dot_bridge/
 !/finals-lithography/
 !/photon_reference/
 !/external_data/
@@ -56,6 +57,7 @@
 
 # Superseded circuit binaries; preserve the bounded-attempt JSON reports.
 /finals-lithography/full_spatial_circuit/archive/*.qpy
+/quantum_dot_bridge/*_rerun*
 
 # Local environments, caches, temporary files and credentials.
 **/__pycache__/
