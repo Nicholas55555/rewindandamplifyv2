@@ -101,7 +101,7 @@ class CampaignUnitTests(unittest.TestCase):
 class CampaignPersistenceTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
-        self.here=Path(self.temp.name);self.dest=self.here/'runs'/'test';self.dest.mkdir(parents=True)
+        self.here=Path(self.temp.name).resolve();self.dest=self.here/'runs'/'test';self.dest.mkdir(parents=True)
         self.plan={'backend':'inert_test_backend','shots':10,'max_execution_time':60,'mode':'plain',
                    'pubs':[{'name':'second_logical','kind':'science','pub_index':0},
                            {'name':'first_logical','kind':'science','pub_index':1}]}
