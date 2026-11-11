@@ -11,7 +11,7 @@ This guide maps the public continuation of [Rewind & Amplify](https://github.com
 | Present the current work | [PPTX](../finals-deck/Rewind_Amplify_Finals_Visual.pptx), [PDF](../finals-deck/Rewind_Amplify_Finals_Visual.pdf), [timed guide](../finals-deck/Visual_Presenter_Guide.md) |
 | Check the actual IBM comparison | [Evidence note](../FINALS_EVIDENCE.md), [raw hardware directory](../rewindandamplify-main/results/hardware/), [reproduction receipt](../research-validation/hardware_verification.json) |
 | Read the completed local research | [Research findings](../RESEARCH_RESULTS.md), then the relevant study README below |
-| Explore the semiconductor connection | [Quantum-dot bridge](../quantum_dot_bridge/README.md): checked photon-coherence benchmark and external HOM reference |
+| Explore the semiconductor connection | [Quantum-dot bridge](../quantum_dot_bridge/README.md): checked findings, explicit QRSM mapping and missing two-photon instrument, proposed source-qualification workflow, and external HOM reference |
 | See what remains open | The final sections of [Research findings](../RESEARCH_RESULTS.md) and the [bounded-program completion audit](../research-validation/completion_audit.json) |
 
 The presentation contains **13 main slides and 18 backups**, with a planned **9:20** main talk including a **45-second original-model demo**. This is a rehearsal plan, not measured delivery time. The PPTX has speaker notes and editable text/charts/tables. The PDF is a static image fallback without notes. Exported slides and package structure were checked; native PowerPoint playback still needs testing on the presentation machine.

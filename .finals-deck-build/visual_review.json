@@ -1,12 +1,12 @@
 {
-  "review_scope": "All 31 finalized PPTX slides imported, rendered and individually visually inspected at 1280x720. All 31 PDF pages rendered with Poppler at 96 dpi, with every embedded image and page bound checked. Changed/new PDF pages 10, 23, 30 and 31 visually inspected.",
+  "review_scope": "All 31 finalized PPTX slides imported and rendered at 1280x720. Changed slides 10, 30 and 31 individually visually inspected. The remaining 28 are pixel-identical to the immediately preceding fully inspected deck. All 31 PDF pages rendered with Poppler at 96 dpi, with every embedded image and page bound checked; changed pages individually visually inspected.",
   "reviewed_slide_count": 31,
   "visual_findings": [],
   "rows": [
     {
       "slide": 1,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -17,7 +17,7 @@
     {
       "slide": 2,
       "final_matches_authored": false,
-      "accepted_import_wrap_difference": true,
+      "accepted_import_render_difference": true,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -28,7 +28,7 @@
     {
       "slide": 3,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -39,7 +39,7 @@
     {
       "slide": 4,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -50,7 +50,7 @@
     {
       "slide": 5,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -61,7 +61,7 @@
     {
       "slide": 6,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -72,7 +72,7 @@
     {
       "slide": 7,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -83,7 +83,7 @@
     {
       "slide": 8,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -94,7 +94,7 @@
     {
       "slide": 9,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -104,19 +104,19 @@
     },
     {
       "slide": 10,
-      "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "final_matches_authored": false,
+      "accepted_import_render_difference": true,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 3.6020829716435183
+      "pdf_raster_mean_absolute_rgb_error": 3.2933995225694446
     },
     {
       "slide": 11,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -127,7 +127,7 @@
     {
       "slide": 12,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -138,7 +138,7 @@
     {
       "slide": 13,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -149,7 +149,7 @@
     {
       "slide": 14,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -160,7 +160,7 @@
     {
       "slide": 15,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -171,7 +171,7 @@
     {
       "slide": 16,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -182,7 +182,7 @@
     {
       "slide": 17,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -193,7 +193,7 @@
     {
       "slide": 18,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -204,7 +204,7 @@
     {
       "slide": 19,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -215,7 +215,7 @@
     {
       "slide": 20,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -226,7 +226,7 @@
     {
       "slide": 21,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -237,7 +237,7 @@
     {
       "slide": 22,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -248,7 +248,7 @@
     {
       "slide": 23,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -259,7 +259,7 @@
     {
       "slide": 24,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -270,7 +270,7 @@
     {
       "slide": 25,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -281,7 +281,7 @@
     {
       "slide": 26,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -292,7 +292,7 @@
     {
       "slide": 27,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -303,7 +303,7 @@
     {
       "slide": 28,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -314,7 +314,7 @@
     {
       "slide": 29,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
@@ -325,24 +325,24 @@
     {
       "slide": 30,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.632064525462963
+      "pdf_raster_mean_absolute_rgb_error": 3.1304871961805554
     },
     {
       "slide": 31,
       "final_matches_authored": true,
-      "accepted_import_wrap_difference": false,
+      "accepted_import_render_difference": false,
       "pdf_embedded_image_matches_final": true,
       "pdf_page_points": [
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.6260347945601854
+      "pdf_raster_mean_absolute_rgb_error": 2.563943142361111
     }
   ],
   "native_powerpoint_opened": false,
@@ -429,8 +429,8 @@
     }
   ],
   "pdf": "Static image-based fallback without speaker notes",
-  "pptx_sha256": "41bda2faaeaf99b8288bc08702b6e53cc6fee6212c0f5d9831f0b84e8b488bb4",
-  "pdf_sha256": "e7d1cbf30a8ae6c0f32a62fb2367e6eb6a1501074ec610d4baf9354bc65da460",
+  "pptx_sha256": "30b46dbf0369eae4e839daa140d079dd885d5350ce4fcfa150ff8caba14b3eb4",
+  "pdf_sha256": "0ec53fb6f0ef6558153d8df0941b05e35bfd3e8da5a1f38972d4a0b1adb2a356",
   "pdf_raster_note": "Poppler interpolates the full-page raster slightly. Embedded PDF images preserve final slide pixels exactly.",
   "accepted_import_difference": [
     {
@@ -440,10 +440,27 @@
         420,
         1212,
         501
-      ]
+      ],
+      "reason": "Existing paragraph wrap"
+    },
+    {
+      "slide": 10,
+      "bbox": [
+        148,
+        237,
+        480,
+        266
+      ],
+      "reason": "Subheading glyph-spacing rasterization; full text retained"
     }
   ],
-  "revision": "Quantum-dot update: semiconductor photon-source bridge, illustrative counts/coherence/loss accounting, and separately attributed conditional reanalysis of external GaAs HOM histograms. 13 main slides, 18 backups, 45-second original-model demo. First nine slides preserve the original QRSM/IBM story.",
-  "validation_receipt": "visual_validation_quantum_dot_v6b.json",
-  "source_hash_count": 23
+  "revision": "Explicit QRSM bridge: why photonic operations need interference, how hidden-environment candidates would connect to a proposed joint-photon readout, identical photon marginals with different pair correlations, and source-qualification controls. Both completed dot studies are classical analyses; no dot QRSM fit or physical defect diagnosis. 13 main slides, 18 backups, 45-second original-model demo.",
+  "changed_from_previous_slides": [
+    10,
+    30,
+    31
+  ],
+  "unchanged_pixel_identical_slide_count": 28,
+  "validation_receipt": "visual_validation_qrsm_dot_bridge_v7.json",
+  "source_hash_count": 24
 }

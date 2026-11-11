@@ -10,7 +10,7 @@
   "time_limit_seconds": 600,
   "speaking_script_words": 1221,
   "native_chart_count": 3,
-  "validation_report": "../.finals-deck-build/visual_validation_quantum_dot_v6b.json",
+  "validation_report": "../.finals-deck-build/visual_validation_qrsm_dot_bridge_v7.json",
   "visual_review_report": "../.finals-deck-build/visual_review.json",
   "build_source": "../.finals-deck-build/visual_build.mjs",
   "render_source": "../.finals-deck-build/visual_render_final.mjs",
@@ -19,9 +19,9 @@
   "hardware_verification_sha256": "4320db49880ab942fc524c43491b47ea697bec92b64dcb3c18ba04b44e06795a",
   "original_after_click_verification_sha256": "0db2be4bb4d6e1a6349383554c380d446c6ba4cac5112a710e8baef1e5b49481",
   "sha256": {
-    "Rewind_Amplify_Finals_Visual.pptx": "41bda2faaeaf99b8288bc08702b6e53cc6fee6212c0f5d9831f0b84e8b488bb4",
-    "Rewind_Amplify_Finals_Visual.pdf": "e7d1cbf30a8ae6c0f32a62fb2367e6eb6a1501074ec610d4baf9354bc65da460",
-    "Visual_Presenter_Guide.md": "141ed43327afdf6021748f52997d6ba2bc4b15bb6fc4a454674308fe32fa70d7"
+    "Rewind_Amplify_Finals_Visual.pptx": "30b46dbf0369eae4e839daa140d079dd885d5350ce4fcfa150ff8caba14b3eb4",
+    "Rewind_Amplify_Finals_Visual.pdf": "0ec53fb6f0ef6558153d8df0941b05e35bfd3e8da5a1f38972d4a0b1adb2a356",
+    "Visual_Presenter_Guide.md": "53bfa29da03d2d289ae70a92e602e4283d3b840fee2ffe0cb7b38958eb95a534"
   },
   "limitations": [
     "PPTX has not been tested in native Microsoft PowerPoint.",
@@ -52,6 +52,7 @@
     "quantum_lithography_poc/exposure_followup/results.json": "b1ed512117235c49140512e1a1b3d9abc7b28c45b14c7b6d12d3682f61b7fa3b",
     "finals-lithography/full_spatial_circuit/results.json": "62769c7a89be87aab019d911d9bc6f7b778c9a73a7f1f4c044b0d43328ce3ba6",
     "quantum_dot_bridge/results.json": "362d27539b5c35e45482644b94d70223b9809ac5a77b6c2bf2aa52a86aec7889",
+    "quantum_dot_bridge/README.md": "68b963e9b3c44397808023aaf333ceab28124c44f7c930e98912a5aedc431d22",
     "quantum_dot_bridge/PROTOCOL.md": "214cfc2df08598130c2dda2ad4f9b776ca798a0c1826d15ae8fc98acd0675d9f",
     "quantum_dot_bridge/independent_review.json": "a225505250a2b9edc88d2ebdedde4c5124d0c180e141063b8ba21cd8f2eda9bd",
     "quantum_dot_bridge/reference_hom/provenance_manifest.json": "4fca920191b564659c5d24fdfaaf2deb6cc8f79521a77360424678ac8f43642a",

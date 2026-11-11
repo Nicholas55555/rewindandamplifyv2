@@ -13,6 +13,32 @@ flowchart LR
     E --> F[Calibrate and compare physical models]
 ```
 
+## What we learned for the original QRSM project
+
+The semiconductor question is concrete: **does a photon source deliver photons that can perform the required interference operation, and which measurements can distinguish possible causes when it does not?** Our calculations establish requirements for that investigation. They check established optical physics; they do not introduce a new interference effect.
+
+| What we actually checked | What it teaches the QRSM project | Possible engineering use after device validation |
+|---|---|---|
+| At the same imposed brightness and zero multiphoton emission, the four model cases have overlaps 1.00, 0.50, 0.20 and 0.25. | A model cannot infer every useful property from photon counts alone. Choose a measurement that is sensitive to the proposed mechanism. | Qualify photon sources using interference quality as well as delivered counts and multiphoton suppression. |
+| With the same individual-photon frequency distributions, persistent versus independently redrawn offsets give pair overlaps 1.00 versus 0.60. | Retaining environmental correlations can change predictions that independent-event descriptions miss. This example has classical memory; an HMM remains a relevant comparator. | Test source quality at photon separations relevant to the intended circuit, rather than relying on one averaged spectrum. |
+| In external GaAs data, the last corrected contrast is 0.7724 with our primary normalization and 0.7938 with the co-only alternative. | The observation model and its controls can change the inferred answer. This parallels the original detector-aware QRSM lesson: measurement errors can masquerade as physical changes. | Check polarization, timing, routing and reference normalization before attributing poor interference to the emitter. |
+| Independent photon survival falling from 0.8 to 0.2 requires 16 times as many attempts for equal expected surviving-pair counts. | Useful information must be evaluated with the acquisition cost that produces it. | Compare an operating point or filter by both photon quality and delivered-pair yield. |
+
+The original QRSM retains a hidden state, updates it after an observed outcome, and predicts later observations. A dot's selected optical transition could take the emitter role; a candidate local environment could supply the hidden dynamics. **That is a proposed physical mapping, not a completed fit.** The original QRSM uses a sequential binary measurement instrument. HOM jointly interferes two photons, so extending the QRSM requires a two-photon measurement model and suitable records. The six aggregate histograms do not supply per-pulse binary trajectories. Neither that extended instrument nor a fitted quantum-dot QRSM exists in this work.
+
+The current dot benchmark and histogram analysis run classically. The prescribed offset memory is classical, and it does not establish a need for coherent hidden qubits. Grover-style amplification would subsequently ask conditional questions of a specified reversible model; it does not replace acquiring the missing interference measurement or prove a computational speedup here.
+
+## A proposed semiconductor-device workflow
+
+The nearest practical user is an engineer characterizing a single-photon source for a quantum photonic chip. [Davanco et al.](https://www.nist.gov/publications/heterogeneous-integration-chip-quantum-photonic-circuits-single-quantum-dot-devices) demonstrated quantum-dot devices coupled into integrated silicon-nitride photonic circuits, providing a real device context. Our proposed workflow is:
+
+1. Measure delivered counts, multiphoton suppression and photon interference at the delays required by the intended circuit; retain calibration and acquisition cost.
+2. Check reference brightness, polarization, timing, routing and detector response. Independently vary source bias, excitation or temperature where the platform permits.
+3. Compare candidate physical hidden-state models and classical alternatives on records not used for fitting. Test whether the predicted response to a controlled change actually occurs.
+4. Use those validated measurements to select or tune a source and decide which component to investigate. A uniquely identified microscopic defect or improved fabrication yield needs further evidence.
+
+This is a source-characterization application within semiconductor quantum photonics. Monitoring a lithography laser is a separate transfer problem requiring a compatible coupling scheme and measured process relevance.
+
 ## Which kind of quantum dot?
 
 | Platform | Physical role | Connection to this project |
@@ -124,4 +150,4 @@ python quantum_dot_bridge/independent_check.py --output quantum_dot_bridge/indep
 
 The model and its tests need only the pinned NumPy in [requirements.txt](requirements.txt); plotting additionally needs Matplotlib, and the separate adaptive check needs SciPy, both present in the root development environment. The adaptive check verifies the canonical saved results; its output argument selects a fresh review receipt. The benchmark runner and plotter reject existing output paths unless an explicit overwrite option is supplied; the adaptive checker always requires a new output path. The current ten-minute presentation and offline app include this semiconductor connection; detailed values stay in Q&A material. The earlier 285-file frozen research snapshot remains unchanged.
 
-**Possible judge explanation:** “A quantum dot is a semiconductor structure with confined quantum states. It can emit one photon at a time, but a bright source can still produce photons that interfere poorly. Our next diagnostic question is whether a physical model plus the right optical measurements can reveal the noise behind that loss of usefulness.”
+**Judge explanation:** “Our QRSM asks how hidden dynamics change later measurements. A quantum dot makes that question concrete in a semiconductor photon source. We checked that equally bright single-photon sources can interfere very differently, and that correlations between photons matter. We also found that calibration choices affect the answer extracted from real published data. That tells us what a useful diagnostic model must measure and control. The practical target is selecting and tuning sources for photonic chips. Building and validating that measurement model inside the QRSM is the next step.”

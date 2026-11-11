@@ -40,7 +40,9 @@ For inspection, preparation failure costs time at equal dose. At 1% pair-source 
 
 ## Semiconductor connection
 
-An optically active quantum dot is a semiconductor source whose confined states emit photons. Counts and single-photon purity alone can miss loss of interference quality. The checked model holds both fixed while varying photon overlap; independent collection loss also makes pair measurements costly. The new **Quantum dots** app view and backups 30–31 explain this distinction and separately show a bounded reanalysis of published GaAs HOM histograms. See quantum_dot_bridge/README.md and hom_analysis/README.md below it.
+The original QRSM asks how hidden dynamics change later measurement outcomes. An optically active quantum dot gives that question a semiconductor setting: a confined optical transition emits photons whose usefulness depends on interference, as well as their count rate. Our model checks that equal counts and zero multiphoton emission can hide different overlap. It also checks that pair memory matters at fixed individual-photon frequency distributions. The **Quantum dots** app view and backups 30–31 explain these results and the calibration limits in published GaAs measurements.
+
+The practical target is selecting and tuning photon sources for quantum photonic chips. A future diagnostic would compare counts, interference and pair yield under calibrated, controlled changes. Extending the QRSM requires a two-photon measurement model and suitable records; that instrument and a fitted dot QRSM have not yet been built. The current dot calculations and reanalysis run classically. See quantum_dot_bridge/README.md for the explicit mapping and proposed engineer workflow.
 
 The external histograms are the authors' measurements. Their exact extraction settings are not fully specified, and three aggregated photon-delay pairs cannot identify a microscopic defect. These are useful source-characterization lessons; a lithography-laser monitor still needs its own compatible physical interface and validation.
 

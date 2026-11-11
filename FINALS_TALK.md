@@ -15,7 +15,7 @@ The plan is **9 minutes 20 seconds**, including a **45-second original QRSM demo
 | 4:05–5:00 | A reversible model makes amplification possible |
 | 5:00–6:00 | More matching answers with fewer gates |
 | 6:00–6:45 | The query returns a prediction about the next clicks |
-| 6:45–7:25 | Quantum dots connect semiconductors to photons |
+| 6:45–7:25 | Quantum-dot source quality and the QRSM |
 | 7:25–8:10 | The classical reference leads with unknown onset |
 | 8:10–8:50 | The evidence changes our next experiment |
 | 8:50–9:20 | Our contribution and what we learned |
@@ -24,7 +24,7 @@ The first nine slides explain the original quantum-computing project. Define the
 
 The main sensor chart now uses unknown-onset monitoring: detect the first source event within 32 seconds of its unknown onset in a 128-second record. False alarms refer to the entire record. The earlier known-time experiment remains separately labeled in the app and must not supply rates, RMSEs or failure-case numbers for this chart.
 
-Slide 10 introduces semiconductor quantum dots and explains why photon counts alone miss interference quality. The direct application is characterization of sources for quantum photonic chips. A lithography-laser diagnostic still needs a compatible interface and a separate physical test. Keep the toy overlap values and external HOM extraction in backups 30–31.
+Slide 10 explicitly connects the original QRSM question to semiconductor photon-source quality. The QRSM predicts observations conditioned on hidden dynamics; a dot supplies a possible physical emitter and environment to investigate. Our model shows why counts alone miss interference quality, and why correlations matter. The proposed practical use is qualifying or tuning sources for quantum photonic chips with calibrated measurements and a yield budget. A joint two-photon measurement model has not yet been added to or fitted inside the QRSM. Keep the memory comparison and external HOM extraction in backups 30–31. A lithography-laser diagnostic still needs a separate compatible interface and physical test.
 
 The research decision slide includes the poor amplitude-monitor result and a conditional phase-inspection opportunity. Explain that most of the apparent amplitude-estimation gain came from the positive prior. Phase estimation at matched object-incident photons does not establish a printed-feature or wafer benefit. Keep the detailed budgets and controls for Q&A.
 

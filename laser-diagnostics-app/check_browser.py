@@ -83,6 +83,10 @@ def main():
         page.locator('#study-progress').click();expect_text(page,'#spatial-values','389 qubits');expect_text(page,'#spatial-values','2,874,028 CX');expect_text(page,'#spatial-values','3,382,108 CX');expect_text(page,'#inference-values','0.069');expect_text(page,'#inference-values','0.706');no_overflow(page)
         screenshot(page,'preview-research-progress.png');checks.append('Inference pairing and complete explicit circuit ledger visible')
         page.locator('#study-dot').focus();page.keyboard.press('Enter');assert page.locator('#research-dot').is_visible()
+        for phrase in ['20% to 100%','100% or 60%','77.24% and 79.38%','QRSM component','classical trap can use a hidden Markov model','No quantum-dot QRSM fit','Proposed workflow:','vary bias or excitation','lithography-laser sensor is a separate']:
+            expect_text(page,'#dot-project-bridge',phrase)
+        screenshot(page,'preview-research-dot-bridge.png','#dot-project-bridge')
+        checks.append('QRSM-to-dot bridge distinguishes measured observables, proposed model mapping and future semiconductor-device QA')
         for case in dot['benchmark_cases']:
             page.locator('#dot-case').select_option(case['case'])
             assert percent_matches(page.locator('#dot-overlap').inner_text(),case['conditional_overlap'])
@@ -140,6 +144,7 @@ def main():
             page.locator('#study-'+study).click();no_overflow(page)
             screenshot(page,'preview-research-'+study+'-mobile.png')
         screenshot(page,'preview-research-dot-model-mobile.png','#research-dot .dot-benchmark');screenshot(page,'preview-research-dot-data-mobile.png','#research-dot .dot-published')
+        screenshot(page,'preview-research-dot-bridge-mobile.png','#dot-project-bridge')
         checks.append('390x844 mobile: all five study views have no document horizontal overflow and readable HTML data')
         page.emulate_media(reduced_motion='reduce');page.reload();page.wait_for_selector('#tab-research');assert page.locator('#motion').is_disabled() and page.locator('#replay').is_disabled() and page.locator('#walk').is_disabled()
         checks.append('Reduced-motion preference disables historical autoplay-style controls; MP4s have no autoplay')
