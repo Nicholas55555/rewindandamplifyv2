@@ -51,6 +51,7 @@ jobs:
         run: |
           python quantum_dot_bridge/verify_results.py
           python quantum_dot_bridge/reference_hom/import_verify.py
+          python quantum_dot_bridge/hom_analysis/independent_check.py
       - name: Confirm checks did not rewrite tracked evidence
         run: git diff --exit-code
 
@@ -79,6 +80,8 @@ jobs:
         run: python .github/scripts/run_tests.py --group core
       - name: Test bounded optical, sensor and process models
         run: python .github/scripts/run_tests.py --group research
+      - name: Recompute conditional HOM analysis without changing saved files
+        run: python quantum_dot_bridge/hom_analysis/verify_results.py
       - name: Confirm frozen research artifacts remain unchanged
         run: python verify_research_pack.py .
       - name: Confirm tests did not rewrite tracked files

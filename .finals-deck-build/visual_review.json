@@ -1,6 +1,6 @@
 {
-  "review_scope": "All 29 finalized PPTX slides imported, rendered and individually visually inspected at 1280x720. All 29 PDF pages rendered with Poppler at 96 dpi, with every embedded image and page bound checked. Changed/new PDF pages 4, 11\u201313, 15\u201318 and 25\u201329 visually inspected.",
-  "reviewed_slide_count": 29,
+  "review_scope": "All 31 finalized PPTX slides imported, rendered and individually visually inspected at 1280x720. All 31 PDF pages rendered with Poppler at 96 dpi, with every embedded image and page bound checked. Changed/new PDF pages 10, 23, 30 and 31 visually inspected.",
+  "reviewed_slide_count": 31,
   "visual_findings": [],
   "rows": [
     {
@@ -111,7 +111,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 2.4346871383101854
+      "pdf_raster_mean_absolute_rgb_error": 3.6020829716435183
     },
     {
       "slide": 11,
@@ -254,7 +254,7 @@
         960.0,
         540.0
       ],
-      "pdf_raster_mean_absolute_rgb_error": 3.0727014612268517
+      "pdf_raster_mean_absolute_rgb_error": 3.059445167824074
     },
     {
       "slide": 24,
@@ -321,6 +321,28 @@
         540.0
       ],
       "pdf_raster_mean_absolute_rgb_error": 3.4319835069444444
+    },
+    {
+      "slide": 30,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.632064525462963
+    },
+    {
+      "slide": 31,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.6260347945601854
     }
   ],
   "native_powerpoint_opened": false,
@@ -384,8 +406,8 @@
     {
       "slide": 10,
       "seconds": 40,
-      "words": 90,
-      "words_per_minute": 135.0
+      "words": 89,
+      "words_per_minute": 133.5
     },
     {
       "slide": 11,
@@ -407,8 +429,8 @@
     }
   ],
   "pdf": "Static image-based fallback without speaker notes",
-  "pptx_sha256": "0e7fb7752b4b27757fabaf175123ea633951e239d2e00d422a2dfef98ad17893",
-  "pdf_sha256": "fb1a124598f47638294deac0eec624b303610577ffbea309925ca59c44a2e461",
+  "pptx_sha256": "41bda2faaeaf99b8288bc08702b6e53cc6fee6212c0f5d9831f0b84e8b488bb4",
+  "pdf_sha256": "e7d1cbf30a8ae6c0f32a62fb2367e6eb6a1501074ec610d4baf9354bc65da460",
   "pdf_raster_note": "Poppler interpolates the full-page raster slightly. Embedded PDF images preserve final slide pixels exactly.",
   "accepted_import_difference": [
     {
@@ -421,7 +443,7 @@
       ]
     }
   ],
-  "revision": "Research update: fresh deadtime inference, unknown-onset sensor, negative drive/prior control, conditional phase benefit, three-bin and full49 circuit cost, exposure sensitivity and cavity-cutoff limitations. 13 main slides, 16 backups, 45-second original-model demo. First nine slides preserve the original QRSM/IBM story.",
-  "validation_receipt": "visual_validation_research_v5b.json",
-  "source_hash_count": 16
+  "revision": "Quantum-dot update: semiconductor photon-source bridge, illustrative counts/coherence/loss accounting, and separately attributed conditional reanalysis of external GaAs HOM histograms. 13 main slides, 18 backups, 45-second original-model demo. First nine slides preserve the original QRSM/IBM story.",
+  "validation_receipt": "visual_validation_quantum_dot_v6b.json",
+  "source_hash_count": 23
 }

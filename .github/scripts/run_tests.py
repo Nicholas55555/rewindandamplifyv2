@@ -32,6 +32,7 @@ SUITES = (
     'external_data/gaas_qd5',
     'quantum_dot_bridge',
     'quantum_dot_bridge/reference_hom',
+    'quantum_dot_bridge/hom_analysis',
 )
 
 

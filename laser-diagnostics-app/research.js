@@ -79,7 +79,7 @@
   value(ledger,'Explicit clean-ancilla circuit',q.toLocaleString()+' qubits','196 data + 23 score + 170 additional clean ancillas',colors[1]);
   for(const id of ['ceil','floor'])value(ledger,`${id==='ceil'?'Upper':'Lower'} rounded weights`,f.explicit_synthesis_costs[id].complete_one_round_generic_cx_constructive_upper_bound.toLocaleString()+' CX','one complete round · constructive upper bound',colors[0]);
  }
- function show(id){document.querySelectorAll('[data-study]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.study===id));document.querySelectorAll('.research-study').forEach(s=>s.hidden=s.id!=='research-'+id);}
+ function show(id){document.querySelectorAll('[data-study]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.study===id));document.querySelectorAll('.research-study').forEach(s=>s.hidden=s.id!=='research-'+id);if(id==='dot'&&window.QuantumDotUI)requestAnimationFrame(()=>window.QuantumDotUI.drawHistogram());}
  select('frequency-case',S.frequency.scenarios.map(c=>c.id),'unseen_nominal_sessions');select('drive-case',Object.keys(S.drive.cases),'source_step_20pct');select('phase-case',S.phase.cases.map(c=>c.id),'high_efficiency');
  for(const id of ['frequency-case','frequency-rule'])$(id).addEventListener('change',frequency);
  $('drive-case').addEventListener('change',drive);for(const id of ['phase-case','phase-budget'])$(id).addEventListener('change',phase);

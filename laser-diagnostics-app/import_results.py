@@ -7,6 +7,7 @@ from pathlib import Path
 import hashlib
 import json
 import shutil
+import csv
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent
@@ -22,6 +23,9 @@ RESEARCH_SOURCES={
     'spatial':'finals-lithography/full_spatial_circuit/results.json',
     'inference_ignored':'qrsm_photon_poc/followup/inference_results/fixed_411101_dead1_fit0.json',
     'inference_aware':'qrsm_photon_poc/followup/inference_results/fixed_411101_dead1_fit1.json',
+    'dot':'quantum_dot_bridge/results.json',
+    'hom_reference':'quantum_dot_bridge/reference_hom/provenance_manifest.json',
+    'hom_analysis':'quantum_dot_bridge/hom_analysis/results.json',
 }
 
 def build_research(evidence):
@@ -31,10 +35,31 @@ def build_research(evidence):
     assert len(sources['drive']['cases'])==13
     assert sources['prior']['main_results_sha256']==sha(ROOT/RESEARCH_SOURCES['drive'])
     assert sources['inference_ignored']['test_sha256']==sources['inference_aware']['test_sha256']
+    assert sources['dot']['provenance']['all_quadrature_checks_passed']
+    assert sources['hom_reference']['all_checks_passed']
+    assert sources['hom_analysis']['schema']=='hom-area-analysis-v1'
+    assert sources['hom_analysis']['reference_manifest_sha256']==sha(ROOT/RESEARCH_SOURCES['hom_reference'])
+    primary_review=json.loads((ROOT/'quantum_dot_bridge/hom_analysis/independent_primary.json').read_text())
+    assert primary_review['results_sha256']==sha(ROOT/RESEARCH_SOURCES['hom_analysis'])
+    assert primary_review['all_primary_areas_centers_and_point_estimates_match']
+    histograms=[]
+    for entry in sources['hom_reference']['files']:
+        source=ROOT/'quantum_dot_bridge/reference_hom'/entry['path']
+        assert sha(source)==entry['sha256']
+        assert sources['hom_analysis']['raw_sha256'][entry['path']]==entry['sha256']
+        with source.open(newline='',encoding='utf8') as f:
+            reader=csv.DictReader(f)
+            assert reader.fieldnames==['Time (ps)','Counts']
+            rows=[[int(r['Time (ps)']),int(r['Counts'])] for r in reader]
+        assert len(rows)==5000 and sum(r[1] for r in rows)==entry['count_sum']
+        histograms.append({'file':entry['path'],'local':'evidence/hom/'+entry['path'],
+                           'sha256':entry['sha256'],'polarization':entry['polarization'],
+                           'excitation_pulse_separation_ns':entry['excitation_pulse_separation_ns'],
+                           'time_ps':[r[0] for r in rows],'counts':[r[1] for r in rows]})
     for path in ['qrsm_photon_poc/drive_diagnostics_followup/main/independent_review.json',
                  'qrsm_photon_poc/drive_diagnostics_followup/main/prior_only_independent_review.json']:
         assert json.loads((ROOT/path).read_text())['all_checks_passed']
-    payload={'snapshot':'11 November 2026','sources':sources,
+    payload={'snapshot':'11 November 2026','sources':sources,'hom_histograms':histograms,
              'provenance':{key:{'canonical':rel,'local':f'evidence/research_{key}.json','sha256':sha(ROOT/rel)} for key,rel in RESEARCH_SOURCES.items()}}
     (HERE/'research-data.js').write_text('// Generated exact followup outputs; no experiment runs in the browser.\nwindow.RESEARCH_DATA='+json.dumps(payload,separators=(',',':'),ensure_ascii=False)+';\n',encoding='utf8')
     files={ROOT/rel:evidence/f'research_{key}.json' for key,rel in RESEARCH_SOURCES.items()}
@@ -50,7 +75,20 @@ def build_research(evidence):
         'laser_sensor_viability/followup/validation.json':'frequency_validation.json',
         'quantum_lithography_poc/phase_inspection_followup/verification.json':'phase_verification.json',
         'finals-lithography/full_spatial_circuit/independent_review.json':'spatial_independent_review.json',
+        'quantum_dot_bridge/README.md':'QUANTUM_DOTS.md',
+        'quantum_dot_bridge/PROTOCOL.md':'QUANTUM_DOT_PROTOCOL.md',
+        'quantum_dot_bridge/independent_review.json':'dot_independent_review.json',
+        'quantum_dot_bridge/reference_hom/README.md':'HOM_REFERENCE.md',
+        'quantum_dot_bridge/reference_hom/DATA_LICENSE.md':'HOM_DATA_LICENSE.md',
+        'quantum_dot_bridge/reference_hom/validation.json':'hom_reference_validation.json',
+        'quantum_dot_bridge/hom_analysis/PROTOCOL.md':'HOM_ANALYSIS_PROTOCOL.md',
+        'quantum_dot_bridge/hom_analysis/README.md':'HOM_ANALYSIS.md',
+        'quantum_dot_bridge/hom_analysis/independent_primary.json':'hom_analysis_independent_primary.json',
+        'quantum_dot_bridge/hom_analysis/validation.json':'hom_analysis_validation.json',
     }.items():files[ROOT/src]=evidence/name
+    (evidence/'hom').mkdir(exist_ok=True)
+    for entry in sources['hom_reference']['files']:
+        files[ROOT/'quantum_dot_bridge/reference_hom'/entry['path']]=evidence/'hom'/entry['path']
     return files
 
 def build():

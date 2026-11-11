@@ -66,7 +66,7 @@ test('Original after-click explorer retains the verified query and distinct long
 function research(){const context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'research-data.js'),'utf8'),context);return context.window.RESEARCH_DATA;}
 test('Current research has byte-exact evidence copies and canonical hashes, separate from the old sensor',()=>{
  const d=research(),hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
- assert.equal(Object.keys(d.sources).length,7);
+ assert.equal(Object.keys(d.sources).length,10);
  for(const [key,meta] of Object.entries(d.provenance)){
   const bytes=fs.readFileSync(path.join(__dirname,meta.local));assert.equal(hash(bytes),meta.sha256);
   assert.equal(JSON.stringify(d.sources[key]),JSON.stringify(JSON.parse(bytes)));
@@ -75,6 +75,57 @@ test('Current research has byte-exact evidence copies and canonical hashes, sepa
  assert.equal(d.sources.frequency.mode,'main');assert.ok(d.sources.frequency.protocol.detector.includes('onset is never supplied'));
  const old=JSON.parse(fs.readFileSync(path.join(__dirname,'evidence/sensor_results.json')));
  assert.notEqual(JSON.stringify(d.sources.frequency.scenarios),JSON.stringify(old.scenarios));
+});
+test('Quantum-dot case values preserve imposed brightness and distinct overlap physics',()=>{
+ const d=research().sources.dot;assert.equal(d.benchmark_cases.length,4);
+ for(const [i,c] of d.benchmark_cases.entries()){
+  near(c.conditional_overlap,[1,.5,.2,.25][i]);near(c.single_photon_survival_probability,.2);assert.equal(c.ideal_g2_zero_imposed,0);
+  near(c.coincidence_probability_per_excitation_pair,.2**2*(1-c.conditional_overlap)/2);
+  const gamma=1/c.first.lifetime_s,a=gamma+2*c.first.pure_dephasing_per_s;
+  near(c.conditional_overlap,gamma*a/(a*a+c.differential_angular_detuning_per_s**2));
+ }
+ assert.ok(d.assumptions.some(s=>s.includes('not calibrated')));assert.ok(d.provenance.all_quadrature_checks_passed);
+});
+test('Quantum-dot trap correlations keep equal marginals and loss charges pair attempts',()=>{
+ const d=research().sources.dot;
+ d.classical_trap_pair_comparison.forEach((c,i)=>{
+  near(c.conditional_overlap,[1,.984,.92,.6][i]);
+  assert.equal(JSON.stringify(c.each_single_photon_marginal_offset_probabilities),'[0.5,0.5]');
+  for(const row of c.joint_endpoint_probabilities)near(row[0]+row[1],.5);
+ });
+ for(const c of d.collection_loss_sweep){near(c.conditional_overlap,.5);near(c.both_photons_survive_probability,c.single_photon_survival_probability**2);}
+ const loss=eta=>d.collection_loss_sweep.find(c=>c.single_photon_survival_probability===eta);
+ near(loss(.2).expected_excitation_pairs_per_surviving_pair/loss(.8).expected_excitation_pairs_per_surviving_pair,16);
+ assert.equal(loss(0).expected_excitation_pairs_per_surviving_pair,null);
+});
+test('Six external HOM histograms retain every raw bin, source checksum and separate attribution',()=>{
+ const d=research(),r=d.sources.hom_reference;
+ assert.equal(r.license.id,'CC-BY-4.0');assert.equal(r.compatibility.team_data,false);assert.equal(r.compatibility.team_fit,false);
+ assert.equal(d.hom_histograms.length,6);assert.equal(r.files.length,6);
+ for(const h of d.hom_histograms){const meta=r.files.find(f=>f.path===h.file),bytes=fs.readFileSync(path.join(__dirname,h.local));
+  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),h.sha256);assert.equal(h.sha256,meta.sha256);
+  const lines=bytes.toString('utf8').trim().split(/\r?\n/);assert.equal(lines.shift(),'Time (ps),Counts');assert.equal(lines.length,5000);
+  lines.forEach((line,i)=>{const [t,c]=line.split(',').map(Number);assert.equal(h.time_ps[i],t);assert.equal(h.counts[i],c);});
+  assert.equal(h.counts.reduce((a,b)=>a+b,0),meta.count_sum);assert.equal(meta.duration_seconds,null);
+ }
+ assert.equal(JSON.stringify(r.paper_reported_corrected_visibility.map(c=>c.value)),'[0.803,0.826,0.774]');
+ assert.notEqual(r.paper_reported_corrected_visibility[0].value,d.sources.dot.benchmark_cases[0].conditional_overlap);
+});
+test('HOM reanalysis remains tied to the raw data and separates conditional intervals from protocol sensitivity',()=>{
+ const d=research(),a=d.sources.hom_analysis;assert.equal(a.schema,'hom-area-analysis-v1');
+ assert.equal(a.reference_manifest_sha256,d.provenance.hom_reference.sha256);
+ assert.match(a.scope,/not exact author-pipeline reproduction/);assert.match(a.uncertainty_scope,/excludes normalization/);
+ for(const h of d.hom_histograms)assert.equal(a.raw_sha256[h.file],h.sha256);
+ assert.equal(a.cases.length,3);
+ for(const c of a.cases){
+  assert.equal(c.sensitivity.length,70);assert.equal(c.paper_reported.independent_comparison,false);
+  const p=c.primary;near(p.raw_visibility,1-p.co_central_reference_ratio/p.cross_central_reference_ratio);
+  const r=a.configuration.reflectivity_mean_sd[0],t=1-r,g=a.configuration.g2_mean_sd[0];
+  near(p.corrected_visibility,(r*r+t*t)/(2*r*t)*(p.raw_visibility+g)/(1-g));
+  assert.ok(p.corrected_interval95[0]<p.corrected_visibility&&p.corrected_interval95[1]>p.corrected_visibility);
+  near(Math.min(...c.sensitivity.map(v=>v.corrected_visibility)),c.sensitivity_range_all_declared_variants[0]);
+  near(Math.max(...c.sensitivity.map(v=>v.corrected_visibility)),c.sensitivity_range_all_declared_variants[1]);
+ }
 });
 test('Unknown-onset data preserve record denominators and the independent coherent comparator',()=>{
  const f=research().sources.frequency;assert.equal(f.scenarios.length,6);

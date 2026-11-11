@@ -3,14 +3,14 @@
   "pdf": "Rewind_Amplify_Finals_Visual.pdf",
   "presenter_guide": "Visual_Presenter_Guide.md",
   "main_slide_count": 13,
-  "total_slide_count": 29,
-  "notes_count": 29,
+  "total_slide_count": 31,
+  "notes_count": 31,
   "talk_timing_seconds": 560,
   "demo_seconds": 45,
   "time_limit_seconds": 600,
-  "speaking_script_words": 1222,
+  "speaking_script_words": 1221,
   "native_chart_count": 3,
-  "validation_report": "../.finals-deck-build/visual_validation_research_v5b.json",
+  "validation_report": "../.finals-deck-build/visual_validation_quantum_dot_v6b.json",
   "visual_review_report": "../.finals-deck-build/visual_review.json",
   "build_source": "../.finals-deck-build/visual_build.mjs",
   "render_source": "../.finals-deck-build/visual_render_final.mjs",
@@ -19,9 +19,9 @@
   "hardware_verification_sha256": "4320db49880ab942fc524c43491b47ea697bec92b64dcb3c18ba04b44e06795a",
   "original_after_click_verification_sha256": "0db2be4bb4d6e1a6349383554c380d446c6ba4cac5112a710e8baef1e5b49481",
   "sha256": {
-    "Rewind_Amplify_Finals_Visual.pptx": "0e7fb7752b4b27757fabaf175123ea633951e239d2e00d422a2dfef98ad17893",
-    "Rewind_Amplify_Finals_Visual.pdf": "fb1a124598f47638294deac0eec624b303610577ffbea309925ca59c44a2e461",
-    "Visual_Presenter_Guide.md": "13cd22375180e2f12fa394a491a3c60d3a56b70e3e3d424acf0d73e0c68feeb0"
+    "Rewind_Amplify_Finals_Visual.pptx": "41bda2faaeaf99b8288bc08702b6e53cc6fee6212c0f5d9831f0b84e8b488bb4",
+    "Rewind_Amplify_Finals_Visual.pdf": "e7d1cbf30a8ae6c0f32a62fb2367e6eb6a1501074ec610d4baf9354bc65da460",
+    "Visual_Presenter_Guide.md": "141ed43327afdf6021748f52997d6ba2bc4b15bb6fc4a454674308fe32fa70d7"
   },
   "limitations": [
     "PPTX has not been tested in native Microsoft PowerPoint.",
@@ -30,7 +30,6 @@
   ],
   "source_assets": [
     "assets/optical-cover.png",
-    "../animations/laser-diagnostic-lenses.png",
     "../laser-diagnostics-app/app-core-query.jpg",
     "../rewindandamplify-main/results/figures/fig_circuit_hybrid.png",
     "../rewindandamplify-main/results/figures/fig_circuit_grover.png"
@@ -51,6 +50,13 @@
     "qrsm_photon_poc/followup/inference_results/fixed_411101_dead1_fit1.json": "84a85bb5c07211efc39b4bdc5e36480268fcbf90869f96bc9dd947b567c773b6",
     "quantum_lithography_poc/phase_inspection_followup/results.json": "8c9ac370ed20a154376bb19b0ae6947f01346fa05fccb3d191e280adb927d6f4",
     "quantum_lithography_poc/exposure_followup/results.json": "b1ed512117235c49140512e1a1b3d9abc7b28c45b14c7b6d12d3682f61b7fa3b",
-    "finals-lithography/full_spatial_circuit/results.json": "62769c7a89be87aab019d911d9bc6f7b778c9a73a7f1f4c044b0d43328ce3ba6"
+    "finals-lithography/full_spatial_circuit/results.json": "62769c7a89be87aab019d911d9bc6f7b778c9a73a7f1f4c044b0d43328ce3ba6",
+    "quantum_dot_bridge/results.json": "362d27539b5c35e45482644b94d70223b9809ac5a77b6c2bf2aa52a86aec7889",
+    "quantum_dot_bridge/PROTOCOL.md": "214cfc2df08598130c2dda2ad4f9b776ca798a0c1826d15ae8fc98acd0675d9f",
+    "quantum_dot_bridge/independent_review.json": "a225505250a2b9edc88d2ebdedde4c5124d0c180e141063b8ba21cd8f2eda9bd",
+    "quantum_dot_bridge/reference_hom/provenance_manifest.json": "4fca920191b564659c5d24fdfaaf2deb6cc8f79521a77360424678ac8f43642a",
+    "quantum_dot_bridge/hom_analysis/results.json": "9e66fd73027780f61219af8ff493d652911622473dfb29cbe9be37ffaa79a19a",
+    "quantum_dot_bridge/hom_analysis/PROTOCOL.md": "c8bfbbb3932e6657dc8311ce655eedfd33a9ed37e32b84798a7073f26fbefafb",
+    "quantum_dot_bridge/hom_analysis/independent_primary.json": "c50b7baa5ac16dc632fb1942170e7cb18f126ab8b9943290d7e898b2ac814ea3"
   }
 }

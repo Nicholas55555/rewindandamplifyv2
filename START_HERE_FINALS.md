@@ -1,6 +1,6 @@
 # Rewind & Amplify finals handoff
 
-Current presentation revision: **11 November 2026**, incorporating the completed research followups. Team: FGCU Qubits. Finals: Saturday 14 November at FAU. The team's speaking limit is ten minutes.
+Current presentation revision: **11 November 2026**, incorporating the completed research followups and the later semiconductor quantum-dot exploration. Team: FGCU Qubits. Finals: Saturday 14 November at FAU. The team's speaking limit is ten minutes.
 
 ## Open these first
 
@@ -8,7 +8,7 @@ Current presentation revision: **11 November 2026**, incorporating the completed
 2. **Presenter guide:** finals-deck/Visual_Presenter_Guide.md. Use its current narration, timing, sources and handoffs. The same notes are embedded in the PowerPoint.
 3. **Offline application:** laser-diagnostics-app/index.html. Keep its folder together. Start on the original QRSM chapter and select **Focus view**. **Current research** supports questions. The earlier sensor study remains explicitly labeled.
 4. **Fallbacks:** finals-deck/Rewind_Amplify_Finals_Visual.pdf and the MP4s in animations/. The PDF is a static visual fallback without notes. The two 12-second silent videos explain concepts from earlier optical/sensing extensions; they are not current benchmark evidence or laboratory recordings.
-5. **Portable presentation pack:** Rewind_Amplify_Finals_Visual_Pack.zip. Extract before opening the app. A separate Rewind_Amplify_Research_Followups.zip retains the checked research snapshot and its full circuit artifacts.
+5. **Portable public pack:** Rewind_Amplify_v2_Public_Pack.zip. Extract before opening the app. Rebuild it with `python build_finals_pack.py --public` if needed. Older local presentation archives predate this revision and may contain private judging material; use the public pack for sharing. A separate Rewind_Amplify_Research_Followups.zip retains the earlier checked research snapshot and its full circuit artifacts.
 
 No account, server, Wi-Fi or live quantum processor is needed. Native PowerPoint playback, the projector and actual speaking time still need a rehearsal on the presentation computer. Prior root support documents and the previous portable pack are preserved in finals-archive/2026-11-11-before-research-update/.
 
@@ -38,11 +38,17 @@ The new frequency study searches an unknown onset and scores the first alarm wit
 
 For inspection, preparation failure costs time at equal dose. At 1% pair-source success, the pure NOON probe takes 100 times as long as the coherent reference to match dose; the 10/90 hybrid takes 90.1 times as long under its fixed photon allocation. The benefit disappears in the tested equal-time case. Greater loss can remove even the equal-dose precision benefit. Direct quantum-light exposure remains a separate sensitivity study with hypothetical material coefficients and no printed structures.
 
+## Semiconductor connection
+
+An optically active quantum dot is a semiconductor source whose confined states emit photons. Counts and single-photon purity alone can miss loss of interference quality. The checked model holds both fixed while varying photon overlap; independent collection loss also makes pair measurements costly. The new **Quantum dots** app view and backups 30–31 explain this distinction and separately show a bounded reanalysis of published GaAs HOM histograms. See quantum_dot_bridge/README.md and hom_analysis/README.md below it.
+
+The external histograms are the authors' measurements. Their exact extraction settings are not fully specified, and three aggregated photon-delay pairs cannot identify a microscopic defect. These are useful source-characterization lessons; a lithography-laser monitor still needs its own compatible physical interface and validation.
+
 ## Ten-minute delivery and judge questions
 
 The first nine slides explain the original problem, click, QRSM update, conditional answer, reversible query and archived hardware. Use the 45-second original-model demo, then return to the deck. The remaining four main slides motivate chipmaking diagnosis, present the current frequency comparison, explain the research decisions and close with documented contributions.
 
-Stop at slide 13. Use backups and **Current research** for amplitude/prior controls, phase ambiguity, cutoff/identifiability, exposure and full-grid resources. If switching windows is awkward, use the slide's static original-query screenshot. Videos are optional conceptual fallbacks.
+Stop at slide 13. Use backups and **Current research** for amplitude/prior controls, phase ambiguity, cutoff/identifiability, exposure, full-grid resources and quantum-dot photon quality. If switching windows is awkward, use the slide's static original-query screenshot. Videos are optional conceptual fallbacks.
 
 The documented roles remain Nicholas Taylor (QRSM/Grover and experiments), Timofey Yudintsev (research and search idea), Dan Izquierdo (experiments), and Dillon Satria Sitepu (formatting/revision), as confirmed by the user. Do not assign new AI-assisted work to a person without confirming it. FINALS_QA.md supplies shared answers and FINALS_RUBRIC.md maps all seven supplied criteria.
 
@@ -50,6 +56,6 @@ Before Saturday, rehearse aloud with all handoffs and the actual computer. Confi
 
 ## Evidence and next steps
 
-Run **python check_finals.py** from this folder for presentation/package and offline-evidence checks. It does not replace rehearsal. RESEARCH_RESULTS.md indexes the studies; their protocols, raw results and independent checks remain in the research directories. The prior research snapshot's statement that the finals deck was unchanged describes that earlier handoff; this revision now incorporates its conclusions.
+Run **python check_finals.py --public** from this folder for presentation/package and offline-evidence checks. It does not replace rehearsal. RESEARCH_RESULTS.md indexes the earlier studies; quantum_dot_bridge/README.md indexes the later semiconductor exploration. Their protocols, raw results and independent checks remain in the research directories. The prior research snapshot's statement that the finals deck was unchanged describes that earlier handoff; this revision now incorporates its conclusions.
 
 No new IBM API key or job is needed. Hardware can test a justified shallow circuit; it cannot validate optical coupling, detector calibration or material response. A practical diagnostic claim needs a compatible monitoring point, a defined measurand/bandwidth, synchronized conventional reference data and blinded source/nuisance changes. A chipmaking claim additionally needs measured source-to-process and material-response data. No yield, downtime or financial savings have been measured.

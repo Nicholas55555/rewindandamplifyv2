@@ -73,3 +73,16 @@ The unknown-onset sensor numbers replace the earlier known-time result in the ma
 For phase inspection, low preparation success costs time at equal photon dose. It does not automatically erase the equal-dose precision benefit. At equal time, inefficient preparation removes the benefit in the tested setting. Greater loss can remove the precision benefit even at equal dose. The hybrid's coherent pilot photons and both object-incident modes count toward the budget; pump/herald energy and apparatus costs remain outside the model.
 
 The research archive's independent checks include 79 focused tests from a fresh extraction. This validates the declared numerical implementation and provenance, not real-source performance. A physical diagnostic claim still requires calibrated source/detector/reference measurements and independent alternative-cause tests.
+
+## Later semiconductor exploration
+
+The quantum-dot work is separate from the earlier frozen research snapshot and the IBM hardware experiment. The [study README](quantum_dot_bridge/README.md) connects confined semiconductor states to photon quality and gives the source literature.
+
+| Evidence | Supported conclusion | Canonical files |
+|---|---|---|
+| Illustrative optical-dot model | Equal imposed brightness and ideal single-photon purity can coexist with overlaps 1.00, 0.50, 0.20 and 0.25. Pair correlations can matter even at fixed single-photon marginals. | `quantum_dot_bridge/results.json`, `PROTOCOL.md`, `independent_review.json` |
+| Acquisition accounting | Independent per-photon survival 0.2 instead of 0.8 requires 16 times as many attempts for equal expected surviving-pair counts. This is conditional cost accounting, not measured hardware expense. | Same benchmark; its assumptions exclude correlated loss and apparatus cost. |
+| External experimental histograms | Six co/cross-polarized GaAs HOM records are retained unchanged with Zenodo checksums and CC BY 4.0 attribution. Published author values and our derived values have distinct labels. | `quantum_dot_bridge/reference_hom/provenance_manifest.json`, `DATA_LICENSE.md` |
+| Bounded HOM reanalysis | Integrated-peak estimates depend on declared reference normalization and calibration. Conditional statistical uncertainty and protocol sensitivity are separate; microscopic noise identification is unsupported. | `quantum_dot_bridge/hom_analysis/PROTOCOL.md`, `results.json`, `README.md` |
+
+These optical measurements come from Münzberg and colleagues, not the team. The toy coherence model is not fitted to them. The reanalysis cannot establish that a hidden defect caused an observed reduction, that a quantum algorithm speeds up diagnosis, or that a source is suitable for a lithography tool.

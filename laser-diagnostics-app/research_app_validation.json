@@ -1,30 +1,33 @@
 {
   "status": "passed",
   "all_checks_passed": true,
-  "created_utc": "2026-11-11T05:44:14.878188+00:00",
-  "scope": "Offline presentation app integration; no scientific model, original QRSM dataset, archived hardware result or MP4 bytes changed.",
+  "created_utc": "2026-11-11T17:14:57.684937+00:00",
+  "scope": "Quantum-dot fifth research view, frozen toy results, separately attributed external HOM histograms and conditional reanalysis. No scientific model/results, original QRSM/core controls, archived hardware result or MP4 bytes changed.",
   "model_and_data_parity_tests": {
     "run": "node --test laser-diagnostics-app/test_model.cjs",
-    "tests": 9,
-    "passed": 9,
+    "tests": 13,
+    "passed": 13,
     "failed": 0
   },
   "package_checks": {
-    "html_ids": 87,
-    "local_links_checked": 33,
-    "evidence_and_media_hashes": 30,
+    "html_ids": 110,
+    "local_links_checked": 41,
+    "evidence_and_media_hashes": 49,
     "runtime_network_dependencies": 0,
-    "actual_h264_mp4_containers_checked": 2
+    "actual_h264_mp4_containers_checked": 2,
+    "external_csv_files": 6,
+    "raw_histogram_time_count_pairs_verified": 30000,
+    "analysis_independent_receipt_results_hash_verified": true
   },
   "deterministic_import": {
     "passes": 2,
-    "generated_files_identical": 33,
-    "canonical_research_sources": 7
+    "generated_files_identical": 52,
+    "canonical_research_sources": 10
   },
   "browser_checks": {
     "receipt": "research_browser_validation.json",
-    "sha256": "a283170aa3653bf32e8ef81c5d4beab5b4b92abbecd63affb83b17c3f4f31891",
-    "selector_combinations": 39,
+    "sha256": "acf75844a07123968e679021c12fa08ff96cdad0f7d5667aa703717ef429118f",
+    "selector_settings_or_combinations": 59,
     "desktop_viewport": [
       1440,
       1000
@@ -37,52 +40,69 @@
     "file_url_operation_verified": true,
     "video_play_pause_seek_verified": true,
     "keyboard_navigation_verified": true,
-    "reduced_motion_verified": true
+    "reduced_motion_verified": true,
+    "source_hashes_current": true
   },
   "visual_review": {
-    "all_eight_research_screenshots_inspected": true,
-    "no_observed_clipping_or_horizontal_overflow": true,
+    "inspected": "New quantum-dot full desktop view, focused model/data desktop and mobile panels, and representative frequency mobile layout. Root independently inspected new model desktop and external-data desktop/mobile panels.",
+    "correction": "Stacked quantum-dot headings and selectors at mobile width; no observed clipping or horizontal overflow.",
     "screenshots_sha256": {
-      "preview-research-frequency.png": "ba08fa6d61baa0bc84f3c14a8ba952dded06c1c70511b991e36299298df0bdc9",
-      "preview-research-drive.png": "bc7dcc3cce4eb843b71aeb03d9fb8a6674ab493663c35e567291c6aad7f59583",
-      "preview-research-phase.png": "17730694d215bf9b8f5dede627e5556c324d87f766fedc92668890d82cf66bd9",
-      "preview-research-progress.png": "44e4034804bc2d712dcee7cfbfb7a8b64f76149348d1f511785b7a2c27830e68",
-      "preview-research-frequency-mobile.png": "c6552883ba460c96a1041afc31b2176d5515a233dface099439eb6294e71bddc",
-      "preview-research-drive-mobile.png": "47d8ae112fd2697666c31333d602a55591ef8a158b0c7e7b7f0fb85e0068c81b",
-      "preview-research-phase-mobile.png": "5cb90ef1bfbeae14921b80f495cd3a7d9a50392729b38940785f24cc17041979",
-      "preview-research-progress-mobile.png": "e374d368b8c367b899d4232c3418427eea5c194d76e8bb13b7f5c8dab4e13e4b"
+      "preview-research-frequency.png": "64963dd2aedc652e7426384d49a1178b1ed6f9467aad177eeb3e35978201db4c",
+      "preview-research-drive.png": "3b72e9ecaacc958d0a9c6082538d118dd8359141184595855911379e2d89cabd",
+      "preview-research-phase.png": "ed65da3daca5737b74d071185f830998f7116f98f8e3f4c46f2b5ecba19cc3f5",
+      "preview-research-progress.png": "6f05416ef6bfcdb991f0ce1b56dc8fdbaa55d882a25a42091db75df5f1b4d158",
+      "preview-research-dot.png": "460f5b42ac213ffa334801fc768e5647acea4fce35df3f914eced1cf9efe8e93",
+      "preview-research-dot-model.png": "b9acc4adac87c993b2b93334f7a8b1de39618105a196c535a1c6aea7f0164d23",
+      "preview-research-dot-data.png": "ef36ec6d7aceff2ec5dc478697d1b20ca975ee335ee2f69fcd815fafbc9a072f",
+      "preview-research-frequency-mobile.png": "da7bb682cc29a3adbf87d96f1cedf339f6d5a1682a18dd89d4b51e932d5ec4d4",
+      "preview-research-drive-mobile.png": "9043e072403baa2dbb3e533c1dadc458a5daccafa1742011652500a8b5d19c66",
+      "preview-research-phase-mobile.png": "aefcecc583eebca8f66bc5e5196cd545ec1bd953cf3281bb7c60c7889f096ae4",
+      "preview-research-progress-mobile.png": "dc23610321ced99ea422dfa23c5eaba85144516c15008eff24411d766ccc5d08",
+      "preview-research-dot-mobile.png": "023358fdb73fc56da575e42b81521c2c12498da34301dcdb9b388adc09ace561",
+      "preview-research-dot-model-mobile.png": "a4639b65781f341f43eb1515c20f3d85de7d36dd29120810d2fb72eb6dc3df3f",
+      "preview-research-dot-data-mobile.png": "c0ce161e04503b6ee0d14ea5cf632beb19a2e6a257da58de45a7ce0ae93944d4"
     }
   },
   "independent_scientific_copy_review": {
-    "reviewer": "realistic_sensor agent",
+    "reviewer": "realistic_sensor agent; root checked rendered claims",
     "status": "passed",
-    "corrected_points": [
-      "Source-case drive rates include matched separate source-stable false alarms",
-      "Bootstrap coverage explicitly uncalibrated",
-      "Paired dead-time fits use the same training and holdout cohorts"
+    "precision_changes": [
+      "Cross-reference ideal0.5 explicitly assumes balanced inputs and splitter",
+      "Second-order correlation written g⁽²⁾(0)"
     ],
     "retained_boundaries": [
-      "Unknown onset versus earlier known-onset benchmark",
-      "Same-record algorithms versus added physical channels",
-      "Prior-only post-holdout control",
-      "Global phase ambiguity and object-incident photon budgets",
-      "389-qubit construction not full-state or noisy validation"
+      "Toy-model overlap is not device calibration",
+      "Classical trap pair law is not a coherent defect qubit or inferred switching rate",
+      "Collection loss charges eta² pair yield",
+      "External measurements and paper-reported visibility are separately attributed",
+      "New reanalysis is not an exact author-pipeline reproduction or independent experiment",
+      "95% conditional count/calibration intervals exclude unknown systematics",
+      "70-variant sensitivity range is not a confidence interval"
     ]
   },
-  "evidence_manifest_sha256": "39cddb6b17af48730894a87f73ba3863580cea47558ecdc560fbb9ddc20ae035",
-  "source_sha256": {
-    "index.html": "1b564deb021359f98234ce13d9f44b9d40cc3227e9f565f15b9eb67351cb2301",
-    "styles.css": "1f221c1e1adabd5e0c21a01666a4f00a1995e6cec9753ac42eda23ea6e22e2c3",
+  "historical_archive": "validation-history/pre-quantum-dots/",
+  "preserved_original_and_media_sha256": {
     "app.js": "3074f27e3090f4172ff5b414bc55ff132846041c8bb61831f006f8d2689cdfca",
-    "research.js": "e3eef2d289683aeb5c97cf3c5ed14c8273b6e40e354ea1a2aafb23f3b4a3da44",
     "model.js": "089dd4e315936efedbb398c7bac6772ed0939f4b3cfa366deeb36cdeee2ab37f",
     "data.js": "0a3054e717bfcc1f9457236f7d2a43abe606d45ee4130fb1b3f0ecdb6438e300",
-    "research-data.js": "9a75b9a96d630941d6ecce145c8dda8defe103200183efab1a3cb953f7d3987d",
-    "import_results.py": "f3f2e8731be6df1e21d4917c3a28c10b79ac4bb04f98b000b97423202934d144",
-    "test_model.cjs": "4c816adb82d9b88f249ae7dc2ce3bb16eb3b72a04635844a8fa7ec00a2eebfce",
-    "check_package.py": "554ce641f8e041f2a641ea0dfb41acc75c326bd11ee52b12f2e6c7745909dc91",
-    "check_browser.py": "536447b636abca9504a2986e8f69be5a7a6aed2afd6c226e1d07d556d08dab67",
-    "README.md": "75d6eb449243a713f7dca274a2ed00c990a554affdd1c5ae2c6ff94a0a82b41b"
+    "assets/laser-diagnostic-lenses.mp4": "3275ebbec3613209b263783668eed1ff4df6f9072ec5f1d89612d6bcb2b7d9f3",
+    "assets/rewind-amplify.mp4": "683111dbefa451ccc898f23ce5350286d8aefa78ce6a87026a3052bdd50a8a54"
   },
-  "teardown": "Isolated headless Chrome closed. Owned local HTTP server session56392 interrupted and terminal exit confirmed; ordinary app operation needs no server."
+  "evidence_manifest_sha256": "c6a26a83d160f65c9dd7c1c03db8f7d97cc3abf3b67b5801b5f6dc31f4a12deb",
+  "source_sha256": {
+    "index.html": "337c5cf82e2cf73eb9ae33c614ea67fe614e0bd79cc8feef6ac410d5f09487f6",
+    "styles.css": "2042284670c450c5c0b6150ffc31fc43b12e999a45691ebae305ac50201ed3a1",
+    "app.js": "3074f27e3090f4172ff5b414bc55ff132846041c8bb61831f006f8d2689cdfca",
+    "research.js": "b5fae2647d64a414edb5fd508f682fe056bc8d856352dd92a8df1e8a48f5aade",
+    "quantum-dots.js": "334f778ec835d36cbe20d1f7f355a4564465f602f0d0e242da2446ad8a0802fa",
+    "model.js": "089dd4e315936efedbb398c7bac6772ed0939f4b3cfa366deeb36cdeee2ab37f",
+    "data.js": "0a3054e717bfcc1f9457236f7d2a43abe606d45ee4130fb1b3f0ecdb6438e300",
+    "research-data.js": "72554ea8f8ec99287483d7812335757cd03a56c286a9eca0be3ff1734296be0f",
+    "import_results.py": "c1a112b4672b4a6e0429cdd3b3d914f02e62a353f6e5d95d05673b76f67f984f",
+    "test_model.cjs": "cebaf970548538fa31342345bbd78f22e982a47451d677a817be4abb342c6351",
+    "check_package.py": "8243afcafdfb4717da4559f07fc7d4c7868cee2859d4d8da3a5638768e692d67",
+    "check_browser.py": "ff55a9228eaf39d0050ce374b1a8986bc5b837c49b7d6b645f1b2b0c285d22d8",
+    "README.md": "67d4640c633345ccc9365f7038627d0da4f3518b39ef14285fb9cc6942a2601a"
+  },
+  "teardown": "Isolated headless Chrome closed after each verification. No HTTP server started; ordinary use requires no server."
 }

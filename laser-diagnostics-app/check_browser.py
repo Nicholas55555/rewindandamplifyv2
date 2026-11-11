@@ -19,9 +19,15 @@ def main():
     drive=json.loads((HERE/'evidence/research_drive.json').read_text())
     prior=json.loads((HERE/'evidence/research_prior.json').read_text())
     phase=json.loads((HERE/'evidence/research_phase.json').read_text())
+    dot=json.loads((HERE/'evidence/research_dot.json').read_text())
+    hom=json.loads((HERE/'evidence/research_hom_reference.json').read_text())
+    hom_analysis=json.loads((HERE/'evidence/research_hom_analysis.json').read_text())
     errors=[];requests=[];checks=[];screens=[]
-    def screenshot(page,name):
-        path=HERE/name;page.screenshot(path=str(path),full_page=True);screens.append(name)
+    def screenshot(page,name,selector=None):
+        path=HERE/name
+        if selector:page.locator(selector).screenshot(path=str(path))
+        else:page.screenshot(path=str(path),full_page=True)
+        screens.append(name)
     def no_overflow(page):
         assert page.evaluate('document.documentElement.scrollWidth <= window.innerWidth'), 'Horizontal overflow'
     def expect_text(page,selector,text):
@@ -76,6 +82,39 @@ def main():
         checks.append('All seven phase cases and both budgets show global error, branch errors, dose and time')
         page.locator('#study-progress').click();expect_text(page,'#spatial-values','389 qubits');expect_text(page,'#spatial-values','2,874,028 CX');expect_text(page,'#spatial-values','3,382,108 CX');expect_text(page,'#inference-values','0.069');expect_text(page,'#inference-values','0.706');no_overflow(page)
         screenshot(page,'preview-research-progress.png');checks.append('Inference pairing and complete explicit circuit ledger visible')
+        page.locator('#study-dot').focus();page.keyboard.press('Enter');assert page.locator('#research-dot').is_visible()
+        for case in dot['benchmark_cases']:
+            page.locator('#dot-case').select_option(case['case'])
+            assert percent_matches(page.locator('#dot-overlap').inner_text(),case['conditional_overlap'])
+            expect_text(page,'#dot-brightness','20%');expect_text(page,'#dot-g2','0');no_overflow(page)
+        page.locator('#dot-case').select_option('ideal');page.locator('#dot-case').focus();page.keyboard.press('ArrowDown');expect_text(page,'#dot-overlap','50%')
+        for i,case in enumerate(dot['classical_trap_pair_comparison']):
+            page.locator('#dot-trap').select_option(str(i));assert percent_matches(page.locator('#dot-trap-values strong').first.inner_text(),case['conditional_overlap'])
+        page.locator('#dot-trap').select_option('1')
+        for i,case in enumerate(dot['collection_loss_sweep']):
+            page.locator('#dot-loss').select_option(str(i));assert percent_matches(page.locator('#dot-loss-values strong').first.inner_text(),case['both_photons_survive_probability'])
+            if case['single_photon_survival_probability']==0:expect_text(page,'#dot-loss-detail','no detected pairs')
+        page.locator('#dot-loss').select_option('2');expect_text(page,'#dot-loss-detail','16×')
+        for delay in [13.1,26.2,39.4]:
+            page.locator('#dot-hom-pair').select_option(str(delay))
+            for window in ['125','4']:
+                page.locator('#dot-hom-window').select_option(window)
+                rows=[f for f in hom['files'] if f['excitation_pulse_separation_ns']==delay]
+                for i,row in enumerate(rows):expect_text(page,'#dot-hom-values',f"{row['count_sum']:,}")
+                analyzed=next(c for c in hom_analysis['cases'] if c['excitation_separation_ns']==delay)
+                assert percent_matches(page.locator('.dot-analysis-values strong').first.inner_text(),analyzed['primary']['corrected_visibility'])
+                expected_interval='–'.join(f'{100*v:.2f}%' for v in analyzed['primary']['corrected_interval95'])
+                expect_text(page,'#dot-analysis',expected_interval)
+                expected_sensitivity='–'.join(f'{100*v:.2f}%' for v in analyzed['sensitivity_range_all_declared_variants'])
+                expect_text(page,'#dot-analysis',expected_sensitivity);expect_text(page,'#dot-analysis','NOT a confidence interval')
+                expect_text(page,'#dot-analysis','exclude normalization');expect_text(page,'#dot-analysis','not an independent experimental replication')
+                expect_text(page,'#dot-hom-detail',f'{delay:.1f} ns apart')
+                assert page.locator('#dot-hom-chart').evaluate('(c)=>c.width>250 && c.height>=280')
+                no_overflow(page)
+        page.locator('#dot-hom-pair').select_option('13.1');page.locator('#dot-hom-window').select_option('125')
+        screenshot(page,'preview-research-dot.png');screenshot(page,'preview-research-dot-model.png','#research-dot .dot-benchmark');screenshot(page,'preview-research-dot-data.png','#research-dot .dot-published')
+        checks.append('All four quantum-dot toy cases, four trap settings and six loss settings match frozen values; native keyboard selector works')
+        checks.append('All three external HOM pairs and both display windows retain raw counts, attribution and paper-reported labels; new extraction values/conditional intervals/protocol ranges match saved results')
         # Chapter keyboard routing and modified browser shortcut behavior.
         page.locator('#tab-research').focus();page.keyboard.press('ArrowRight');assert page.locator('#sensor').is_visible()
         expect_text(page,'.history-note','told that the event starts at 64 s')
@@ -97,16 +136,17 @@ def main():
             videos.append({'id':identifier,'duration':duration,'play_pause_seek':'passed'})
         # Responsive behavior at phone width; preserve previous screenshots.
         page.set_viewport_size({'width':390,'height':844});page.locator('#tab-research').click()
-        for study in ['frequency','drive','phase','progress']:
+        for study in ['frequency','drive','phase','progress','dot']:
             page.locator('#study-'+study).click();no_overflow(page)
             screenshot(page,'preview-research-'+study+'-mobile.png')
-        checks.append('390x844 mobile: all four study views have no document horizontal overflow and readable HTML data')
+        screenshot(page,'preview-research-dot-model-mobile.png','#research-dot .dot-benchmark');screenshot(page,'preview-research-dot-data-mobile.png','#research-dot .dot-published')
+        checks.append('390x844 mobile: all five study views have no document horizontal overflow and readable HTML data')
         page.emulate_media(reduced_motion='reduce');page.reload();page.wait_for_selector('#tab-research');assert page.locator('#motion').is_disabled() and page.locator('#replay').is_disabled() and page.locator('#walk').is_disabled()
         checks.append('Reduced-motion preference disables historical autoplay-style controls; MP4s have no autoplay')
         assert not errors,errors
         assert all(url.startswith('file:') for url in requests),requests
         version=browser.version;browser.close()
-    receipt={'status':'passed','all_checks_passed':True,'route':'Existing Python Playwright + installed system Chrome in an isolated headless profile, standalone file URL. CUA IAB unavailable and browser inventory empty; no user browser profile or account used.','route_note':'Initial bundled Chromium 138 lacked H.264 support (empty canPlayType); all final checks use installed Chrome. No media bytes were changed.','python':platform.python_version(),'chromium':version,'checks':checks,'page_errors':errors,'network_requests':0,'videos':videos,'screenshots':screens,'source_sha256':{name:sha(HERE/name) for name in ['index.html','app.js','research.js','styles.css','model.js','data.js','research-data.js','check_browser.py']},'evidence_manifest_sha256':sha(HERE/'evidence/manifest.json')}
+    receipt={'status':'passed','all_checks_passed':True,'route':'Existing Python Playwright + installed system Chrome in an isolated headless profile, standalone file URL. Uses the previously verified local fallback; no user browser profile or account used.','route_note':'Previous QA found CUA IAB unavailable and bundled Chromium 138 lacked H.264 decoding. This revision uses installed Chrome directly; media bytes remain unchanged.','python':platform.python_version(),'chromium':version,'checks':checks,'page_errors':errors,'network_requests':0,'videos':videos,'screenshots':screens,'source_sha256':{name:sha(HERE/name) for name in ['index.html','app.js','research.js','quantum-dots.js','styles.css','model.js','data.js','research-data.js','check_browser.py']},'evidence_manifest_sha256':sha(HERE/'evidence/manifest.json')}
     (HERE/'research_browser_validation.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf8')
     print(json.dumps({'all_checks_passed':True,'checks':len(checks),'screenshots':len(screens),'page_errors':errors,'chromium':version},indent=2))
 

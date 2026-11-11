@@ -88,13 +88,17 @@ A useful device study would collect synchronized counts, HBT/HOM histograms, lif
 
 The QRSM contributes a conditional physical model: predict how observations depend on the emitter and its hidden environment, and test candidate explanations. Additional optical measurements may constrain states that click counts cannot. Grover-style queries operate on a specified model and do not recover information that the detectors never acquired. This benchmark runs classically and provides no computational speedup.
 
-## Existing real data and the next measured-data test
+## External measurements and the bounded reanalysis
 
 The repo already retains [external GaAs quantum-dot counts](../external_data/gaas_qd5/DATA_USE.md). They integrate photons for one second; every singles bin is nonzero. Converting those counts to bits loses the fine-time structure and cannot reconstruct photon interference.
 
 The same authors separately released **co- and cross-polarized HOM histograms**. The [reference-data folder](reference_hom/README.md) imports those more suitable observables with source checksums and attribution. They remain an external experiment, not FGCU measurements or a fit of our model. The published three-delay result is approximately flat; it should not be presented as confirmation of a monotonic memory-decay prediction.
 
-The next data task is to reproduce the authors' visibility extraction with its peak windows, beamsplitter/polarization corrections and uncertainties, then evaluate competing noise models. Raw peak heights alone are insufficient when acquisition scale and calibration differ.
+The [new HOM reanalysis](hom_analysis/README.md) follows a protocol recorded before its first normalized calculation. It integrates each central peak and four main reference peaks, normalizes within each acquisition and applies the paper's stated beamsplitter and multiphoton correction. The primary corrected contrasts are **0.8024, 0.8258 and 0.7724** for generation separations 13.1, 26.2 and 39.4 ns. Their 95% intervals are **[0.7943, 0.8113]**, **[0.8181, 0.8344]** and **[0.7647, 0.7808]**, conditional on the counting/calibration model. Shared calibration uncertainty is propagated across the three settings.
+
+These estimates are close to the paper's printed values, but the authors' exact windows and normalization are unspecified. This is a conditional reanalysis, not an exact pipeline reproduction. Seventy predeclared window/background/reference choices per pair give ranges **0.7980–0.8144**, **0.8221–0.8393** and **0.7691–0.7877**; these are sensitivity ranges, not additional confidence intervals or bounds on all systematic errors. In the last pair, the cross-polarized central/reference ratio is 0.4591 rather than the approximate ideal 0.5. The paper's co-only normalization alternative changes our corrected value to **0.7938**. That dependence is useful diagnostic evidence about the extraction assumptions, not a unique identification of polarization error or a microscopic defect.
+
+An independent standard-library implementation reproduces all primary peak areas and point estimates. The seeded Monte Carlo run is also reproducible. Three aggregated delay pairs do not identify a trap switching rate, dephasing mechanism or full photon state. A stronger next data set needs repeated/time-tagged measurements, matched polarization/routing and brightness controls, documented extraction settings, paired calibration and broader generation separations. Raw peak heights alone are insufficient.
 
 ## Connection to chipmaking
 
@@ -111,11 +115,13 @@ python -m unittest discover -s quantum_dot_bridge -p "test_*.py" -v
 python quantum_dot_bridge/verify_results.py
 python quantum_dot_bridge/reference_hom/import_verify.py
 python -m unittest discover -s quantum_dot_bridge/reference_hom -p "test_*.py" -v
+python -m unittest discover -s quantum_dot_bridge/hom_analysis -p "test_*.py" -v
+python quantum_dot_bridge/hom_analysis/run_analysis.py --output quantum_dot_bridge/hom_rerun.json
 python quantum_dot_bridge/run_study.py --output quantum_dot_bridge/results_rerun.json
 python quantum_dot_bridge/plot_results.py --results quantum_dot_bridge/results_rerun.json --output quantum_dot_bridge/coherence_rerun.png
 python quantum_dot_bridge/independent_check.py --output quantum_dot_bridge/independent_review_rerun.json
 ```
 
-The model and its tests need only the pinned NumPy in [requirements.txt](requirements.txt); plotting additionally needs Matplotlib, and the separate adaptive check needs SciPy, both present in the root development environment. The adaptive check verifies the canonical saved results; its output argument selects a fresh review receipt. The benchmark runner and plotter reject existing output paths unless an explicit overwrite option is supplied; the adaptive checker always requires a new output path. The current ten-minute presentation and prior frozen study outputs remain separate from this exploratory addition.
+The model and its tests need only the pinned NumPy in [requirements.txt](requirements.txt); plotting additionally needs Matplotlib, and the separate adaptive check needs SciPy, both present in the root development environment. The adaptive check verifies the canonical saved results; its output argument selects a fresh review receipt. The benchmark runner and plotter reject existing output paths unless an explicit overwrite option is supplied; the adaptive checker always requires a new output path. The current ten-minute presentation and offline app include this semiconductor connection; detailed values stay in Q&A material. The earlier 285-file frozen research snapshot remains unchanged.
 
 **Possible judge explanation:** “A quantum dot is a semiconductor structure with confined quantum states. It can emit one photon at a time, but a bright source can still produce photons that interfere poorly. Our next diagnostic question is whether a physical model plus the right optical measurements can reveal the noise behind that loss of usefulness.”

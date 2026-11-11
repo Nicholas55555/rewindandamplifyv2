@@ -1,8 +1,8 @@
 # Finals presenter guide
 
-Use the Visual deck for the main talk. Slides 1–13 form the timed presentation; slides 14–29 are for Q&A. The planned finish is **9:20**, including the **45-second original QRSM application demo**, leaving 40 seconds before the 10-minute limit. Timing is a rehearsal plan, not a measured delivery time.
+Use the Visual deck for the main talk. Slides 1–13 form the timed presentation; slides 14–31 are for Q&A. The planned finish is **9:20**, including the **45-second original QRSM application demo**, leaving 40 seconds before the 10-minute limit. Timing is a rehearsal plan, not a measured delivery time.
 
-The thirteen speaking scripts contain approximately 1,222 words. Rehearse aloud with the actual handoffs, application switch and projector. The first nine slides explain the original quantum model and computation. Keep the science language below; shorten examples before removing material limitations.
+The thirteen speaking scripts contain approximately 1,221 words. Rehearse aloud with the actual handoffs, application switch and projector. The first nine slides explain the original quantum model and computation. Keep the science language below; shorten examples before removing material limitations.
 
 ## Before presenting
 
@@ -25,7 +25,7 @@ The thirteen speaking scripts contain approximately 1,222 words. Rehearse aloud 
 | 7 | 4:05–5:00 | A reversible model makes amplification possible |
 | 8 | 5:00–6:00 | More matching answers with fewer gates |
 | 9 | 6:00–6:45 | The query returns a prediction about the next clicks |
-| 10 | 6:45–7:25 | Laser diagnostics could protect chip exposures |
+| 10 | 6:45–7:25 | Quantum dots connect semiconductors to photons |
 | 11 | 7:25–8:10 | The classical reference leads with unknown onset |
 | 12 | 8:10–8:50 | The evidence changes our next experiment |
 | 13 | 8:50–9:20 | Our contribution and what we learned |
@@ -114,13 +114,13 @@ In the app, we select a click at step three. Switching from plain sampling to fu
 
 **Stage cue:** Timofey demonstrates for 45 seconds: 0–8 explain the QRSM role, 8–15 define the selected click, 15–27 choose Steering + full, 27–38 switch to Emitter only, 38–45 explain the diagnosis boundary and return to slides. Pre-open Focus view and the original QRSM chapter. Do not troubleshoot during the talk.
 
-## Slide 10: Laser diagnostics could protect chip exposures
+## Slide 10: Quantum dots connect semiconductors to photons
 
 **6:45–7:25**
 
-Chipmaking exposes a pattern on a wafer using light. Changes in energy, wavelength or bandwidth can alter that pattern. Cymer and imec measured this connection, and conventional source monitors already exist. Our separate question is whether an atomic reference adds useful information alongside those instruments. A photodiode measures power. A coherent receiver compares optical references. An atom compares the laser with an atomic transition. Earlier diagnosis could reduce wasted exposures or downtime, but we have measured neither benefit. This 698 nanometer lab surrogate needs a separate design for lithography sources.
+Quantum dots connect our emitter model to semiconductors. Confined states can emit single photons, and researchers have integrated such sources with photonic waveguides. For quantum computing, photon counts alone miss whether those photons interfere well. Our separate model holds brightness fixed while interference quality changes. That makes source characterization a concrete semiconductor application. Lithography adds a different question: light changes can alter the exposed pattern. Conventional monitors already exist. We test whether an atomic frequency reference adds useful information. That laboratory surrogate still needs a compatible design for lithography.
 
-**Stage cue:** Nicholas states the pragmatic chipmaking connection. This is a proposed diagnostic addition, not evidence of finding a light-source defect.
+**Stage cue:** Nicholas makes the semiconductor connection explicit, then transitions to the separate atomic-frequency study. Quantum-dot spin qubits, colloidal dots and optically active emitters have different device physics. Use backups 30–31 for the model and external measurement evidence.
 
 ## Slide 11: The classical reference leads with unknown onset
 
@@ -171,6 +171,8 @@ A second conventional reference remains the stronger comparator. The simulator m
 - **Phase opportunity:** at 20,000 mean photons incident before the object, 81% overall efficiency and ideal preparation, a charged 10% coherent / 90% NOON hybrid has full-phase RMSE 0.00637 rad versus 0.00791 rad for the declared coherent protocol. Both sample modes are charged. Pure NOON has a global π ambiguity. Loss and preparation time limit the benefit; this is not a claim against every classical design.
 - **Circuit-cost result:** a complete 49-cell spatial query was constructed as two 389-qubit circuits with 2.87–3.38 million constructive generic CX upper bounds. Both QPY files round-trip. These are unoptimized bounds, not routed counts or 389-qubit statevector results. The original independent-cell probability is tractable classically.
 - **Exposure result:** an assumed two-photon resist shows stronger NOON contrast, but its best tested pattern accuracy requires more dose. Loss, blur and linear background erase benefits in several cases. No measured material, printed feature, chip yield or dollar saving is established.
+- **Semiconductor connection:** optically active quantum dots can supply single photons to photonic circuits. Our illustrative emitter model holds brightness and ideal single-photon purity fixed while overlap changes from 1.0 to 0.5, 0.2 or 0.25 under declared dephasing and frequency mismatch. Those parameters were not fitted to a real device. Lowering per-photon survival from 80% to 20% requires 16 times as many attempts per surviving pair.
+- **External GaAs measurements:** our separate peak-area reanalysis gives corrected HOM visibilities 0.8024, 0.8258 and 0.7724 at excitation separations 13.1, 26.2 and 39.4 ns. Conditional 95% intervals are [0.7943, 0.8113], [0.8181, 0.8344] and [0.7647, 0.7808]. These condition on counting/calibration assumptions and exclude normalization and other systematics. The co-only diagnostic gives 0.7938 for the last pair. The team did not collect these data, reproduce an exactly specified author pipeline or identify a microscopic defect.
 
 ## Backup slides
 
@@ -270,8 +272,20 @@ The original optical circuit uses only two cavity levels. Comparing its conditio
 
 **Sources:** qrsm_photon_poc/followup/README.md, dynamics_results.json, inference_results/, parameter_validation_v2/ and independent_review.json. Max after-click error over tested later lags versus cavity dimension6. Master equation independently checked with QuTiP; trajectory statistics tested separately. Controlled model-HMM logscore gains .0574[.0158,.1014] and .0972[.0448,.1495]nats/24-binrecord under conditional bootstrap. This does not establish physical defect identification or a quantum computational speedup.
 
+### 30. Equal photon counts can hide poor interference
+
+The model separates brightness, single-photon character and indistinguishability. Each excitation emits exactly one photon, and each has 20 percent survival, so brightness and ideal g 2(0) are identical by construction. Pure dephasing or differential frequency shifts change the density-operator overlap. For a balanced beamsplitter, coincidences per attempted excitation pair are eta squared times one minus overlap, divided by two. More coincidences here indicate worse interference. A classical two-state frequency environment also changes pair overlap while preserving each photon frequency marginal. Those offsets are quasi-static within each wavepacket; they are not a diagnosed microscopic trap. Loss matters independently: lowering per-photon survival from 80 to 20 percent raises attempts per surviving pair from 1.5625 to 25. The result motivates interference-sensitive source measurements, not a quantum advantage claim.
+
+**Sources:** quantum_dot_bridge/results.json benchmark_cases, classical_trap_pair_comparison and loss budget; PROTOCOL.md; independent_review.json. Illustrative lifetime1ns. Cases gamma_star/Gamma and differential angular detuning/Gamma: (0,0),(.5,0),(0,2),(.5,2). Ideal g2(0)=0 imposed. Sixteen focused tests, direct two-photon beamsplitter check and independent wavepacket-kernel quadrature. Real semiconductor photon-source integration precedent: Davancoetal2017 https://www.nist.gov/publications/heterogeneous-integration-chip-quantum-photonic-circuits-single-quantum-dot-devices. External GaAs HOM data are separate, not fitted by this model.
+
+### 31. External GaAs data: a conditional reanalysis
+
+These are external Hong–Ou–Mandel histograms, not team measurements. We normalize each central peak by the mean of four side peaks, then compare the co-polarized and cross-polarized acquisitions. We apply the published splitter and multiphoton correction. The quoted intervals condition on independent Poisson counting, fixed timing registration and shared Gaussian calibration uncertainties. They exclude polarization, routing and drift systematics. Our estimates are close to the paper’s reported 0.803,0.826 and 0.774, but exact author integration windows and normalization are unavailable. This is therefore a separate conditional reanalysis. At 39.4 nanoseconds, the alternative co-only normalization gives 0.7938 rather than 0.7724. Sensitivity to that choice prevents a microscopic defect or noise-rate inference. No monotonic decay or improved device performance follows from these three measurements.
+
+**Sources:** quantum_dot_bridge/hom_analysis/results.json, PROTOCOL.md and independent review. Dataset https://doi.org/10.5281/zenodo.6337697, CC BY4.0, by Julian Munzberg, Franz Draxl, Saimon Filipe Covre da Silva, Yusuf Karli, Santanu Manna, Armando Rastelli, Gregor Weihs and Robert Keil. Paper https://arxiv.org/html/2203.08682v1 SectionIV Eqs3–4. Quoted paper V=.803(.005),.826(.004),.774(.004) remain separate. Our primary extraction uses half-open windows of half-width2ns, no background subtraction, reference cycle indices−2,−1,+1,+2 and200000Monte Carlo draws. R=.514±.007,g2=.016±.001, assumed independent but shared across separations. Data hashes verified against reference_hom/provenance_manifest.json. These aggregate histograms cannot provide original QRSM binary histories or uniquely identify charge traps.
+
 ## Rebuilding
 
 The editable deck is authored by `.finals-deck-build/visual_build.mjs` with the bundled `@oai/artifact-tool` runtime. The root resolves relative to that file. `PRESENTATIONS_SKILL_DIR`, `RUNTIME_PYTHON`, `OUTPUT_PPTX` and `OUTPUT_RECEIPT` can override the authoring environment and output destinations. Link the build directory’s `node_modules` to the installed bundled Node packages. Use `--draft` for previews. Finalization intentionally refuses to overwrite an existing final PPTX or receipt; use new output filenames for a revision.
 
-The build reads the verified original after-click evidence, frozen research results, archived hardware summary, two original circuit figures, optical cover asset, sensing animation poster and original-core app screenshot. It performs no hardware jobs. The renderer and finish scripts create the checked slide PNGs, static PDF, guide and manifest. Source hashes in the manifest identify the evidence used. The pre-research deck is preserved in `archive/pre_research_2026-11-11/`.
+The build reads the verified original after-click evidence, frozen research results, archived hardware summary, two original circuit figures, optical cover asset and original-core app screenshot. It performs no hardware jobs. The renderer and finish scripts create the checked slide PNGs, static PDF, guide and manifest. Source hashes in the manifest identify the evidence used. The previous decks are preserved in `archive/pre_research_2026-11-11/` and `archive/pre_quantum_dot_2026-11-11/`.

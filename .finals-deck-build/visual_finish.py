@@ -32,7 +32,7 @@ def main():
     main_scripts=[x for x in scripts if x['time'] != 'Backup']
     main_count=len(main_scripts)
     total_count=len(scripts)
-    assert len(slide_names) == notes_count == total_count == 29
+    assert len(slide_names) == notes_count == total_count == 31
     assert main_count == 13 and scripts[:main_count] == main_scripts
     endpoint=0
     for x in main_scripts:
@@ -55,7 +55,7 @@ def main():
     words = sum(len(re.findall(r'\b[\w-]+\b', x['text'])) for x in main_scripts)
     guide = [
         '# Finals presenter guide', '',
-        'Use the Visual deck for the main talk. Slides 1–13 form the timed presentation; slides 14–29 are for Q&A. The planned finish is **9:20**, including the **45-second original QRSM application demo**, leaving 40 seconds before the 10-minute limit. Timing is a rehearsal plan, not a measured delivery time.', '',
+        'Use the Visual deck for the main talk. Slides 1–13 form the timed presentation; slides 14–31 are for Q&A. The planned finish is **9:20**, including the **45-second original QRSM application demo**, leaving 40 seconds before the 10-minute limit. Timing is a rehearsal plan, not a measured delivery time.', '',
         f'The thirteen speaking scripts contain approximately {words:,} words. Rehearse aloud with the actual handoffs, application switch and projector. The first nine slides explain the original quantum model and computation. Keep the science language below; shorten examples before removing material limitations.', '',
         '## Before presenting', '',
         '- Open the PPTX in the presentation machine’s slideshow software and test the display. The PDF is a static, image-based fallback and does not contain speaker notes.',
@@ -100,13 +100,15 @@ def main():
               '- **Drive-amplitude test:** a +20% field step yields 3.71% detections within 32 bins, alongside 6.84% stable-record false alarms over 96 bins. Its prior-only estimate already achieves RMSE 0.1136; observations improve that to just 0.1125 for this case and worsen the other four source-changing cases. The prior control was added after holdout inspection and is descriptive.',
               '- **Phase opportunity:** at 20,000 mean photons incident before the object, 81% overall efficiency and ideal preparation, a charged 10% coherent / 90% NOON hybrid has full-phase RMSE 0.00637 rad versus 0.00791 rad for the declared coherent protocol. Both sample modes are charged. Pure NOON has a global π ambiguity. Loss and preparation time limit the benefit; this is not a claim against every classical design.',
               '- **Circuit-cost result:** a complete 49-cell spatial query was constructed as two 389-qubit circuits with 2.87–3.38 million constructive generic CX upper bounds. Both QPY files round-trip. These are unoptimized bounds, not routed counts or 389-qubit statevector results. The original independent-cell probability is tractable classically.',
-              '- **Exposure result:** an assumed two-photon resist shows stronger NOON contrast, but its best tested pattern accuracy requires more dose. Loss, blur and linear background erase benefits in several cases. No measured material, printed feature, chip yield or dollar saving is established.', '',
+              '- **Exposure result:** an assumed two-photon resist shows stronger NOON contrast, but its best tested pattern accuracy requires more dose. Loss, blur and linear background erase benefits in several cases. No measured material, printed feature, chip yield or dollar saving is established.',
+              '- **Semiconductor connection:** optically active quantum dots can supply single photons to photonic circuits. Our illustrative emitter model holds brightness and ideal single-photon purity fixed while overlap changes from 1.0 to 0.5, 0.2 or 0.25 under declared dephasing and frequency mismatch. Those parameters were not fitted to a real device. Lowering per-photon survival from 80% to 20% requires 16 times as many attempts per surviving pair.',
+              '- **External GaAs measurements:** our separate peak-area reanalysis gives corrected HOM visibilities 0.8024, 0.8258 and 0.7724 at excitation separations 13.1, 26.2 and 39.4 ns. Conditional 95% intervals are [0.7943, 0.8113], [0.8181, 0.8344] and [0.7647, 0.7808]. These condition on counting/calibration assumptions and exclude normalization and other systematics. The co-only diagnostic gives 0.7938 for the last pair. The team did not collect these data, reproduce an exactly specified author pipeline or identify a microscopic defect.', '',
               '## Backup slides', '']
     for i,x in enumerate(scripts[main_count:],main_count+1):
         guide += [f'### {i}. {x["title"]}', '', x['text'], '', '**Sources:** ' + x['sources'], '']
     guide += ['## Rebuilding', '',
               'The editable deck is authored by `.finals-deck-build/visual_build.mjs` with the bundled `@oai/artifact-tool` runtime. The root resolves relative to that file. `PRESENTATIONS_SKILL_DIR`, `RUNTIME_PYTHON`, `OUTPUT_PPTX` and `OUTPUT_RECEIPT` can override the authoring environment and output destinations. Link the build directory’s `node_modules` to the installed bundled Node packages. Use `--draft` for previews. Finalization intentionally refuses to overwrite an existing final PPTX or receipt; use new output filenames for a revision.', '',
-              'The build reads the verified original after-click evidence, frozen research results, archived hardware summary, two original circuit figures, optical cover asset, sensing animation poster and original-core app screenshot. It performs no hardware jobs. The renderer and finish scripts create the checked slide PNGs, static PDF, guide and manifest. Source hashes in the manifest identify the evidence used. The pre-research deck is preserved in `archive/pre_research_2026-11-11/`.', '']
+              'The build reads the verified original after-click evidence, frozen research results, archived hardware summary, two original circuit figures, optical cover asset and original-core app screenshot. It performs no hardware jobs. The renderer and finish scripts create the checked slide PNGs, static PDF, guide and manifest. Source hashes in the manifest identify the evidence used. The previous decks are preserved in `archive/pre_research_2026-11-11/` and `archive/pre_quantum_dot_2026-11-11/`.', '']
     guide_path=OUT / 'Visual_Presenter_Guide.md'
     guide_path.write_text('\n'.join(guide),encoding='utf-8')
     matching_receipts = [p for p in BUILD.glob('visual_validation*.json')
@@ -130,7 +132,7 @@ def main():
         'limitations':['PPTX has not been tested in native Microsoft PowerPoint.',
                        'PDF contains static slide images and no presenter notes.',
                        '9:20 is a planned timeline; the team must rehearse the actual delivery.'],
-        'source_assets':['assets/optical-cover.png','../animations/laser-diagnostic-lenses.png',
+        'source_assets':['assets/optical-cover.png',
                          '../laser-diagnostics-app/app-core-query.jpg',
                          '../rewindandamplify-main/results/figures/fig_circuit_hybrid.png',
                          '../rewindandamplify-main/results/figures/fig_circuit_grover.png'],
@@ -151,6 +153,13 @@ def main():
             'quantum_lithography_poc/phase_inspection_followup/results.json',
             'quantum_lithography_poc/exposure_followup/results.json',
             'finals-lithography/full_spatial_circuit/results.json',
+            'quantum_dot_bridge/results.json',
+            'quantum_dot_bridge/PROTOCOL.md',
+            'quantum_dot_bridge/independent_review.json',
+            'quantum_dot_bridge/reference_hom/provenance_manifest.json',
+            'quantum_dot_bridge/hom_analysis/results.json',
+            'quantum_dot_bridge/hom_analysis/PROTOCOL.md',
+            'quantum_dot_bridge/hom_analysis/independent_primary.json',
         ]},
     }
     (OUT/'visual_manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')

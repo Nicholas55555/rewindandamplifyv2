@@ -8,13 +8,15 @@ The source files are in `../.finals-deck-build/`:
 - `visual_render_final.mjs` imports the exported PPTX and renders all slides.
 - `visual_finish.py` creates the image-based PDF, presenter guide and artifact manifest.
 - `visual_notes.json` preserves the narration and timing cues.
-- `visual_validation_research_v5b.json` is the receipt for the current PowerPoint. `visual_review.json` records final-render/PDF checks and visual inspection.
+- `visual_validation_quantum_dot_v6b.json` is the receipt for the current PowerPoint. `visual_review.json` records final-render/PDF checks and visual inspection.
 
 Rebuilding requires the Codex presentation runtime and presentation skill utilities used for authoring; those libraries are not redistributed in this portable pack. In Codex, use `load_workspace_dependencies` to locate its current Node/Python runtime and libraries. Make `@oai/artifact-tool` resolvable from `.finals-deck-build/` (the original workspace uses a local node_modules junction to the bundled packages). Set `PRESENTATIONS_SKILL_DIR`, `RUNTIME_PYTHON`, and `RUNTIME_NODE_MODULES` to the corresponding installed locations when they differ from the authoring defaults.
 
-The current presentation contains 13 main slides and 16 backups. Its planned duration is 9:20, including a 45-second original-model demonstration. The first nine main slides explain why defect analysis matters, what the QRSM adds to interpreting measurement records, and the separate quantum query. The source reads `research-validation/original_after_click_verification.json` for the native conditional-prediction chart and `laser-diagnostics-app/app-core-query.jpg` for the static demonstration fallback.
+The current presentation contains 13 main slides and 18 backups. Its planned duration is 9:20, including a 45-second original-model demonstration. The first nine main slides explain why defect analysis matters, what the QRSM adds to interpreting measurement records, and the separate quantum query. The source reads `research-validation/original_after_click_verification.json` for the native conditional-prediction chart and `laser-diagnostics-app/app-core-query.jpg` for the static demonstration fallback.
 
 This research revision replaces the main sensor benchmark with the unknown-onset study and adds fresh joint-inference, drive-amplitude, phase-inspection, exposure and full-spatial-circuit evidence. Main slide 4 and backup 18 use new synthetic dead-time fits, replacing the historical candidate-count example. Frozen JSON files, source notes and `visual_manifest.json` identify the exact evidence. The current app separates **Current research** from **Earlier sensor study**. Do not mix the earlier known-midpoint sensor results with the new task. The prior PPTX, PDF, guide and manifest are preserved in `archive/pre_research_2026-11-11/`.
+
+The quantum-dot revision makes the semiconductor photon-source connection visible on main slide 10. Backup 30 distinguishes photon counts, interference quality and pair-delivery cost in an illustrative model. Backup 31 separately attributes the external GaAs histograms and conditional peak-area reanalysis, including its normalization limits. The immediately preceding artifacts are preserved in `archive/pre_quantum_dot_2026-11-11/`. These additions do not establish a calibrated dot, a physical defect diagnosis or a lithography benefit.
 
 From the workspace root, using that configured runtime, export a revision to unused paths. The finalizer deliberately refuses to overwrite an existing PPTX or validation receipt:
 

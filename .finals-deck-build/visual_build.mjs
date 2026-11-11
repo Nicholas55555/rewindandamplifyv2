@@ -44,6 +44,8 @@ const driveNow=JSON.parse(await fs.readFile(root+'/qrsm_photon_poc/drive_diagnos
 const phaseNow=JSON.parse(await fs.readFile(root+'/quantum_lithography_poc/phase_inspection_followup/results.json','utf8'));
 const spatialNow=JSON.parse(await fs.readFile(root+'/finals-lithography/full_spatial_circuit/results.json','utf8'));
 const exposureNow=JSON.parse(await fs.readFile(root+'/quantum_lithography_poc/exposure_followup/results.json','utf8'));
+const dotBridge=JSON.parse(await fs.readFile(root+'/quantum_dot_bridge/results.json','utf8'));
+const homAnalysis=JSON.parse(await fs.readFile(root+'/quantum_dot_bridge/hom_analysis/results.json','utf8'));
 const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
 {
  const s=slide('',1,true);
@@ -196,16 +198,20 @@ const pct=(v,places=1)=>(100*v).toFixed(places)+'%';
 }
 
 {
- const s=slide('Laser diagnostics could protect chip exposures',10,true);
- txt(s,'Exposure light affects the pattern printed on a wafer',64,134,1150,45,30,C.cream);
- const b=await fs.readFile(root+'/animations/laser-diagnostic-lenses.png');
- s.images.add({blob:b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),contentType:'image/png',alt:'Illustrative optical frequency response with photodiode, atomic sensor and conventional coherent reference',fit:'contain',crop:{left:.035,top:.274,right:.035,bottom:.239},position:{left:64,top:207,width:1152,height:341}});
- txt(s,'Research question: does an atomic reference add useful information?',64,565,1152,54,28,C.cyan,true);
- footer(s,'Illustrative +5 Hz response. Our 698 nm lab surrogate needs a separate sensing design for lithography sources.',true);
- note(s,'Laser diagnostics could protect chip exposures','6:45–7:25',
- 'Chipmaking exposes a pattern on a wafer using light. Changes in energy, wavelength or bandwidth can alter that pattern. Cymer and imec measured this connection, and conventional source monitors already exist. Our separate question is whether an atomic reference adds useful information alongside those instruments. A photodiode measures power. A coherent receiver compares optical references. An atom compares the laser with an atomic transition. Earlier diagnosis could reduce wasted exposures or downtime, but we have measured neither benefit. This698nanometer lab surrogate needs a separate design for lithography sources.',
- 'Cymer/imec2014 controlled source and wafer experiments: https://www.cymer.com/wp-content/uploads/2018/12/Cymer_SPIE_AdvancedLithography_2014.pdf. Atomic precedent Bishof etal2013 https://arxiv.org/abs/1303.6741. Illustration instantaneouspulse+5Hz, benchmarkfinitepulse±.5Hz. DUV193nm,CO2drive,EUV13.5nm distinctions in backup.',
- 'Nicholas states the pragmatic chipmaking connection. This is a proposed diagnostic addition, not evidence of finding a light-source defect.');
+ const s=slide('Quantum dots connect semiconductors to photons',10,true);
+ txt(s,'Confined electronic states can emit single photons',64,134,1150,45,30,C.cream);
+ txt(s,'Quantum photonic chips',64,223,570,50,32,C.cyan,true);
+ txt(s,'Photon counts reveal brightness.\nInterference tests probe whether\nphotons occupy matching modes.',64,301,570,121,28,C.cream);
+ txt(s,'Our model keeps brightness fixed\nwhile interference quality changes.',64,467,570,80,26,C.light);
+ txt(s,'Chipmaking light sources',724,223,492,50,32,C.amber,true);
+ txt(s,'Exposure depends on stable light.\nConventional source monitors\nalready exist.',724,301,492,121,28,C.cream);
+ txt(s,'Separate test: add an atomic\nfrequency reference.',724,467,492,80,26,C.light);
+ txt(s,'Useful diagnosis needs a measurement of the property that matters',64,565,1152,54,28,C.cyan,true);
+ footer(s,'Separate research paths. Our dot model is illustrative. The 698 nm atomic surrogate needs a lithography-compatible design.',true);
+ note(s,'Quantum dots connect semiconductors to photons','6:45–7:25',
+ 'Quantum dots connect our emitter model to semiconductors. Confined states can emit single photons, and researchers have integrated such sources with photonic waveguides. For quantum computing, photon counts alone miss whether those photons interfere well. Our separate model holds brightness fixed while interference quality changes. That makes source characterization a concrete semiconductor application. Lithography adds a different question: light changes can alter the exposed pattern. Conventional monitors already exist. We test whether an atomic frequency reference adds useful information. That laboratory surrogate still needs a compatible design for lithography.',
+ 'quantum_dot_bridge/README.md and results.json: illustrative two-level radiative emitter, ideal one-photon preparation, frequency-independent loss. Real integration precedent: Davancoetal2017, https://www.nist.gov/publications/heterogeneous-integration-chip-quantum-photonic-circuits-single-quantum-dot-devices, GaAs structures with InAs/GaAs dots coupled to Si3N4 waveguides. This is prior external work, not our device. Cymer/imec2014 source/wafer context https://www.cymer.com/wp-content/uploads/2018/12/Cymer_SPIE_AdvancedLithography_2014.pdf. Atomic precedent Bishofetal2013 https://arxiv.org/abs/1303.6741. Semiconductor emitter characterization and lithography-laser monitoring are distinct tasks.',
+ 'Nicholas makes the semiconductor connection explicit, then transitions to the separate atomic-frequency study. Quantum-dot spin qubits, colloidal dots and optically active emitters have different device physics. Use backups30–31 for the model and external measurement evidence.');
 }
 
 {
@@ -367,7 +373,7 @@ await addBackups();
 }
 {
  const s=slide('Judging rubric and evidence map',23);
- table(s,[['Criterion','Weight','Where the talk addresses it'],['Problem and impact','15%','1–5, 8, 10, 12: purpose, measurement, cost'],['Quantum rationale','20%','4, 6–7, 15, 27: model, scaling, limits'],['Technical Qiskit implementation','20%','7–9, 14–15, 21–22, 27: circuit evidence'],['Results and evaluation','10%','4–5, 8, 11–12, 17–18, 25–29'],['Innovation','10%','7, 13, 24: contribution versus prior work'],['Presentation','15%','13 main slides, planned 9:20 including demo'],['Q&A and teamwork','10%','13–29: roles, lessons, evidence backups']],[380,135,637],150,458,22);
+ table(s,[['Criterion','Weight','Where the talk addresses it'],['Problem and impact','15%','1–5, 8, 10, 12: purpose, measurement, cost'],['Quantum rationale','20%','4, 6–7, 15, 27: model, scaling, limits'],['Technical Qiskit implementation','20%','7–9, 14–15, 21–22, 27: circuit evidence'],['Results and evaluation','10%','4–5, 8, 11–12, 17–18, 25–31'],['Innovation','10%','7, 13, 24: contribution versus prior work'],['Presentation','15%','13 main slides, planned 9:20 including demo'],['Q&A and teamwork','10%','13–31: roles, lessons, evidence backups']],[380,135,637],150,458,22);
  footer(s,'Hardware bonus: highest applicable tier, up to +5. Evidence supports evaluation, not a guaranteed score.');
  note(s,'Judging rubric and evidence map','Backup',
  'This map follows the supplied Qiskit Fall Fest judging rubric. Exceptional performance asks for a specific stakeholder and realistic impact, a defensible quantum rationale that considers classical alternatives and hardware scale, reproducible Qiskit implementation, rigorous comparisons, a clear contribution relative to reused ideas, accessible delivery within the time limit, and shared understanding. The hardware bonus is a separate highest-tier item, not an additive sum of all tier values. We do not predict a judge score.',
@@ -439,12 +445,36 @@ await addBackups();
  'qrsm_photon_poc/followup/README.md, dynamics_results.json, inference_results/, parameter_validation_v2/ and independent_review.json. Max after-click error over tested later lags versus cavity dimension6. Master equation independently checked with QuTiP; trajectory statistics tested separately. Controlled model-HMM logscore gains .0574[.0158,.1014] and .0972[.0448,.1495]nats/24-binrecord under conditional bootstrap. This does not establish physical defect identification or a quantum computational speedup.');
 }
 
+{
+ const s=slide('Equal photon counts can hide poor interference',30);
+ txt(s,'Illustrative dot model. Overlap M = 1 is the ideal interference limit.',64,135,1152,53,26,C.muted);
+ const labels=['Ideal reference','Pure dephasing','Frequency mismatch','Both effects'];
+ table(s,[['Model','Photon survival','Overlap M','Coincidence per attempt'],...dotBridge.benchmark_cases.map((r,i)=>[labels[i],pct(r.single_photon_survival_probability,0),r.conditional_overlap.toFixed(2),pct(r.coincidence_probability_per_excitation_pair,1)])],[330,290,200,332],209,294,25);
+ txt(s,'Reducing survival from 80% to 20% needs 16× as many attempts per surviving pair',64,525,1152,72,28,C.teal,true);
+ footer(s,'Attempt = two excitations. Ideal preparation and frequency-independent loss imposed. No physical defect identified.');
+ note(s,'Equal photon counts can hide poor interference','Backup',
+ 'The model separates brightness, single-photon character and indistinguishability. Each excitation emits exactly one photon, and each has20percent survival, so brightness and ideal g2(0) are identical by construction. Pure dephasing or differential frequency shifts change the density-operator overlap. For a balanced beamsplitter, coincidences per attempted excitation pair are eta squared times one minus overlap, divided by two. More coincidences here indicate worse interference. A classical two-state frequency environment also changes pair overlap while preserving each photon frequency marginal. Those offsets are quasi-static within each wavepacket; they are not a diagnosed microscopic trap. Loss matters independently: lowering per-photon survival from80to20percent raises attempts per surviving pair from1.5625to25. The result motivates interference-sensitive source measurements, not a quantum advantage claim.',
+ 'quantum_dot_bridge/results.json benchmark_cases, classical_trap_pair_comparison and loss budget; PROTOCOL.md; independent_review.json. Illustrative lifetime1ns. Cases gamma_star/Gamma and differential angular detuning/Gamma: (0,0),(.5,0),(0,2),(.5,2). Ideal g2(0)=0 imposed. Sixteen focused tests, direct two-photon beamsplitter check and independent wavepacket-kernel quadrature. Real semiconductor photon-source integration precedent: Davancoetal2017 https://www.nist.gov/publications/heterogeneous-integration-chip-quantum-photonic-circuits-single-quantum-dot-devices. External GaAs HOM data are separate, not fitted by this model.');
+}
+
+{
+ const s=slide('External GaAs data: a conditional reanalysis',31);
+ txt(s,'Münzberg et al. (2022) measurements, reused under CC BY 4.0',64,135,1152,53,27,C.muted);
+ table(s,[['Excitation separation','Our corrected HOM visibility','Conditional 95% interval'],...homAnalysis.cases.map(r=>[r.excitation_separation_ns.toFixed(1)+' ns',r.primary.corrected_visibility.toFixed(4),r.primary.corrected_interval95.map(v=>v.toFixed(4)).join(' to ')])],[320,405,427],209,255,25);
+ txt(s,'39.4 ns: co-only normalization gives '+homAnalysis.cases[2].primary.co_only_corrected_visibility.toFixed(4),64,487,1152,55,29,C.teal,true);
+ txt(s,'Normalization sensitivity limits the physical conclusion',64,554,1152,51,29,C.ochre,true);
+ footer(s,'Our ±2 ns windows and four reference peaks. Published corrections. Conditional counting/calibration errors exclude systematics.');
+ note(s,'External GaAs data: a conditional reanalysis','Backup',
+ 'These are external Hong–Ou–Mandel histograms, not team measurements. We normalize each central peak by the mean of four side peaks, then compare the co-polarized and cross-polarized acquisitions. We apply the published splitter and multiphoton correction. The quoted intervals condition on independent Poisson counting, fixed timing registration and shared Gaussian calibration uncertainties. They exclude polarization, routing and drift systematics. Our estimates are close to the paper’s reported0.803,0.826and0.774, but exact author integration windows and normalization are unavailable. This is therefore a separate conditional reanalysis. At39.4nanoseconds, the alternative co-only normalization gives0.7938rather than0.7724. Sensitivity to that choice prevents a microscopic defect or noise-rate inference. No monotonic decay or improved device performance follows from these three measurements.',
+ 'quantum_dot_bridge/hom_analysis/results.json, PROTOCOL.md and independent review. Dataset https://doi.org/10.5281/zenodo.6337697, CC BY4.0, by Julian Munzberg, Franz Draxl, Saimon Filipe Covre da Silva, Yusuf Karli, Santanu Manna, Armando Rastelli, Gregor Weihs and Robert Keil. Paper https://arxiv.org/html/2203.08682v1 SectionIV Eqs3–4. Quoted paper V=.803(.005),.826(.004),.774(.004) remain separate. Our primary extraction uses half-open windows of half-width2ns, no background subtraction, reference cycle indices−2,−1,+1,+2 and200000Monte Carlo draws. R=.514±.007,g2=.016±.001, assumed independent but shared across separations. Data hashes verified against reference_hom/provenance_manifest.json. These aggregate histograms cannot provide original QRSM binary histories or uniquely identify charge traps.');
+}
+
 await fs.mkdir(build,{recursive:true});
 for(let i=0;i<P.slides.items.length;i++){const b=await P.export({slide:P.slides.items[i],format:'png',scale:1});await fs.writeFile(`${build}/visual-slide-${String(i+1).padStart(2,'0')}.png`,new Uint8Array(await b.arrayBuffer()));}
 await fs.writeFile(build+'/visual_notes.json',JSON.stringify(scripts,null,2));
 const candidate=build+'/visual-candidate.pptx';await(await PresentationFile.exportPptx(P)).save(candidate);
 if(!draft){
- const tableOwners=[3,4,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29];
- const result=await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath:process.env.OUTPUT_PPTX??root+'/finals-deck/Rewind_Amplify_Finals_Visual.pptx',pythonExecutable:py,integrityValidatorPath:skill+'/container_tools/inspect_presentation_package_integrity.py',layoutValidatorPath:skill+'/container_tools/inspect_presentation_layout_geometry.py',layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit',...tableOwners.flatMap(n=>['--require-native-table-slide',String(n)])],explicitTotalSlideCount:29,requiredNativeChartOwnerSlides:[5,8,11],requiredNativeTableOwnerSlides:tableOwners,materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:['Arial']},verifyArtifactToolImport:true,receiptPath:process.env.OUTPUT_RECEIPT??build+'/visual_validation.json'});console.log(JSON.stringify(result));
+ const tableOwners=[3,4,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31];
+ const result=await finalizePresentation({workspaceDir:root,candidatePath:candidate,finalPath:process.env.OUTPUT_PPTX??root+'/finals-deck/Rewind_Amplify_Finals_Visual.pptx',pythonExecutable:py,integrityValidatorPath:skill+'/container_tools/inspect_presentation_package_integrity.py',layoutValidatorPath:skill+'/container_tools/inspect_presentation_layout_geometry.py',layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit',...tableOwners.flatMap(n=>['--require-native-table-slide',String(n)])],explicitTotalSlideCount:31,requiredNativeChartOwnerSlides:[5,8,11],requiredNativeTableOwnerSlides:tableOwners,materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:['Arial']},verifyArtifactToolImport:true,receiptPath:process.env.OUTPUT_RECEIPT??build+'/visual_validation.json'});console.log(JSON.stringify(result));
 }
 console.log(JSON.stringify({draft,slides:P.slides.items.length,scriptCount:scripts.length}));

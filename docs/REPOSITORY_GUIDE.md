@@ -14,7 +14,7 @@ This guide maps the public continuation of [Rewind & Amplify](https://github.com
 | Explore the semiconductor connection | [Quantum-dot bridge](../quantum_dot_bridge/README.md): checked photon-coherence benchmark and external HOM reference |
 | See what remains open | The final sections of [Research findings](../RESEARCH_RESULTS.md) and the [bounded-program completion audit](../research-validation/completion_audit.json) |
 
-The presentation contains **13 main slides and 16 backups**, with a planned **9:20** main talk including a **45-second original-model demo**. This is a rehearsal plan, not measured delivery time. The PPTX has speaker notes and editable text/charts/tables. The PDF is a static image fallback without notes. Exported slides and package structure were checked; native PowerPoint playback still needs testing on the presentation machine.
+The presentation contains **13 main slides and 18 backups**, with a planned **9:20** main talk including a **45-second original-model demo**. This is a rehearsal plan, not measured delivery time. The PPTX has speaker notes and editable text/charts/tables. The PDF is a static image fallback without notes. Exported slides and package structure were checked; native PowerPoint playback still needs testing on the presentation machine.
 
 ## Current results versus historical snapshots
 
@@ -22,7 +22,7 @@ The directory layout preserves the development history:
 
 - `rewindandamplify-main/` contains the original project. Its README/report describe their own snapshot and sometimes use a broader hardware headline than the closer pair featured in the current evidence note.
 - `RESEARCH_RESULTS.md` summarizes the completed followups. Its delivery section was written before those findings were integrated into the current deck and app. The current presentation links above already include the new research.
-- `quantum_dot_bridge/` is a later, separate exploration. Its results and per-study verification do not alter the 285-file frozen research snapshot or the current presentation. Its README distinguishes the illustrative calculation from imported experimental histograms.
+- `quantum_dot_bridge/` is a later, separate exploration. Its results and per-study verification preserve the earlier 285-file research snapshot. The current deck and app now include the semiconductor connection. Its README distinguishes the illustrative calculation, imported experimental histograms and the subsequent bounded HOM reanalysis.
 - The `followup/`, `drive_diagnostics_followup/`, `multibin_followup/`, `exposure_followup/`, `phase_inspection_followup/` and `full_spatial_circuit/` directories contain newer work. Earlier roadmaps may still describe these as proposed.
 - `laser_sensor_viability/results.json` is the **earlier known-onset** batch experiment. `laser_sensor_viability/followup/main/results.json` is the **newer unknown-onset** experiment. Their tasks, calibration and headline rates differ. The app labels them separately.
 - An `archive/`, `smoke/`, preliminary or failed-attempt record documents development. It is not automatically canonical evidence or an additional independent experiment. Each study README identifies its final outputs.
@@ -35,7 +35,7 @@ The full-grid circuit was constructed after earlier documents described it as mi
 |---|---|---|
 | Physical model | Quantum-state evolution and a measurement model | Numerical prediction under declared physics; fitting often runs classically |
 | Quantum query | Coherent preparation, predicate, inverse and amplification | Ideal/noisy Qiskit simulation and selected archived IBM circuits |
-| Optical sensing or illumination | Hypothetical atoms, emitters or quantum light interacting with a signal/sample | Synthetic studies here; no new physical optical measurements |
+| Optical sensing or illumination | Atoms, emitters or quantum light interacting with a signal/sample | Our device models are synthetic. The separately attributed GaAs HOM histograms are published external measurements; we collected no new optical data. |
 
 A click is a recorded measurement outcome. A fitted hidden state is an estimate conditioned on a model and record; it is not direct access to an arbitrary unknown state. A larger accepted-event rate is useful only if the accepted distribution or state remains accurate. A sensing benefit does not establish a computing speedup, and a fine optical fringe does not establish printed resolution.
 
@@ -100,6 +100,20 @@ Run study suites in separate Python processes. Several folders intentionally use
 | [Optical phase inspection](../quantum_lithography_poc/phase_inspection_followup/README.md) | `python -m unittest discover -s quantum_lithography_poc/phase_inspection_followup -p test_phase_model.py -v` |
 
 These eight suites passed **79 focused tests** in the recorded fresh-extraction check. That count describes the research delivery, not the original package or app suite. It checks defined numerical behavior; it is not physical-device validation. Full study regeneration can cost much more than these tests. Follow each study's README for its runner, resource guards, seeds, dependencies and output policy. Do not attempt a full statevector simulation of the 389-qubit construction.
+
+## Reproduce the later quantum-dot work
+
+The later semiconductor study has separate source/data hashes. Its illustrative coherence model, the unmodified external GaAs histograms and their conditional HOM reanalysis have distinct provenance:
+
+```bash
+python -m unittest discover -s quantum_dot_bridge -p "test_*.py" -v
+python quantum_dot_bridge/verify_results.py
+python -m unittest discover -s quantum_dot_bridge/reference_hom -p "test_*.py" -v
+python quantum_dot_bridge/reference_hom/import_verify.py
+python -m unittest discover -s quantum_dot_bridge/hom_analysis -p "test_*.py" -v
+```
+
+Use [the analysis README](../quantum_dot_bridge/hom_analysis/README.md) for a fresh-output reproduction and its read-only verifier. The full CI research group runs each suite in its own process through `.github/scripts/run_tests.py --group research`. It does not overwrite the frozen experiments or submit hardware jobs.
 
 ## How to read the evidence
 

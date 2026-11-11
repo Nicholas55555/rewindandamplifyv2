@@ -1,8 +1,8 @@
 {
   "status": "passed",
   "all_checks_passed": true,
-  "route": "Existing Python Playwright + installed system Chrome in an isolated headless profile, standalone file URL. CUA IAB unavailable and browser inventory empty; no user browser profile or account used.",
-  "route_note": "Initial bundled Chromium 138 lacked H.264 support (empty canPlayType); all final checks use installed Chrome. No media bytes were changed.",
+  "route": "Existing Python Playwright + installed system Chrome in an isolated headless profile, standalone file URL. Uses the previously verified local fallback; no user browser profile or account used.",
+  "route_note": "Previous QA found CUA IAB unavailable and bundled Chromium 138 lacked H.264 decoding. This revision uses installed Chrome directly; media bytes remain unchanged.",
   "python": "3.12.10",
   "chromium": "157.0.8103.39",
   "checks": [
@@ -10,8 +10,10 @@
     "All 13 drive cases preserve eligible/null denominators, matched source-stable FAR and prior-only controls",
     "All seven phase cases and both budgets show global error, branch errors, dose and time",
     "Inference pairing and complete explicit circuit ledger visible",
+    "All four quantum-dot toy cases, four trap settings and six loss settings match frozen values; native keyboard selector works",
+    "All three external HOM pairs and both display windows retain raw counts, attribution and paper-reported labels; new extraction values/conditional intervals/protocol ranges match saved results",
     "Original core controls unchanged; chapter arrows/Home/End and Ctrl+Home behave correctly; history link works",
-    "390x844 mobile: all four study views have no document horizontal overflow and readable HTML data",
+    "390x844 mobile: all five study views have no document horizontal overflow and readable HTML data",
     "Reduced-motion preference disables historical autoplay-style controls; MP4s have no autoplay"
   ],
   "page_errors": [],
@@ -33,27 +35,27 @@
     "preview-research-drive.png",
     "preview-research-phase.png",
     "preview-research-progress.png",
+    "preview-research-dot.png",
+    "preview-research-dot-model.png",
+    "preview-research-dot-data.png",
     "preview-research-frequency-mobile.png",
     "preview-research-drive-mobile.png",
     "preview-research-phase-mobile.png",
-    "preview-research-progress-mobile.png"
+    "preview-research-progress-mobile.png",
+    "preview-research-dot-mobile.png",
+    "preview-research-dot-model-mobile.png",
+    "preview-research-dot-data-mobile.png"
   ],
   "source_sha256": {
-    "index.html": "1b564deb021359f98234ce13d9f44b9d40cc3227e9f565f15b9eb67351cb2301",
+    "index.html": "337c5cf82e2cf73eb9ae33c614ea67fe614e0bd79cc8feef6ac410d5f09487f6",
     "app.js": "3074f27e3090f4172ff5b414bc55ff132846041c8bb61831f006f8d2689cdfca",
-    "research.js": "e3eef2d289683aeb5c97cf3c5ed14c8273b6e40e354ea1a2aafb23f3b4a3da44",
-    "styles.css": "1f221c1e1adabd5e0c21a01666a4f00a1995e6cec9753ac42eda23ea6e22e2c3",
+    "research.js": "b5fae2647d64a414edb5fd508f682fe056bc8d856352dd92a8df1e8a48f5aade",
+    "quantum-dots.js": "334f778ec835d36cbe20d1f7f355a4564465f602f0d0e242da2446ad8a0802fa",
+    "styles.css": "2042284670c450c5c0b6150ffc31fc43b12e999a45691ebae305ac50201ed3a1",
     "model.js": "089dd4e315936efedbb398c7bac6772ed0939f4b3cfa366deeb36cdeee2ab37f",
     "data.js": "0a3054e717bfcc1f9457236f7d2a43abe606d45ee4130fb1b3f0ecdb6438e300",
-    "research-data.js": "9a75b9a96d630941d6ecce145c8dda8defe103200183efab1a3cb953f7d3987d",
-    "check_browser.py": "536447b636abca9504a2986e8f69be5a7a6aed2afd6c226e1d07d556d08dab67"
+    "research-data.js": "72554ea8f8ec99287483d7812335757cd03a56c286a9eca0be3ff1734296be0f",
+    "check_browser.py": "ff55a9228eaf39d0050ce374b1a8986bc5b837c49b7d6b645f1b2b0c285d22d8"
   },
-  "evidence_manifest_sha256": "39cddb6b17af48730894a87f73ba3863580cea47558ecdc560fbb9ddc20ae035",
-  "post_qa_document_refresh": {
-    "scope": "Final root documentation recopied after browser QA. All tested HTML, JS, CSS, numerical data and browser harness hashes remain identical.",
-    "previous_evidence_manifest_sha256": "6e3908acba02aafcf3b6e94652d16c27a536c5d226e7d304d6102d0ae5d8dd21",
-    "current_evidence_manifest_sha256": "39cddb6b17af48730894a87f73ba3863580cea47558ecdc560fbb9ddc20ae035",
-    "deterministic_import_twice": true,
-    "generated_files_compared": 33
-  }
+  "evidence_manifest_sha256": "c6a26a83d160f65c9dd7c1c03db8f7d97cc3abf3b67b5801b5f6dc31f4a12deb"
 }

@@ -81,13 +81,30 @@ def main():
         if url=='#':continue
         if url.startswith('#'):assert url[1:] in p.ids,url
         else:assert (HERE/url.split('#')[0].split('?')[0]).is_file(),url
-    for script in ['app.js','research.js']:
+    for script in ['app.js','research.js','quantum-dots.js']:
         js=(HERE/script).read_text(encoding='utf8')
         for element in re.findall(r"\$\('([^']+)'\)",js):assert element in p.ids,(script,element)
         assert 'fetch(' not in js and 'XMLHttpRequest' not in js
     manifest=json.loads((HERE/'evidence/manifest.json').read_text())
     for rel,expected in manifest['files'].items():assert hashlib.sha256((HERE/rel).read_bytes()).hexdigest()==expected,rel
-    assert all('research_'+key+'.json' in (HERE/'research-data.js').read_text(encoding='utf8') for key in ['frequency','drive','prior','phase','spatial','inference_ignored','inference_aware'])
+    assert all('research_'+key+'.json' in (HERE/'research-data.js').read_text(encoding='utf8') for key in ['frequency','drive','prior','phase','spatial','inference_ignored','inference_aware','dot','hom_reference','hom_analysis'])
+    reference=json.loads((HERE/'evidence/research_hom_reference.json').read_text())
+    assert reference['all_checks_passed'] and len(reference['files'])==6
+    assert reference['license']['id']=='CC-BY-4.0' and not reference['compatibility']['team_data']
+    for entry in reference['files']:
+        assert hashlib.sha256((HERE/'evidence/hom'/entry['path']).read_bytes()).hexdigest()==entry['sha256']
+    dot=json.loads((HERE/'evidence/research_dot.json').read_text())
+    assert dot['provenance']['all_quadrature_checks_passed']
+    analysis=json.loads((HERE/'evidence/research_hom_analysis.json').read_text())
+    assert analysis['reference_manifest_sha256']==hashlib.sha256((HERE/'evidence/research_hom_reference.json').read_bytes()).hexdigest()
+    for entry in reference['files']:assert analysis['raw_sha256'][entry['path']]==entry['sha256']
+    independent=json.loads((HERE/'evidence/hom_analysis_independent_primary.json').read_text())
+    assert independent['results_sha256']==hashlib.sha256((HERE/'evidence/research_hom_analysis.json').read_bytes()).hexdigest()
+    assert independent['all_primary_areas_centers_and_point_estimates_match']
+    analysis_validation=json.loads((HERE/'evidence/hom_analysis_validation.json').read_text())
+    assert analysis_validation['status']=='passed' and analysis_validation['unit_tests']['count']==14
+    assert analysis_validation['artifact_sha256']['results.json']==independent['results_sha256']
+    for name in ['HOM_ANALYSIS.md','HOM_ANALYSIS_PROTOCOL.md']:assert (HERE/'evidence'/name).is_file()
     drive=json.loads((HERE/'evidence/research_drive.json').read_text())
     prior=json.loads((HERE/'evidence/research_prior.json').read_text())
     assert len(drive['cases'])==13 and prior['main_results_sha256']==hashlib.sha256((HERE/'evidence/research_drive.json').read_bytes()).hexdigest()
