@@ -1,0 +1,427 @@
+{
+  "review_scope": "All 29 finalized PPTX slides imported, rendered and individually visually inspected at 1280x720. All 29 PDF pages rendered with Poppler at 96 dpi, with every embedded image and page bound checked. Changed/new PDF pages 4, 11\u201313, 15\u201318 and 25\u201329 visually inspected.",
+  "reviewed_slide_count": 29,
+  "visual_findings": [],
+  "rows": [
+    {
+      "slide": 1,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.5610206886574076
+    },
+    {
+      "slide": 2,
+      "final_matches_authored": false,
+      "accepted_import_wrap_difference": true,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.4928562644675925
+    },
+    {
+      "slide": 3,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.252566550925926
+    },
+    {
+      "slide": 4,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 4.029314236111111
+    },
+    {
+      "slide": 5,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 1.8510051359953703
+    },
+    {
+      "slide": 6,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.0592100694444446
+    },
+    {
+      "slide": 7,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.904870515046296
+    },
+    {
+      "slide": 8,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.4623766637731483
+    },
+    {
+      "slide": 9,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.5552209924768516
+    },
+    {
+      "slide": 10,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.4346871383101854
+    },
+    {
+      "slide": 11,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.0719563802083334
+    },
+    {
+      "slide": 12,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.6261454716435186
+    },
+    {
+      "slide": 13,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.634892578125
+    },
+    {
+      "slide": 14,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.2542849392361113
+    },
+    {
+      "slide": 15,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.515810185185185
+    },
+    {
+      "slide": 16,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.0034950086805554
+    },
+    {
+      "slide": 17,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.776978081597222
+    },
+    {
+      "slide": 18,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.762139033564815
+    },
+    {
+      "slide": 19,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.948913845486111
+    },
+    {
+      "slide": 20,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.7884581163194446
+    },
+    {
+      "slide": 21,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.026262297453704
+    },
+    {
+      "slide": 22,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.6799909577546295
+    },
+    {
+      "slide": 23,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.0727014612268517
+    },
+    {
+      "slide": 24,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.5215382667824073
+    },
+    {
+      "slide": 25,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.4236082175925926
+    },
+    {
+      "slide": 26,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.964749710648148
+    },
+    {
+      "slide": 27,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 2.819402126736111
+    },
+    {
+      "slide": 28,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.1199880642361113
+    },
+    {
+      "slide": 29,
+      "final_matches_authored": true,
+      "accepted_import_wrap_difference": false,
+      "pdf_embedded_image_matches_final": true,
+      "pdf_page_points": [
+        960.0,
+        540.0
+      ],
+      "pdf_raster_mean_absolute_rgb_error": 3.4319835069444444
+    }
+  ],
+  "native_powerpoint_opened": false,
+  "planned_talk_seconds": 560,
+  "timing_rehearsed": false,
+  "speaking_rates": [
+    {
+      "slide": 1,
+      "seconds": 15,
+      "words": 35,
+      "words_per_minute": 140.0
+    },
+    {
+      "slide": 2,
+      "seconds": 45,
+      "words": 104,
+      "words_per_minute": 138.7
+    },
+    {
+      "slide": 3,
+      "seconds": 35,
+      "words": 76,
+      "words_per_minute": 130.3
+    },
+    {
+      "slide": 4,
+      "seconds": 60,
+      "words": 130,
+      "words_per_minute": 130.0
+    },
+    {
+      "slide": 5,
+      "seconds": 45,
+      "words": 98,
+      "words_per_minute": 130.7
+    },
+    {
+      "slide": 6,
+      "seconds": 45,
+      "words": 95,
+      "words_per_minute": 126.7
+    },
+    {
+      "slide": 7,
+      "seconds": 55,
+      "words": 108,
+      "words_per_minute": 117.8
+    },
+    {
+      "slide": 8,
+      "seconds": 60,
+      "words": 125,
+      "words_per_minute": 125.0
+    },
+    {
+      "slide": 9,
+      "seconds": 45,
+      "words": 90,
+      "words_per_minute": 120.0
+    },
+    {
+      "slide": 10,
+      "seconds": 40,
+      "words": 90,
+      "words_per_minute": 135.0
+    },
+    {
+      "slide": 11,
+      "seconds": 45,
+      "words": 108,
+      "words_per_minute": 144.0
+    },
+    {
+      "slide": 12,
+      "seconds": 40,
+      "words": 94,
+      "words_per_minute": 141.0
+    },
+    {
+      "slide": 13,
+      "seconds": 30,
+      "words": 69,
+      "words_per_minute": 138.0
+    }
+  ],
+  "pdf": "Static image-based fallback without speaker notes",
+  "pptx_sha256": "0e7fb7752b4b27757fabaf175123ea633951e239d2e00d422a2dfef98ad17893",
+  "pdf_sha256": "fb1a124598f47638294deac0eec624b303610577ffbea309925ca59c44a2e461",
+  "pdf_raster_note": "Poppler interpolates the full-page raster slightly. Embedded PDF images preserve final slide pixels exactly.",
+  "accepted_import_difference": [
+    {
+      "slide": 2,
+      "bbox": [
+        724,
+        420,
+        1212,
+        501
+      ]
+    }
+  ],
+  "revision": "Research update: fresh deadtime inference, unknown-onset sensor, negative drive/prior control, conditional phase benefit, three-bin and full49 circuit cost, exposure sensitivity and cavity-cutoff limitations. 13 main slides, 16 backups, 45-second original-model demo. First nine slides preserve the original QRSM/IBM story.",
+  "validation_receipt": "visual_validation_research_v5b.json",
+  "source_hash_count": 16
+}

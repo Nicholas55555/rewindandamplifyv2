@@ -1,0 +1,56 @@
+{
+  "pptx": "Rewind_Amplify_Finals_Visual.pptx",
+  "pdf": "Rewind_Amplify_Finals_Visual.pdf",
+  "presenter_guide": "Visual_Presenter_Guide.md",
+  "main_slide_count": 13,
+  "total_slide_count": 29,
+  "notes_count": 29,
+  "talk_timing_seconds": 560,
+  "demo_seconds": 45,
+  "time_limit_seconds": 600,
+  "speaking_script_words": 1222,
+  "native_chart_count": 3,
+  "validation_report": "../.finals-deck-build/visual_validation_research_v5b.json",
+  "visual_review_report": "../.finals-deck-build/visual_review.json",
+  "build_source": "../.finals-deck-build/visual_build.mjs",
+  "render_source": "../.finals-deck-build/visual_render_final.mjs",
+  "finish_source": "../.finals-deck-build/visual_finish.py",
+  "sensor_results_sha256": "c9c1821e404af0fb74c384ba82cfadb38d49be5a3d15fb8a0cfb7a9a1e445da9",
+  "hardware_verification_sha256": "4320db49880ab942fc524c43491b47ea697bec92b64dcb3c18ba04b44e06795a",
+  "original_after_click_verification_sha256": "0db2be4bb4d6e1a6349383554c380d446c6ba4cac5112a710e8baef1e5b49481",
+  "sha256": {
+    "Rewind_Amplify_Finals_Visual.pptx": "0e7fb7752b4b27757fabaf175123ea633951e239d2e00d422a2dfef98ad17893",
+    "Rewind_Amplify_Finals_Visual.pdf": "fb1a124598f47638294deac0eec624b303610577ffbea309925ca59c44a2e461",
+    "Visual_Presenter_Guide.md": "13cd22375180e2f12fa394a491a3c60d3a56b70e3e3d424acf0d73e0c68feeb0"
+  },
+  "limitations": [
+    "PPTX has not been tested in native Microsoft PowerPoint.",
+    "PDF contains static slide images and no presenter notes.",
+    "9:20 is a planned timeline; the team must rehearse the actual delivery."
+  ],
+  "source_assets": [
+    "assets/optical-cover.png",
+    "../animations/laser-diagnostic-lenses.png",
+    "../laser-diagnostics-app/app-core-query.jpg",
+    "../rewindandamplify-main/results/figures/fig_circuit_hybrid.png",
+    "../rewindandamplify-main/results/figures/fig_circuit_grover.png"
+  ],
+  "source_sha256": {
+    "RESEARCH_RESULTS.md": "c1babe8f588d3488dd9c38aca1c264be21f992eb7bff1ea1a82276fc1b279904",
+    "research-validation/original_after_click_verification.json": "0db2be4bb4d6e1a6349383554c380d446c6ba4cac5112a710e8baef1e5b49481",
+    "research-validation/hardware_verification.json": "4320db49880ab942fc524c43491b47ea697bec92b64dcb3c18ba04b44e06795a",
+    "rewindandamplify-main/results/hardware/summary_plain.json": "2070b265889dbc6f2a088f47dfff7bc788fa763100ce996bfe6dfcbf1b38af5c",
+    "laser_sensor_viability/results.json": "7a35b25be3c998b14c439dc6a705db2489463484fe1743b00d5d7af96e9293ac",
+    "laser_sensor_viability/followup/main/results.json": "c9c1821e404af0fb74c384ba82cfadb38d49be5a3d15fb8a0cfb7a9a1e445da9",
+    "qrsm_photon_poc/drive_diagnostics_followup/main/results.json": "74847bbee9cbaf6fbd41d72ab2566839919de73d218e2690ad383c135495a069",
+    "qrsm_photon_poc/drive_diagnostics_followup/main/prior_only_estimation_control.json": "932e745a5f8107bbf37a05c97e7d53bfff8257a2d2b30c84405079b5c920a572",
+    "qrsm_photon_poc/multibin_followup/main/ideal_0p03.json": "666f5afb1f3e3fad6ca1d3a4d0a952efe0d561ad8bc4f393d5bd6e50e0343682",
+    "qrsm_photon_poc/multibin_followup/main/ideal_0p003.json": "f335d05ee1051a4d9a36b4f062d955b92e7c04500e2b134837459c1034d32bcf",
+    "qrsm_photon_poc/followup/dynamics_results.json": "b9b055fbc251b044d6ded0629f80980e17a3382a39f676a36d835e1c1e243c9b",
+    "qrsm_photon_poc/followup/inference_results/fixed_411101_dead1_fit0.json": "1caca96deb6b9719d4e0e76b4f1fdabf73e45c13feec606ab1073d2cc3caf91f",
+    "qrsm_photon_poc/followup/inference_results/fixed_411101_dead1_fit1.json": "84a85bb5c07211efc39b4bdc5e36480268fcbf90869f96bc9dd947b567c773b6",
+    "quantum_lithography_poc/phase_inspection_followup/results.json": "8c9ac370ed20a154376bb19b0ae6947f01346fa05fccb3d191e280adb927d6f4",
+    "quantum_lithography_poc/exposure_followup/results.json": "b1ed512117235c49140512e1a1b3d9abc7b28c45b14c7b6d12d3682f61b7fa3b",
+    "finals-lithography/full_spatial_circuit/results.json": "62769c7a89be87aab019d911d9bc6f7b778c9a73a7f1f4c044b0d43328ce3ba6"
+  }
+}

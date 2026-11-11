@@ -1,0 +1,95 @@
+# Rewind & Amplify: offline audience demo
+
+Open **index.html** in Chrome or Edge. The app needs no installation, internet, account or running Python process. Keep the entire `laser-diagnostics-app` folder together. All JavaScript, evidence and animations are local. To present, select **Focus view**, maximize the browser and use its full-screen command. The regular layout also works on a narrow screen.
+
+## A 45-second finals walkthrough: the original quantum project
+
+This accompanies the revised 13-main-slide, 9:20 presentation. The app opens **Rewind the model** first. Use `index.html?focus=1#rewind` for the stage view and keep the separate two-bin extension collapsed. Only the quoted lines below are spoken; the remaining text gives operating instructions.
+
+1. **0–8 s, name the QRSM's role.** “The QRSM updates a hidden-state estimate from the click history, then predicts the next observations.” Briefly point to **What the QRSM adds**. This is inference within candidate physical models, not direct access to an unknown quantum state.
+2. **8–15 s, define the query.** “A click is a recorded one. Here we select only step three, leaving earlier bits free.” Point to `? ? 1 ? ? ?`. Each question mark allows 0 or 1; the condition does **not** require the earlier prefix 001.
+3. **15–27 s, keep more useful histories.** Keep **Coupled hidden memory** selected and change **Plain sampling** to **Steering + full amplification**. “Steering and full amplification keep more useful runs while preserving the future pattern in this ideal test.” Acceptance changes from 3.95% to 96.49%. This is the combined design, not a gain attributed to Grover alone, and the app reads frozen verified results.
+4. **27–38 s, compare hypotheses.** Toggle **Emitter only**, then back to **Coupled hidden memory**. “These programmed models predict different patterns: about ten percent versus five percent at step six.” The exact displayed values are 10.10% and 4.67%; these are known model alternatives, not an unknown physical defect discovered by the app.
+5. **38–45 s, explain the requirement for useful inference.** “Testing defects requires many records and calibrated noise. More hits alone do not establish the right answer.” Point to the future-answer accuracy check, then return to the presentation. The exact classical sampler still wins at this small scale.
+
+## What the QRSM contributes to defect analysis
+
+For each candidate physical model, the QRSM carries a hidden quantum-state estimate between steps. Each observed bit conditions that estimate through the modeled measurement update, including measurement backaction. With imperfect readout, the update must allow for possible underlying outcomes instead of treating every recorded bit as infallible. The result is a probability distribution for later observations. Classical fitting can compare candidate interaction-and-noise models on many records and evaluate predictions on records not used for fitting.
+
+Hidden interactions and detector/readout errors can both change measured statistics. Misattributing one to the other can bias the inferred state or coupling, so defect analysis needs independent calibration, suitable alternative models and controls. The proposed value here is the physical structure of the quantum-state model. Classical sequence models can also represent memory; quantum-state notation alone does not establish computational advantage.
+
+Earlier parameter-fitting demonstrations used synthetic records. The current IBM circuits encode known, deliberately programmed models. A single click does not identify a defect, and the hidden-state estimate is not a direct state measurement or a nondestructive tomography result.
+
+For a useful Q&A control, choose **Emitter only** and **Memory-only reflection control**. It accepts about 74.29% of ideal runs but predicts about 0.84% at step 6 instead of 10.10%. This demonstrates why an attractive hit rate alone does not establish a useful result. Reset to **Coupled hidden memory** and **Plain sampling** afterward. The local-reflection design shown separately has its own, smaller approximation error in this case.
+
+## Current research: completed followups
+
+The second chapter, **Current research**, is the current research entry point. Open `index.html?focus=1#research` for a focused Q&A view. The app still defaults to **Rewind the model** for the original 45-second demonstration. The updated deck has 13 main slides, 29 total slides and a 9:20 main talk.
+
+Choose one of four study buttons. All selectors display exact saved outputs; they do not rerun a sensor, fit a model, change a threshold or submit a quantum job.
+
+- **Frequency monitoring:** a hidden-onset, causal task. Default nominal detection within 32 seconds is 51.35%, 58.02% and 97.97% for the receiver, receiver-plus-atom and two coherent references. Each bar also shows whole-128-second-record false alarms on a separate frequency-null population. Six conditions and both frozen fusion/agreement rules are available. The hypothetical 698 nm platform, substantial dead time and unmatched apparatus resources remain visible.
+- **Drive amplitude:** all 13 frozen source/detector conditions. Source-case bars use eligible event records and display premature alarms and restricted delay; source-stable bars show false source alarms. The telegraph denominator excludes records without activation or sufficient follow-up and states their counts. The units are 96 arbitrary-time bins, not seconds. Three algorithms analyze the same bits; this is not a contest between three physical sensors.
+- **The prior control stays visible:** every amplitude case compares observation-based RMSE, the same fitted prior without per-record bits, and the fitted constant baseline. On +20% steps the prior already gives 0.1136 versus 0.1125 with observations. The other four source-change cases worsen when the record is incorporated. This post-holdout descriptive check prevents the positive source prior from being mistaken for useful measurement information.
+- **Phase inspection:** seven optical cases and two resource budgets. The view reports global full-2π error, within-π error, branch errors, photon dose and attempt time together. The hybrid's efficient-case RMSE is 0.00637 rad versus the specified coherent comparator's 0.00791 rad. Pure NOON's global ambiguity, loss sensitivity, charged pilots and nonzero upper branch-error bound remain visible. This is phase estimation, not object-defect classification.
+- **Models & circuit cost:** a synthetic dead-time modeling example and the actual full-49-cell circuit construction. The latter uses 389 qubits and constructive generic CX upper bounds of 2,874,028–3,382,108 per complete round. The full state was not simulated; component/wiring/readback checks do not establish noisy execution or advantage.
+
+For a short Q&A sequence: show **Frequency monitoring → Reduced atomic coherence**, then **Drive amplitude → +20% field step** and its prior-only control. Finish with **Phase inspection → 1% preparation success** and compare equal photons with equal attempt clocks. These are distinct studies, not interchangeable headline percentages. The complete status index is copied to `evidence/RESEARCH_RESULTS.md`.
+
+## Earlier laser-sensing experiment
+
+**Earlier sensor study** preserves the original known-onset batch experiment. Its detector is told that the event starts at 64 seconds; its detection rates must not be presented as unknown-onset monitoring performance. A visible link returns to the current frequency study. Move the frequency-offset slider to about +5 Hz to illustrate a phase-sensitive response with unchanged ideal power. The slider uses the labelled instantaneous-pulse Ramsey limit and does not rerun either benchmark. The saved traces and original percentages are unchanged.
+
+A lithography engineer cares about stable illumination and repeatable exposure. This proposed diagnostic route would first need a physically compatible laboratory sensor and synchronized conventional references. The current 698 nm surrogate has not measured a lithography source, demonstrated a wafer-yield improvement or established financial savings.
+
+## Video fallbacks
+
+Open **Check the evidence** and scroll to the two visible video players. Each MP4 runs for 12 seconds and has native play, pause, seek and full-screen controls. Playback starts only when you choose it. The players use local PNG posters and do not autoplay.
+
+- **Same power. Different frequency.** `assets/laser-diagnostic-lenses.mp4` illustrates the proposed sensing lens and atomic-reference drift using the labelled analytical Ramsey example. It contains no laboratory measurements.
+- **Prepare, mark, rewind and amplify.** `assets/rewind-amplify.mp4` explains the **separate two-bin photon extension** using its saved ideal Qiskit probabilities. It is not a video of the original step-3 query or IBM hardware.
+
+Each player also has **Open MP4**, **Download video** and **Still image** links. If the embedded player is unavailable in a viewer, open the MP4 directly in Chrome, Edge or a compatible local video player. The readable visual explanations below the players describe their content without animation. The authoring GIFs remain in the workspace's `animations/` directory for provenance; the app no longer relies on GIF playback.
+
+The videos use H.264 in an MP4 container, with no audio. Their 1200 × 676 frames preserve the original 1200 × 675 scientific graphic and add one padding row for video encoding. `assets/video_manifest.json` records conversion metadata and source/output hashes.
+
+## What is live and what is frozen?
+
+- **Live analytical calculation:** the instantaneous-pulse Ramsey limit, with 20 ms dark time, selected coherence time, and asymmetric 2%/4% readout errors. The finite-pulse benchmark is more detailed. The slider does not claim to rerun its 4,000-record evaluations.
+- **Live analytical calculation:** ideal full-amplitude-amplification probability, starting at the saved coarse model's exact event probability. Only one round has an independently saved Qiskit statevector result in this experiment. Higher rounds in the explorer are a formula, not additional Qiskit executions.
+- **Frozen original QRSM query:** model toggles and the sampling-circuit selector read `research-validation/original_after_click_verification.json`. Its ideal Qiskit results were checked against exact filtering and its long-query IBM counts against archived records. Only step 3 is conditioned; later steps 4–6 remain outcomes. The long query kept 290 plain versus 3,354 amplified histories in the first archived coupled-model run. These are different circuits from the short-query 3,525-versus-3,215 comparison.
+- **Frozen sensing evidence:** all scenario traces and performance estimates in `data.js` come directly from `laser_sensor_viability/results.json` and `example_traces.json`. The importer includes hashes and copies full evidence to `evidence/`. Charts do not substitute a random animation for data.
+- **Frozen current research:** `research-data.js` contains exact JSON objects from seven selected canonical followup outputs: unknown-onset frequency, drive, prior-only estimation, phase, full spatial construction and the two paired dead-time fits. `provenance` records canonical paths, copied evidence paths and SHA-256 hashes. This is a separate bundle from the historical known-onset sensor data. Numerical results, study READMEs and selected validation/review receipts are local in `evidence/`.
+- **Archived QPU evidence:** 3,525/4,096 versus 3,215/4,096 raw event hits from the two steered, one-round IBM Kingston circuits. Different compiled circuits and placements prevent isolating a single cause. These are not optical-sensor measurements.
+
+The sensing comparison controls acquisition duration and source realizations. Its photon allocations are **assumed bookkeeping**, not a validated equality of total physical resources. Atomic support optics, independent local oscillators and hardware cost are unmatched. A second independent conventional reference can outperform the atomic addition in this model. No practical quantum advantage, industrial compatibility or wafer outcome is established.
+
+## Reproduce and verify
+
+From the workspace root, using Python with the standard library, the completed research outputs, and the verified original after-click JSON:
+
+```powershell
+python laser-diagnostics-app/import_results.py
+node --test laser-diagnostics-app/test_model.cjs
+python laser-diagnostics-app/check_package.py
+```
+
+The import script does not run or tune the scientific models. It packages exact saved values deterministically. Nine tests check the analytical controls, original query/hardware separation, all historical rates/traces, all seven current-source JSON copies and canonical hashes, unknown-onset count denominators, the 13-case prior-control pairing, global phase ambiguity and complete circuit costs. Canonical-source checks run when the surrounding workspace is present; copied-evidence checks also work in the standalone app folder. `check_package.py` checks local dependencies, evidence hashes, required review receipts, player controls, and actual MP4 container/AVC headers, dimensions, duration and frame count against the conversion manifest. It does not merely trust the filename extension. These are separate from visual and interaction checks.
+
+Optional repeatable browser QA, when Python Playwright and Chrome are already installed:
+
+```powershell
+python laser-diagnostics-app/check_browser.py
+```
+
+This uses an isolated headless Chrome profile and the standalone `file://` app. It checks all 39 current-research selector combinations, the original model controls, keyboard chapter navigation, mobile overflow, reduced motion and both videos. It writes `research_browser_validation.json` and eight new `preview-research-*.png` screenshots; historical deck screenshots are preserved. The current receipt records the browser route: the in-app browser was unavailable, and the older bundled Chromium lacked H.264 decoding, so installed Chrome was used. No browser installation, user account or personal browser profile is required by this check.
+
+Optional local preview:
+
+```powershell
+python -m http.server 8765 --bind 127.0.0.1 --directory laser-diagnostics-app
+```
+
+Open `http://127.0.0.1:8765/index.html?focus=1#rewind`. Stop the server with Ctrl+C after use. A server is not needed for ordinary offline use.
+
+Keyboard: Tab reaches controls; arrow keys change sliders and move between chapter tabs. Home/End select the first/last chapter from the tab list. Playback can be paused. Figures are labelled and numeric results remain readable as text.

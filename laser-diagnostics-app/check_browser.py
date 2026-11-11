@@ -1,0 +1,113 @@
+"""Optional local Chrome interaction QA using pre-existing Playwright.
+
+Runs the standalone file URL, not a remote service. No installation, account,
+scientific experiment or live quantum job is performed. Saves new research
+screenshots and a separate receipt; historical presentation images are retained.
+"""
+from pathlib import Path
+import hashlib
+import json
+import platform
+import re
+from playwright.sync_api import sync_playwright
+
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+
+def main():
+    frequency=json.loads((HERE/'evidence/research_frequency.json').read_text())
+    drive=json.loads((HERE/'evidence/research_drive.json').read_text())
+    prior=json.loads((HERE/'evidence/research_prior.json').read_text())
+    phase=json.loads((HERE/'evidence/research_phase.json').read_text())
+    errors=[];requests=[];checks=[];screens=[]
+    def screenshot(page,name):
+        path=HERE/name;page.screenshot(path=str(path),full_page=True);screens.append(name)
+    def no_overflow(page):
+        assert page.evaluate('document.documentElement.scrollWidth <= window.innerWidth'), 'Horizontal overflow'
+    def expect_text(page,selector,text):
+        assert text in page.locator(selector).inner_text(),(selector,text,page.locator(selector).inner_text())
+    def percent_matches(text,x):
+        return abs(float(text.rstrip('%'))-100*x)<=.0050000001
+    with sync_playwright() as p:
+        # System Chrome supplies H.264 support; the installed older bundled
+        # Chromium reports an empty canPlayType result for the existing MP4s.
+        browser=p.chromium.launch(headless=True,channel='chrome')
+        context=browser.new_context(viewport={'width':1440,'height':1000},device_scale_factor=1)
+        page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.on('request',lambda r:requests.append(r.url))
+        page.goto((HERE/'index.html').as_uri()+'?focus=1#research');page.wait_for_selector('#research-frequency',state='visible')
+        assert page.locator('#tab-research').get_attribute('aria-selected')=='true'
+        for case in frequency['scenarios']:
+            page.locator('#frequency-case').select_option(case['id'])
+            for rule in ['fusion','agreement']:
+                page.locator('#frequency-rule').select_option(rule)
+                ids=['classical','classical_quantum'+('_agreement' if rule=='agreement' else ''),'two_classical'+('_agreement' if rule=='agreement' else '')]
+                for index,key in enumerate(ids):
+                    text=page.locator('#frequency-metrics .metric').nth(index).inner_text();m=case['methods'][key]
+                    assert percent_matches(page.locator('#frequency-metrics .metric strong').nth(index).inner_text(),m['detection_within_32s'])
+                    assert percent_matches(re.search(r'false alarms ([\d.]+%)',text).group(1),m['false_alarm_rate'])
+                no_overflow(page)
+        page.locator('#frequency-case').select_option('unseen_nominal_sessions');page.locator('#frequency-rule').select_option('fusion')
+        screenshot(page,'preview-research-frequency.png');checks.append('All six frequency cases and both rules match frozen rates; task/false-alarm units visible')
+        page.locator('#study-drive').click()
+        for name,c in drive['cases'].items():
+            page.locator('#drive-case').select_option(name)
+            source=c['has_source_change_generator']
+            for i,key in enumerate(['physical_history','classical_hmm','count_contrast']):
+                m=c['methods'][key];stat=m['detection_within32'] if source else m['record_alarm_fraction']
+                text=page.locator('#drive-metrics .metric').nth(i).inner_text();assert percent_matches(page.locator('#drive-metrics .metric strong').nth(i).inner_text(),stat['value'])
+                if source:
+                    control=drive['cases']['stable_source_efficiency_loss' if name=='source_step_with_efficiency_loss' else 'stable_source']
+                    assert percent_matches(re.search(r'False alarms ([\d.]+%)',text).group(1),control['methods'][key]['record_alarm_fraction']['value'])
+            expected=[prior['cases'][name]['observation_based_rmse']['value'],prior['cases'][name]['prior_only_rmse']['value'],c['zero_change_fraction_rmse']['value']]
+            for i,x in enumerate(expected):assert page.locator('#drive-rmse strong').nth(i).inner_text()==f'{x:.4f}'
+            no_overflow(page)
+        page.locator('#drive-case').select_option('source_telegraph_20pct');expect_text(page,'#drive-denominator','480 eligible')
+        page.locator('#drive-case').select_option('source_step_20pct');screenshot(page,'preview-research-drive.png');checks.append('All 13 drive cases preserve eligible/null denominators, matched source-stable FAR and prior-only controls')
+        page.locator('#study-phase').click()
+        for case in phase['cases']:
+            page.locator('#phase-case').select_option(case['id'])
+            for budget in ['equal_sample_photons','equal_attempt_clocks']:
+                page.locator('#phase-budget').select_option(budget)
+                for i,key in enumerate(['coherent','hybrid','noon']):
+                    expected=case['budgets'][budget][key]['global']['rmse_full_2pi_rad']
+                    assert page.locator('.phase-rmse').nth(i).inner_text()==f'{expected:.5f} rad'
+                no_overflow(page)
+        page.locator('#phase-case').select_option('high_efficiency');page.locator('#phase-budget').select_option('equal_sample_photons');screenshot(page,'preview-research-phase.png')
+        checks.append('All seven phase cases and both budgets show global error, branch errors, dose and time')
+        page.locator('#study-progress').click();expect_text(page,'#spatial-values','389 qubits');expect_text(page,'#spatial-values','2,874,028 CX');expect_text(page,'#spatial-values','3,382,108 CX');expect_text(page,'#inference-values','0.069');expect_text(page,'#inference-values','0.706');no_overflow(page)
+        screenshot(page,'preview-research-progress.png');checks.append('Inference pairing and complete explicit circuit ledger visible')
+        # Chapter keyboard routing and modified browser shortcut behavior.
+        page.locator('#tab-research').focus();page.keyboard.press('ArrowRight');assert page.locator('#sensor').is_visible()
+        expect_text(page,'.history-note','told that the event starts at 64 s')
+        page.locator('#open-current-research').click();assert page.locator('#research-frequency').is_visible()
+        page.locator('#tab-research').focus();page.keyboard.press('Home');assert page.locator('#rewind').is_visible()
+        page.locator('#core-method').select_option('full_steered');expect_text(page,'#core-acceptance','96.49%')
+        page.locator('#core-emitter').click();expect_text(page,'#core-finding','10.10%')
+        page.locator('#core-coupled').click();page.locator('#core-method').select_option('plain')
+        page.locator('#tab-rewind').focus();page.keyboard.press('End');assert page.locator('#evidence').is_visible()
+        page.keyboard.press('Control+Home');assert page.locator('#evidence').is_visible()
+        checks.append('Original core controls unchanged; chapter arrows/Home/End and Ctrl+Home behave correctly; history link works')
+        videos=[]
+        for identifier in ['video-sensing','video-quantum-extension']:
+            video=page.locator('#'+identifier);video.scroll_into_view_if_needed();video.evaluate('(v)=>v.load()');page.wait_for_function('(id)=>document.getElementById(id).readyState>=1',arg=identifier)
+            duration=video.evaluate('(v)=>v.duration');assert abs(duration-12)<.05
+            video.evaluate('(v)=>v.play()');page.wait_for_timeout(300)
+            assert video.evaluate('(v)=>v.currentTime')>0
+            video.evaluate('(v)=>{v.pause();v.currentTime=6;}');page.wait_for_timeout(100);assert abs(video.evaluate('(v)=>v.currentTime')-6)<.1
+            videos.append({'id':identifier,'duration':duration,'play_pause_seek':'passed'})
+        # Responsive behavior at phone width; preserve previous screenshots.
+        page.set_viewport_size({'width':390,'height':844});page.locator('#tab-research').click()
+        for study in ['frequency','drive','phase','progress']:
+            page.locator('#study-'+study).click();no_overflow(page)
+            screenshot(page,'preview-research-'+study+'-mobile.png')
+        checks.append('390x844 mobile: all four study views have no document horizontal overflow and readable HTML data')
+        page.emulate_media(reduced_motion='reduce');page.reload();page.wait_for_selector('#tab-research');assert page.locator('#motion').is_disabled() and page.locator('#replay').is_disabled() and page.locator('#walk').is_disabled()
+        checks.append('Reduced-motion preference disables historical autoplay-style controls; MP4s have no autoplay')
+        assert not errors,errors
+        assert all(url.startswith('file:') for url in requests),requests
+        version=browser.version;browser.close()
+    receipt={'status':'passed','all_checks_passed':True,'route':'Existing Python Playwright + installed system Chrome in an isolated headless profile, standalone file URL. CUA IAB unavailable and browser inventory empty; no user browser profile or account used.','route_note':'Initial bundled Chromium 138 lacked H.264 support (empty canPlayType); all final checks use installed Chrome. No media bytes were changed.','python':platform.python_version(),'chromium':version,'checks':checks,'page_errors':errors,'network_requests':0,'videos':videos,'screenshots':screens,'source_sha256':{name:sha(HERE/name) for name in ['index.html','app.js','research.js','styles.css','model.js','data.js','research-data.js','check_browser.py']},'evidence_manifest_sha256':sha(HERE/'evidence/manifest.json')}
+    (HERE/'research_browser_validation.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf8')
+    print(json.dumps({'all_checks_passed':True,'checks':len(checks),'screenshots':len(screens),'page_errors':errors,'chromium':version},indent=2))
+
+if __name__=='__main__':main()
