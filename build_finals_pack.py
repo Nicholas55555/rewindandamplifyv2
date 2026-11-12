@@ -27,14 +27,14 @@ TREES = ["finals-lithography", "photon_reference", "qrsm_photon_poc", "rewindand
          "laser_sensor_viability", "laser-diagnostics-app", "animations", "research-validation", "finals-deck/assets", "quantum_dot_bridge", "hardware_campaign"]
 EXCLUDED_PARTS = {"__pycache__", ".pytest_cache", ".git", ".venv", "node_modules"}
 PRIVATE_DOCUMENTS = {"results.csv", "Qiskit_Fall_Fest_Judging_Rubric.xlsx", "WORKSPACE_AUDIT.md"}
-PUBLIC_DOCUMENTS = ["README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "CONTRIBUTING.md",
+PUBLIC_DOCUMENTS = ["README.md", "Rewind_Amplify_v2_Demo.html", "LICENSE", "THIRD_PARTY_NOTICES.md", "CONTRIBUTING.md",
                     "docs/REPOSITORY_GUIDE.md", "requirements-dev.txt", "RESEARCH_ARCHIVE_MANIFEST.json",
                     ".gitignore", ".gitattributes", ".github/workflows/ci.yml",
                     ".github/scripts/run_tests.py", ".github/scripts/check_publication.py"]
 INTRO = """# Rewind & Amplify — portable finals pack
 
 1. Open `finals-deck/Rewind_Amplify_Finals_Visual.pptx` for thirteen main slides followed by technical backups. The PDF is a static visual fallback without speaker notes. Use Visual_Presenter_Guide.md for the 9:20 planned talk.
-2. Open `laser-diagnostics-app/index.html` in a browser. Choose Focus view for the original QRSM demo. Current research contains the new comparisons; Earlier sensor study preserves the known-time experiment. It works offline.
+2. In the public edition, open `Rewind_Amplify_v2_Demo.html` directly: this single file includes the videos and downloadable evidence. Or open `laser-diagnostics-app/index.html` with its folder intact. Choose Focus view for the original QRSM demo. Current research contains the new comparisons; Earlier sensor study preserves the known-time experiment. Both work offline.
 3. The two 12-second MP4 videos and PNG fallbacks are in `animations/`. They are conceptual illustrations from the earlier optical/sensing extensions, not current performance evidence. The app has playback controls.
 4. Read `START_HERE_FINALS.md`, `FINALS_RUBRIC.md`, `FINALS_EVIDENCE.md`, and `RESEARCH_CURRENT.md`. The earlier `RESEARCH_RESULTS.md` remains the frozen research snapshot. Run `python check_finals.py` for package checks. Rehearse on the presentation computer.
 

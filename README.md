@@ -91,7 +91,9 @@ The exposure study also tests loss, blur, linear background and conventional ill
 
 ## Try it without a quantum account
 
-**Offline audience demo:** download or clone this repository, then open [`laser-diagnostics-app/index.html`](laser-diagnostics-app/index.html) in a local browser. No server, installation or internet is needed. GitHub displays HTML source rather than running the app. Keep the app folder intact.
+**V2 demo — one HTML file:** download [`Rewind_Amplify_v2_Demo.html`](https://raw.githubusercontent.com/Nicholas55555/rewindandamplifyv2/main/Rewind_Amplify_v2_Demo.html) (save the linked file), then open it in Chrome or Edge. It includes all interactive views, both MP4 videos and the evidence files. No server, installation or internet is needed. Evidence links save embedded files with their original names; external citations and IBM portal links require internet. GitHub shows HTML source instead of running it.
+
+The editable folder version remains at [`laser-diagnostics-app/index.html`](laser-diagnostics-app/index.html); keep that folder intact. Rebuild the single-file edition after source changes with `python laser-diagnostics-app/build_standalone.py`; use `--check` to verify it without rewriting files.
 
 - **Rewind the model** explains clicks, conditional predictions and amplification using verified saved outputs.
 - **Current research** explores frequency, amplitude, phase, circuit-cost, quantum-dot and new IBM results.

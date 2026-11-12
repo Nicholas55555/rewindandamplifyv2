@@ -43,6 +43,8 @@ jobs:
         run: node --test laser-diagnostics-app/test_model.cjs
       - name: Check local links, hashes and actual MP4 containers
         run: python laser-diagnostics-app/check_package.py
+      - name: Verify the single-file HTML demo matches its sources
+        run: python laser-diagnostics-app/build_standalone.py --check
       - name: Check the public presentation handoff
         run: python check_finals.py --public
       - name: Verify the retained research artifact manifest

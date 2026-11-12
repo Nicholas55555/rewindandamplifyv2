@@ -1,5 +1,9 @@
 # Rewind & Amplify: offline audience demo
 
+**Portable v2 HTML:** the repository root contains `Rewind_Amplify_v2_Demo.html`. Copy that one file to another computer and open it in Chrome or Edge. It includes all chapters, the six current research views, both MP4s and byte-exact evidence downloads. Evidence links save files with their original names; external citations and IBM portal links still require internet. It uses the same frozen data and controls as this folder version.
+
+Build it from the repository root with `python laser-diagnostics-app/build_standalone.py`. Verify the checked-in export with `python laser-diagnostics-app/build_standalone.py --check`. The accompanying `standalone_manifest.json` records every source hash and the generated HTML hash. Optional isolated Chrome QA: `python laser-diagnostics-app/check_standalone_browser.py --output .publication-audit/standalone-demo` (requires Playwright and installed Chrome).
+
 Open **index.html** in Chrome or Edge. The app needs no installation, internet, account or running Python process. Keep the entire `laser-diagnostics-app` folder together. All JavaScript, evidence and animations are local. To present, select **Focus view**, maximize the browser and use its full-screen command. The regular layout also works on a narrow screen.
 
 ## A 45-second finals walkthrough: the original quantum project
